@@ -4,9 +4,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -25,7 +30,11 @@ import javax.swing.event.ChangeListener;
 
 public class Gui extends JPanel implements ActionListener {
 
-  private static Model model;
+  private static final LayoutManager FlowLayout = null;
+
+private static final LayoutManager BorderLayout = null;
+
+private static Model model;
 
   private final int PORT = 1594;
   private JLabel labelPublishPort;
@@ -78,10 +87,12 @@ public class Gui extends JPanel implements ActionListener {
     labels.add(new JLabel("  Publishing at port: "));
     labelPublishPort = new JLabel("" + PORT);
     labels.add(labelPublishPort);
-    JPanel panel = new JPanel(new BorderLayout());
+    JPanel panel = new JPanel();
     panel.setBackground(Color.CYAN);
-    panel.add(labels, BorderLayout.WEST);
-    panel.add(buttonConnect, BorderLayout.EAST);
+    panel.add(Box.createHorizontalGlue());
+    panel.add(labels);
+    panel.add(Box.createRigidArea(new Dimension(40,0)));
+    panel.add(buttonConnect);
     buttonConnect.addActionListener(this);
     buttonConnect.setEnabled(true);
     return panel;
@@ -112,13 +123,37 @@ public class Gui extends JPanel implements ActionListener {
 
     model = new Model(new DataGenerator(), new Publisher(PORT));
     this.setBackground(Color.WHITE);
-    this.setLayout(new BorderLayout());
-    //this.add(voltage, BorderLayout.NORTH);
-    this.add(createPanelVoltage(), BorderLayout.NORTH);
-    this.add(createPanelConductance(), BorderLayout.CENTER);
+    this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+  
+    JPanel voltagePanel = new JPanel();
+    JPanel conductancePanel = new JPanel();
+    JPanel graphPanel = new JPanel();
+    JPanel portPanel = new JPanel();
+    
+    this.add(voltagePanel);
+    this.add(conductancePanel);
+    this.add(graphPanel);
+    this.add(portPanel);
+    
+    voltagePanel.add(Box.createHorizontalGlue());
+    JLabel vlabel = new JLabel("Voltage");
+    vlabel.setHorizontalAlignment(getX());
+    voltagePanel.add(vlabel);
+    voltagePanel.add(Box.createRigidArea(new Dimension(40,0)));
+    voltagePanel.add(createPanelVoltage());
+     
+    conductancePanel.add(Box.createHorizontalGlue());
+    JLabel clabel = new JLabel("Conductance");
+    clabel.setHorizontalAlignment(getX());
+    conductancePanel.add(clabel);
+    conductancePanel.add(Box.createRigidArea(new Dimension(10,0)));
+    conductancePanel.add(createPanelConductance());
+    
+    graphPanel.add(Box.createRigidArea(new Dimension(40,20)));
+    
+    portPanel.add(Box.createHorizontalGlue());
+    portPanel.add(createPanelSouth());
 
-
-    this.add(createPanelSouth(), BorderLayout.SOUTH);
     Dimension screen = getToolkit().getScreenSize();
     this.setSize(screen.width / 2, 3 * screen.height / 4);
     this.setLocation((screen.width - getSize().width) / 2, (screen.height - getSize().height) / 2);
@@ -147,7 +182,7 @@ public class Gui extends JPanel implements ActionListener {
     public static void main(String[] args) {
 
       JFrame frame = new JFrame("Simulator");
-      frame.setLayout(new GridLayout(1, 1));
+      frame.setMinimumSize(frame.getPreferredSize());
       frame.add(new Gui());
       frame.addWindowListener(new java.awt.event.WindowAdapter() {
         @Override
@@ -157,7 +192,7 @@ public class Gui extends JPanel implements ActionListener {
         }
       });
       frame.pack();
-      frame.setSize(600, 600);
+      frame.setSize(400, 300);
       frame.setVisible(true);
     }
   
