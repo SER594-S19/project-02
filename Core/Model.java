@@ -25,6 +25,10 @@ public class Model {
     dataGenerator.addObserver(threadPublisher);
   }
 
+  public void updatePara(String desc,double value){
+    dataGenerator.updatePara(desc, value);
+  }
+
   public void shutdown() {
     dataGenerator.stop();
     threadPublisher.stop();
