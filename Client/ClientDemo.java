@@ -27,19 +27,15 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
   private JTextArea textArea = new JTextArea();
   private JTextArea ipNum1 = new JTextArea(1,10);
   private JTextArea portNum1 = new JTextArea(1,5);
-  private JButton buttonConnect1 = new JButton("Connect");
+  private JButton buttonConnect = new JButton("Connect");
   private JTextArea ipNum2 = new JTextArea(1,10);
   private JTextArea portNum2 = new JTextArea(1,5);
-  private JButton buttonConnect2 = new JButton("Connect");
   private JTextArea ipNum3 = new JTextArea(1,10);
   private JTextArea portNum3 = new JTextArea(1,5);
-  private JButton buttonConnect3 = new JButton("Connect");
   private JTextArea ipNum4 = new JTextArea(1,10);
   private JTextArea portNum4 = new JTextArea(1,5);
-  private JButton buttonConnect4 = new JButton("Connect");
   private JTextArea ipNum5 = new JTextArea(1,10);
   private JTextArea portNum5 = new JTextArea(1,5);
-  private JButton buttonConnect5 = new JButton("Connect");
 
   public ClientDemo() {
 
@@ -148,42 +144,39 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     inputPanel1.setBorder(new EmptyBorder(5, 5, 5, 5));
     inputPanel1.add(ipPanel1,BorderLayout.WEST);
     inputPanel1.add(portPanel1,BorderLayout.CENTER);
-    inputPanel1.add(buttonConnect1,BorderLayout.EAST);
+
 
     inputPanel2.setBorder(new EmptyBorder(5, 5, 5, 5));
     inputPanel2.add(ipPanel2,BorderLayout.WEST);
     inputPanel2.add(portPanel2,BorderLayout.CENTER);
-    inputPanel2.add(buttonConnect2,BorderLayout.EAST);
 
     inputPanel3.setBorder(new EmptyBorder(5, 5, 5, 5));
     inputPanel3.add(ipPanel3,BorderLayout.WEST);
     inputPanel3.add(portPanel3,BorderLayout.CENTER);
-    inputPanel3.add(buttonConnect3,BorderLayout.EAST);
 
     inputPanel4.setBorder(new EmptyBorder(5, 5, 5, 5));
     inputPanel4.add(ipPanel4,BorderLayout.WEST);
     inputPanel4.add(portPanel4,BorderLayout.CENTER);
-    inputPanel4.add(buttonConnect4,BorderLayout.EAST);
 
     inputPanel5.setBorder(new EmptyBorder(5, 5, 5, 5));
     inputPanel5.add(ipPanel5,BorderLayout.WEST);
     inputPanel5.add(portPanel5,BorderLayout.CENTER);
-    inputPanel5.add(buttonConnect5,BorderLayout.EAST);
 
     topPanel.add(inputPanel1);
     topPanel.add(inputPanel2);
     topPanel.add(inputPanel3);
     topPanel.add(inputPanel4);
     topPanel.add(inputPanel5);
+    topPanel.add(buttonConnect);
     add(topPanel, BorderLayout.NORTH);
     add(textArea, BorderLayout.CENTER);
     //add(buttonConnect, BorderLayout.SOUTH);
 
-    buttonConnect1.addActionListener(this);
+    buttonConnect.addActionListener(this);
     addWindowListener(new java.awt.event.WindowAdapter() {
       @Override
       public void windowClosing(java.awt.event.WindowEvent e) {
-        shutdown();
+        //shutdown();
         System.exit(0);
       }
     });
@@ -220,7 +213,7 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
       textArea.append(data + "\n" );
     else {
       close();
-      buttonConnect1.setEnabled(true);
+      buttonConnect.setEnabled(true);
     }
   }
 
@@ -256,7 +249,7 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
 	  }*/
 	  for(int i=0;i<5;i++) {
 		  subscriber[i] = new Subscriber(ips[i], ports[i]);
-		  buttonConnect1.setEnabled(false);
+		  buttonConnect.setEnabled(false);
 		  service.submit(subscriber[i]);
 		  subscriber[i].addObserver(this);
 	  }
