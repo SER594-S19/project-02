@@ -37,8 +37,8 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     
     // TO TEST, RUN TWO SERVERS IN PORTS 1594 and 1595
     
-    subscriber[0] = new Subscriber("localhost", 1594);
-    subscriber[1] = new Subscriber("localhost", 1595);
+    //subscriber[0] = new Subscriber("localhost", 1594);
+    //subscriber[1] = new Subscriber("localhost", 1595);
 
 
     portNum.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -73,12 +73,12 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
   private void close() {
     System.out.println("clossing ....... +++++++");
     subscriber[0].stop();
-    subscriber[1].stop();
+    //subscriber[1].stop();
   }
   
     private void shutdown() {
     subscriber[0].stop();
-    subscriber[1].stop();
+    //subscriber[1].stop();
     service.shutdown();
     try {
       if (!service.awaitTermination(10, TimeUnit.SECONDS)) {
@@ -107,11 +107,23 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    buttonConnect.setEnabled(false);
-    service.submit(subscriber[0]);
-    subscriber[0].addObserver(this); 
+	  int port = 0;
+	  try {
+		  port = Integer.parseInt(portNum.getText());
+		  System.out.println("port from textbox = " + port);
+	  } catch (NumberFormatException ne) {
+		  System.out.println("number format exception");
+	  }
+	  String ip = ipNum.getText();
+	  System.out.println("ipaddress from textbox = " + ip);
+	  for(int i=0;i<1;i++) {
+		  subscriber[i] = new Subscriber(ip, port);
+	  }
+	  buttonConnect.setEnabled(false);
+	  service.submit(subscriber[0]);
+	  subscriber[0].addObserver(this);
 
-    service.submit(subscriber[1]);
-    subscriber[1].addObserver(this);     
+    //service.submit(subscriber[1]);
+    //subscriber[1].addObserver(this);
   }
 }
