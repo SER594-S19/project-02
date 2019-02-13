@@ -31,9 +31,9 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
   public ClientDemo() {
 
     service = Executors.newCachedThreadPool();
-    subscriber[0] = new Subscriber("localhost", 1594);
+    subscriber[0] = new Subscriber("localhost", 1596);
     subscriber[1] = new Subscriber("localhost", 1595);
-    subscriber[2] = new Subscriber("localhost", 1596);
+    subscriber[2] = new Subscriber("localhost", 1594);
     subscriber[3] = new Subscriber("localhost", 1597);
     subscriber[4] = new Subscriber("localhost", 1598);
     
