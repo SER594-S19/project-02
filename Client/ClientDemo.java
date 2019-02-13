@@ -18,7 +18,7 @@ import javax.swing.border.EmptyBorder;
 
 public class ClientDemo extends JFrame implements Observer, ActionListener {
 
-  private final Subscriber  [] subscriber = new Subscriber[2];
+  private final Subscriber  [] subscriber = new Subscriber[5];
   private final ExecutorService service;
 
   //JTextField myTextField = new JTextField("Team Awesome!");
@@ -194,13 +194,15 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
 
   private void close() {
     System.out.println("clossing ....... +++++++");
-    subscriber[0].stop();
-    //subscriber[1].stop();
+    for (int i=0;i<5;i++) {
+		subscriber[i].stop();
+	}    
   }
 
     private void shutdown() {
-    subscriber[0].stop();
-    //subscriber[1].stop();
+    	for (int i=0;i<5;i++) {
+    		subscriber[i].stop();
+    	}
     service.shutdown();
     try {
       if (!service.awaitTermination(10, TimeUnit.SECONDS)) {
@@ -229,29 +231,34 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    buttonConnect1.setEnabled(false);
-    service.submit(subscriber[0]);
-    subscriber[0].addObserver(this);
-
-    service.submit(subscriber[1]);
-    subscriber[1].addObserver(this);
-	  int port = 0;
+	  int [] ports = new int[5];
+	  String [] ips = new String[5];
 	  try {
-		  port = Integer.parseInt(portNum1.getText());
-		  System.out.println("port from textbox = " + port);
-	  } catch (NumberFormatException ne) {
-		  System.out.println("number format exception");
+		  for(int i=0;i<5;i++) {
+			  ports[i] = Integer.parseInt(portNum1.getText());
+			  ips[i++] = ipNum1.getText();
+			  ports[i] = Integer.parseInt(portNum2.getText());
+			  ips[i++] = ipNum2.getText();
+			  ports[i] = Integer.parseInt(portNum3.getText());
+			  ips[i++] = ipNum3.getText();
+			  ports[i] = Integer.parseInt(portNum4.getText());
+			  ips[i++] = ipNum4.getText();
+			  ports[i] = Integer.parseInt(portNum5.getText());
+			  ips[i++] = ipNum5.getText();
+			  	
+		  }
+	  } catch (NumberFormatException nfe) {
+		  System.out.println("Exception: " + nfe);
 	  }
-	  String ip = ipNum1.getText();
-	  System.out.println("ipaddress from textbox = " + ip);
-	  for(int i=0;i<1;i++) {
-		  subscriber[i] = new Subscriber(ip, port);
+	  /*for (int i=0;i<5;i++) {
+		  System.out.println("ipaddress from textboxes = " + ips[i]);
+		  System.out.println("ports from textboxes = " + ports[i]);
+	  }*/
+	  for(int i=0;i<5;i++) {
+		  subscriber[i] = new Subscriber(ips[i], ports[i]);
+		  buttonConnect1.setEnabled(false);
+		  service.submit(subscriber[i]);
+		  subscriber[i].addObserver(this);
 	  }
-	  buttonConnect1.setEnabled(false);
-	  service.submit(subscriber[0]);
-	  subscriber[0].addObserver(this);
-
-    //service.submit(subscriber[1]);
-    //subscriber[1].addObserver(this);
   }
 }
