@@ -1,6 +1,7 @@
 package Client;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
@@ -10,13 +11,24 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JTextArea;
+import javax.swing.*;
 
 public class ClientDemo extends JFrame implements Observer, ActionListener {
 
   private final Subscriber  [] subscriber = new Subscriber[2];
   private final ExecutorService service;
+  private JLabel iplabel = new JLabel("IP Address:");
+  private JLabel portlabel = new JLabel("Port Number:");
+  //JTextField myTextField = new JTextField("Team Awesome!");
+  private JPanel panel = new JPanel(new BorderLayout());
+  private JPanel ipPanel = new JPanel(new BorderLayout());
+  private JPanel portPanel = new JPanel(new BorderLayout());
+
   private JTextArea textArea = new JTextArea();
+  private JTextArea ipNum = new JTextArea();
+  private JTextArea portNum = new JTextArea();
   private JButton buttonConnect = new JButton("connect");
   
   public ClientDemo() {
@@ -27,10 +39,24 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     
     subscriber[0] = new Subscriber("localhost", 1594);
     subscriber[1] = new Subscriber("localhost", 1595);
-    
+
+
+    portNum.setBorder(BorderFactory.createLineBorder(Color.black));
+    ipNum.setBorder(BorderFactory.createLineBorder(Color.black));
+
     setLayout(new BorderLayout());
+
+    ipPanel.add(iplabel,BorderLayout.WEST);
+    ipPanel.add(ipNum,BorderLayout.CENTER);
+    portPanel.add(portlabel,BorderLayout.WEST);
+    portPanel.add(portNum,BorderLayout.CENTER);
+    panel.add(ipPanel, BorderLayout.NORTH);
+    panel.add(portPanel, BorderLayout.CENTER);
+
+    add(panel, BorderLayout.NORTH);
     add(textArea, BorderLayout.CENTER);  
-    add(buttonConnect, BorderLayout.SOUTH);  
+    add(buttonConnect, BorderLayout.SOUTH);
+
     buttonConnect.addActionListener(this);
     addWindowListener(new java.awt.event.WindowAdapter() {
       @Override
