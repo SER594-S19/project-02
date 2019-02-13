@@ -1,27 +1,12 @@
 package Core;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import java.util.Hashtable;
-import java.util.Calendar;
-
-import java.util.Observable;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSlider;
+import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Hashtable;
 
 public class Gui extends JPanel implements ActionListener {
 
@@ -156,6 +141,16 @@ public class Gui extends JPanel implements ActionListener {
           System.exit(0);
         }
       });
+
+      SwingUtilities.invokeLater(() -> {
+        LineChart example = new LineChart("Line Chart Example");
+        example.setAlwaysOnTop(true);
+        example.pack();
+        example.setSize(600, 400);
+        example.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        example.setVisible(true);
+      });
+
       frame.pack();
       frame.setSize(600, 600);
       frame.setVisible(true);
