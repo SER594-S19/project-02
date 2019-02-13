@@ -1,5 +1,6 @@
 package Core;
 
+<<<<<<< HEAD
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -16,17 +17,15 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import java.util.Hashtable;
-import java.util.Calendar;
-
-import java.util.Observable;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSlider;
+=======
+import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+>>>>>>> 1c2e1d6a6bdc1f7064c921f993b7ba53b6eae5a5
+import java.util.Hashtable;
 
 public class Gui extends JPanel implements ActionListener {
 
@@ -191,6 +190,16 @@ private static Model model;
           System.exit(0);
         }
       });
+
+      SwingUtilities.invokeLater(() -> {
+        LineChart example = new LineChart("Line Chart Example");
+        example.setAlwaysOnTop(true);
+        example.pack();
+        example.setSize(600, 400);
+        example.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        example.setVisible(true);
+      });
+
       frame.pack();
       frame.setSize(400, 300);
       frame.setVisible(true);
