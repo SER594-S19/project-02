@@ -10,7 +10,6 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.*;
 import javafx.scene.text.Text;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -168,7 +167,7 @@ public class Controller implements Initializable {
     @FXML void sliderConcentrateDragged(){
         System.out.println(concentrate.getValue());
         if(concentrate.getValue() < 1) {
-            concentrateIndicator.progressProperty().setValue(concentrate.getValue() * 10);
+            concentrateIndicator.progressProperty().setValue(concentrate.getValue());
         }
         else{
             Text text =  (Text) concentrateIndicator.lookup(".percentage");
