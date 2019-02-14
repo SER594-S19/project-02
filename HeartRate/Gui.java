@@ -45,10 +45,11 @@ public class Gui extends JPanel implements ActionListener {
 
 		this.add(createNorthComponent());
 		this.add(createButtonGroups());
+		this.add(createRunLabel());
+		this.add(createConnectPanel());
 		initializeHeartGif();
-		this.add(gifPanel);
 		this.add(createConsole());
-		this.add(createPanelSouth());
+		
 
 		Dimension screen = getToolkit().getScreenSize();
 		this.setSize(screen.width / 2, 3 * screen.height / 6);
@@ -86,6 +87,26 @@ public class Gui extends JPanel implements ActionListener {
 
 		return buttons;
 	}
+	
+	private Component createRunLabel() {
+		JPanel panel = new JPanel();
+		JLabel connectLabel = new JLabel("Click on the heart below to start/stop the server");
+		panel.add(connectLabel);
+		
+		return panel;
+	}
+	
+	// Method used to create the JPanels for start/stop button
+	private Component createConnectPanel() {
+		JPanel panel = new JPanel(new GridLayout());
+		panel.add(buttonConnect);
+
+		buttonConnect.addActionListener(this);
+		buttonConnect.add(gifPanel);
+		buttonConnect.setEnabled(true);
+
+		return panel;
+	}
 
 	// Method used to create a Console in the GUI
 	private Component createConsole() {
@@ -98,18 +119,6 @@ public class Gui extends JPanel implements ActionListener {
 
 		JScrollPane scrollPane = new JScrollPane(textPane);
 		panel.add(scrollPane);
-
-		return panel;
-	}
-
-	// Method used to create the JPanels for start/stop button
-	private Component createPanelSouth() {
-		JPanel panel = new JPanel(new GridLayout());
-		panel.add(buttonConnect);
-
-		buttonConnect.addActionListener(this);
-		buttonConnect.setEnabled(true);
-		buttonConnect.setBackground(Color.GREEN);
 
 		return panel;
 	}
