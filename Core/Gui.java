@@ -36,7 +36,7 @@ private static Model model;
     conductance.setLabelTable(conductanceLabels);
     conductance.setPaintLabels(true);
 
-    conductance.addChangeListener(changeListener);
+    conductance.addChangeListener(changeListener1);
 
     return conductance;
   }
@@ -55,7 +55,7 @@ private static Model model;
     voltage.setLabelTable(voltageLabels);
     voltage.setPaintLabels(true);
 
-    voltage.addChangeListener(changeListener);
+    voltage.addChangeListener(changeListener2);
 
     return voltage;
   }
@@ -79,7 +79,21 @@ private static Model model;
     return panel;
   }
 
-  public ChangeListener changeListener = new ChangeListener() {
+  public ChangeListener changeListener1 = new ChangeListener() {
+    //making the slider react to changing positions
+    public void stateChanged(ChangeEvent event) {
+
+
+        conductance = (JSlider) event.getSource();
+        if (!conductance.getValueIsAdjusting()) {
+          model.updatePara("conductance", conductance.getValue());
+          System.out.println(conductance.getValue());
+        }
+
+    }
+  };
+
+  public ChangeListener changeListener2 = new ChangeListener() {
     //making the slider react to changing positions
     public void stateChanged(ChangeEvent event) {
       voltage = (JSlider) event.getSource();
@@ -88,15 +102,9 @@ private static Model model;
       if (!voltage.getValueIsAdjusting()) {
         model.updatePara("voltage", voltage.getValue());
         System.out.println(voltage.getValue());
-
-
-        conductance = (JSlider) event.getSource();
-        if (!voltage.getValueIsAdjusting()) {
-          model.updatePara("conductance", voltage.getValue());
-          System.out.println(conductance.getValue());
-        }
-
       }
+
+
     }
   };
 
@@ -108,12 +116,10 @@ private static Model model;
   
     JPanel voltagePanel = new JPanel();
     JPanel conductancePanel = new JPanel();
-    JPanel graphPanel = new JPanel();
     JPanel portPanel = new JPanel();
     
     this.add(voltagePanel);
     this.add(conductancePanel);
-    this.add(graphPanel);
     this.add(portPanel);
     
     voltagePanel.add(Box.createHorizontalGlue());
@@ -129,8 +135,7 @@ private static Model model;
     conductancePanel.add(clabel);
     conductancePanel.add(Box.createRigidArea(new Dimension(10,0)));
     conductancePanel.add(createPanelConductance());
-    
-    graphPanel.add(Box.createRigidArea(new Dimension(40,20)));
+
     
     portPanel.add(Box.createHorizontalGlue());
     portPanel.add(createPanelSouth());
@@ -173,14 +178,6 @@ private static Model model;
         }
       });
 
-      SwingUtilities.invokeLater(() -> {
-        LineChart example = new LineChart("Line Chart Example");
-        example.setAlwaysOnTop(true);
-        example.pack();
-        example.setSize(600, 400);
-        example.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        example.setVisible(true);
-      });
 
       frame.pack();
       frame.setSize(400, 300);
