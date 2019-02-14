@@ -18,7 +18,7 @@ import javax.swing.border.EmptyBorder;
 
 public class ClientDemo extends JFrame implements Observer, ActionListener {
 
-  private final Subscriber  [] subscriber = new Subscriber[2];
+  private final Subscriber  [] subscriber = new Subscriber[5];
   private final ExecutorService service;
 
   //JTextField myTextField = new JTextField("Team Awesome!");
@@ -27,24 +27,16 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
   private JTextArea textArea = new JTextArea();
   private JTextArea ipNum1 = new JTextArea(1,10);
   private JTextArea portNum1 = new JTextArea(1,5);
-  private JButton buttonConnect1 = new JButton("Connect");
+  private JButton buttonConnect = new JButton("Connect");
   private JTextArea ipNum2 = new JTextArea(1,10);
   private JTextArea portNum2 = new JTextArea(1,5);
-  private JButton buttonConnect2 = new JButton("Connect");
   private JTextArea ipNum3 = new JTextArea(1,10);
   private JTextArea portNum3 = new JTextArea(1,5);
-  private JButton buttonConnect3 = new JButton("Connect");
   private JTextArea ipNum4 = new JTextArea(1,10);
   private JTextArea portNum4 = new JTextArea(1,5);
-  private JButton buttonConnect4 = new JButton("Connect");
   private JTextArea ipNum5 = new JTextArea(1,10);
   private JTextArea portNum5 = new JTextArea(1,5);
-  private JButton buttonConnect5 = new JButton("Connect");
-<<<<<<< HEAD
-  
-=======
 
->>>>>>> 22d0d47... Updating client GUI for multiple ports
   public ClientDemo() {
 
     service = Executors.newCachedThreadPool();
@@ -80,7 +72,6 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     JPanel inputPanel2 = new JPanel(new BorderLayout());
     JPanel ipPanel2 = new JPanel(new BorderLayout());
     JPanel portPanel2 = new JPanel(new BorderLayout());
-<<<<<<< HEAD
 
     portNum2.setBorder(BorderFactory.createLineBorder(Color.black));
     ipNum2.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -89,16 +80,6 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     JPanel ipPanel3 = new JPanel(new BorderLayout());
     JPanel portPanel3 = new JPanel(new BorderLayout());
 
-=======
-
-    portNum2.setBorder(BorderFactory.createLineBorder(Color.black));
-    ipNum2.setBorder(BorderFactory.createLineBorder(Color.black));
-
-    JPanel inputPanel3 = new JPanel(new BorderLayout());
-    JPanel ipPanel3 = new JPanel(new BorderLayout());
-    JPanel portPanel3 = new JPanel(new BorderLayout());
-
->>>>>>> 22d0d47... Updating client GUI for multiple ports
     portNum3.setBorder(BorderFactory.createLineBorder(Color.black));
     ipNum3.setBorder(BorderFactory.createLineBorder(Color.black));
 
@@ -133,7 +114,6 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     portPanel2.add(portLabel2,BorderLayout.WEST);
     portPanel2.add(portNum2,BorderLayout.CENTER);
     portPanel2.setBorder(new EmptyBorder(5, 5, 5, 5));
-<<<<<<< HEAD
 
     ipPanel3.add(ipLabel3,BorderLayout.WEST);
     ipPanel3.add(ipNum3,BorderLayout.CENTER);
@@ -164,105 +144,45 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     inputPanel1.setBorder(new EmptyBorder(5, 5, 5, 5));
     inputPanel1.add(ipPanel1,BorderLayout.WEST);
     inputPanel1.add(portPanel1,BorderLayout.CENTER);
-    inputPanel1.add(buttonConnect1,BorderLayout.EAST);
+
 
     inputPanel2.setBorder(new EmptyBorder(5, 5, 5, 5));
     inputPanel2.add(ipPanel2,BorderLayout.WEST);
     inputPanel2.add(portPanel2,BorderLayout.CENTER);
-    inputPanel2.add(buttonConnect2,BorderLayout.EAST);
 
     inputPanel3.setBorder(new EmptyBorder(5, 5, 5, 5));
     inputPanel3.add(ipPanel3,BorderLayout.WEST);
     inputPanel3.add(portPanel3,BorderLayout.CENTER);
-    inputPanel3.add(buttonConnect3,BorderLayout.EAST);
 
     inputPanel4.setBorder(new EmptyBorder(5, 5, 5, 5));
     inputPanel4.add(ipPanel4,BorderLayout.WEST);
     inputPanel4.add(portPanel4,BorderLayout.CENTER);
-    inputPanel4.add(buttonConnect4,BorderLayout.EAST);
 
     inputPanel5.setBorder(new EmptyBorder(5, 5, 5, 5));
     inputPanel5.add(ipPanel5,BorderLayout.WEST);
     inputPanel5.add(portPanel5,BorderLayout.CENTER);
-    inputPanel5.add(buttonConnect5,BorderLayout.EAST);
+
+
+    textArea.setEditable(false); // set textArea non-editable
+    JScrollPane scroll = new JScrollPane(textArea);
+    scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 
     topPanel.add(inputPanel1);
     topPanel.add(inputPanel2);
     topPanel.add(inputPanel3);
     topPanel.add(inputPanel4);
     topPanel.add(inputPanel5);
+    topPanel.add(buttonConnect);
     add(topPanel, BorderLayout.NORTH);
-    add(textArea, BorderLayout.CENTER);  
+    add(scroll, BorderLayout.CENTER);
+
     //add(buttonConnect, BorderLayout.SOUTH);
 
-=======
-
-    ipPanel3.add(ipLabel3,BorderLayout.WEST);
-    ipPanel3.add(ipNum3,BorderLayout.CENTER);
-    ipPanel3.setBorder(new EmptyBorder(5, 5, 5, 5));
-
-    portPanel3.add(portLabel3,BorderLayout.WEST);
-    portPanel3.add(portNum3,BorderLayout.CENTER);
-    portPanel3.setBorder(new EmptyBorder(5, 5, 5, 5));
-
-    ipPanel4.add(ipLabel4,BorderLayout.WEST);
-    ipPanel4.add(ipNum4,BorderLayout.CENTER);
-    ipPanel4.setBorder(new EmptyBorder(5, 5, 5, 5));
-
-    portPanel4.add(portLabel4,BorderLayout.WEST);
-    portPanel4.add(portNum4,BorderLayout.CENTER);
-    portPanel4.setBorder(new EmptyBorder(5, 5, 5, 5));
-
-    ipPanel5.add(ipLabel5,BorderLayout.WEST);
-    ipPanel5.add(ipNum5,BorderLayout.CENTER);
-    ipPanel5.setBorder(new EmptyBorder(5, 5, 5, 5));
-
-    portPanel5.add(portLabel5,BorderLayout.WEST);
-    portPanel5.add(portNum5,BorderLayout.CENTER);
-    portPanel5.setBorder(new EmptyBorder(5, 5, 5, 5));
-
-    //northPanel.add(ipPanel, BorderLayout.NORTH);
-    //northPanel.add(portPanel, BorderLayout.CENTER);
-    inputPanel1.setBorder(new EmptyBorder(5, 5, 5, 5));
-    inputPanel1.add(ipPanel1,BorderLayout.WEST);
-    inputPanel1.add(portPanel1,BorderLayout.CENTER);
-    inputPanel1.add(buttonConnect1,BorderLayout.EAST);
-
-    inputPanel2.setBorder(new EmptyBorder(5, 5, 5, 5));
-    inputPanel2.add(ipPanel2,BorderLayout.WEST);
-    inputPanel2.add(portPanel2,BorderLayout.CENTER);
-    inputPanel2.add(buttonConnect2,BorderLayout.EAST);
-
-    inputPanel3.setBorder(new EmptyBorder(5, 5, 5, 5));
-    inputPanel3.add(ipPanel3,BorderLayout.WEST);
-    inputPanel3.add(portPanel3,BorderLayout.CENTER);
-    inputPanel3.add(buttonConnect3,BorderLayout.EAST);
-
-    inputPanel4.setBorder(new EmptyBorder(5, 5, 5, 5));
-    inputPanel4.add(ipPanel4,BorderLayout.WEST);
-    inputPanel4.add(portPanel4,BorderLayout.CENTER);
-    inputPanel4.add(buttonConnect4,BorderLayout.EAST);
-
-    inputPanel5.setBorder(new EmptyBorder(5, 5, 5, 5));
-    inputPanel5.add(ipPanel5,BorderLayout.WEST);
-    inputPanel5.add(portPanel5,BorderLayout.CENTER);
-    inputPanel5.add(buttonConnect5,BorderLayout.EAST);
-
-    topPanel.add(inputPanel1);
-    topPanel.add(inputPanel2);
-    topPanel.add(inputPanel3);
-    topPanel.add(inputPanel4);
-    topPanel.add(inputPanel5);
-    add(topPanel, BorderLayout.NORTH);
-    add(textArea, BorderLayout.CENTER);
-    //add(buttonConnect, BorderLayout.SOUTH);
-
->>>>>>> 22d0d47... Updating client GUI for multiple ports
-    buttonConnect1.addActionListener(this);
+    buttonConnect.addActionListener(this);
     addWindowListener(new java.awt.event.WindowAdapter() {
       @Override
       public void windowClosing(java.awt.event.WindowEvent e) {
-        shutdown();
+        //shutdown();
         System.exit(0);
       }
     });
@@ -273,13 +193,15 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
 
   private void close() {
     System.out.println("clossing ....... +++++++");
-    subscriber[0].stop();
-    //subscriber[1].stop();
+    for (int i=0;i<5;i++) {
+      subscriber[i].stop();
+    }
   }
 
-    private void shutdown() {
-    subscriber[0].stop();
-    //subscriber[1].stop();
+  private void shutdown() {
+    for (int i=0;i<5;i++) {
+      subscriber[i].stop();
+    }
     service.shutdown();
     try {
       if (!service.awaitTermination(10, TimeUnit.SECONDS)) {
@@ -297,12 +219,8 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
       textArea.append(data + "\n" );
     else {
       close();
-      buttonConnect1.setEnabled(true);
-<<<<<<< HEAD
-    }    
-=======
+      buttonConnect.setEnabled(true);
     }
->>>>>>> 22d0d47... Updating client GUI for multiple ports
   }
 
   public static void main(String[] args) {
