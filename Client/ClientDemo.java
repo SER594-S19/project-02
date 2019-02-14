@@ -162,6 +162,11 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     inputPanel5.add(ipPanel5,BorderLayout.WEST);
     inputPanel5.add(portPanel5,BorderLayout.CENTER);
 
+
+    textArea.setEditable(false); // set textArea non-editable
+    JScrollPane scroll = new JScrollPane(textArea);
+    scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+
     topPanel.add(inputPanel1);
     topPanel.add(inputPanel2);
     topPanel.add(inputPanel3);
@@ -169,7 +174,8 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     topPanel.add(inputPanel5);
     topPanel.add(buttonConnect);
     add(topPanel, BorderLayout.NORTH);
-    add(textArea, BorderLayout.CENTER);
+    add(scroll, BorderLayout.CENTER);
+
     //add(buttonConnect, BorderLayout.SOUTH);
 
     buttonConnect.addActionListener(this);
