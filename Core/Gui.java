@@ -93,7 +93,7 @@ private static Model model;
 	    moodPanel.add(slider[5]);
 	    
 	    JPanel moodPanel1 = new JPanel(new GridLayout(0, 1));
-	    //JLabel moodGif = new JLabel(createImageIcon("images.png"));
+	    JLabel moodGif = new JLabel();
 	    //ImageIcon icon = new ImageIcon("images.png");
 	    //JLabel moodGif = new JLabel(icon);
 	   
