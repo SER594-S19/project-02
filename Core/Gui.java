@@ -151,15 +151,15 @@ public class Gui extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         System.out.println("listener trigger");
         if (e.getSource() == buttonConnect) {
-            if (buttonConnect.getText().compareTo("run") == 0) {
+            if (buttonConnect.getText().compareTo("Run") == 0) {
                 System.out.println("start");
                 //dataGen();
                 model.start();
-                buttonConnect.setText("stop");
-            } else if (buttonConnect.getText().compareTo("stop") == 0) {
+                buttonConnect.setText("Stop");
+            } else if (buttonConnect.getText().compareTo("Stop") == 0) {
                 System.out.println("stop");
                 model.stop();
-                buttonConnect.setText("run");
+                buttonConnect.setText("Run");
             }
         }
     }
