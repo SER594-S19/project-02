@@ -14,7 +14,12 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
 
   private final Subscriber [] subscriber = new Subscriber[5];
   private final ExecutorService service;
-  private JTextArea textArea = new JTextArea();
+  JTextArea panel1Text = new JTextArea(" ", 20, 30);
+  JTextArea panel2Text = new JTextArea(" ", 30, 30);
+  JTextArea panel3Text = new JTextArea(" ", 30, 30);
+  JTextArea panel4Text = new JTextArea(" ", 30, 30);
+  JTextArea panel5Text = new JTextArea(" ", 30, 30);
+  
   private JTabbedPane tabbedPane1 = new JTabbedPane();
   private String ipFace;
   private String ipEyes;
@@ -45,11 +50,16 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
 
     service = Executors.newCachedThreadPool();
 
-
-
     setLayout(new BorderLayout());
-    frame.add(textArea, BorderLayout.CENTER);
+    //frame.add(textArea, BorderLayout.CENTER);
 
+   
+    panel1.add(panel1Text, BorderLayout.SOUTH);
+    panel2.add(panel2Text, BorderLayout.SOUTH);
+    panel3.add(panel3Text, BorderLayout.SOUTH);
+    panel4.add(panel4Text, BorderLayout.SOUTH);
+    panel5.add(panel5Text, BorderLayout.SOUTH);
+    
     frame.add(tabbedPane1);
     tabbedPane1.addTab("Face",panel1);
     tabbedPane1.addTab("Eyes",panel2);
@@ -58,6 +68,7 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     tabbedPane1.addTab("BCI",panel5);
     frame.setSize(500,500);
     frame.setVisible(true);
+    
 
   }
 
@@ -79,14 +90,25 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     panel.add(filler1);
     panel.add(spinner);
     panel.add(buttonConnect1);
-    buttonConnect1.addActionListener(new ActionListener() {
+    
+    ipFace = textField.getText();
+    port_face = spinner.getValue().toString();
+    subscriber[0] = new Subscriber(ipFace, Integer.parseInt(port_face));
+    
+    buttonConnect1.addActionListener(this);
+    
+    /*buttonConnect1.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
         ipFace = textField.getText();
         port_face = spinner.getValue().toString();
         subscriber[0] = new Subscriber(ipFace, Integer.parseInt(port_face));
+        
+        buttonConnect1.setEnabled(false);
+	    service.submit(subscriber[0]);
+	    subscriber[0].addObserver(this);
       }
-    });
+    });*/
     addWindowListener(new java.awt.event.WindowAdapter() {
       @Override
       public void windowClosing(java.awt.event.WindowEvent e) {
@@ -115,6 +137,7 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     panel.add(filler1);
     panel.add(spinner);
     panel.add(buttonConnect2);
+    
     buttonConnect2.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -152,6 +175,7 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     panel.add(filler1);
     panel.add(spinner);
     panel.add(buttonConnect3);
+    
     buttonConnect3.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -189,6 +213,7 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     panel.add(filler1);
     panel.add(spinner);
     panel.add(buttonConnect4);
+    
     buttonConnect4.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -219,6 +244,8 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     String[] portNumber = {"1594","1595","1596","1597","1598"};
     SpinnerListModel portModel = new SpinnerListModel(portNumber);
     JSpinner spinner = new JSpinner(portModel);
+    
+    
 
 
     // panel.setLayout(new GridLayout(4, 4));
@@ -227,6 +254,7 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     panel.add(filler1);
     panel.add(spinner);
     panel.add(buttonConnect5);
+    
     buttonConnect5.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -277,8 +305,10 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
   @Override
   public void update(Observable o, Object arg) {
     String data = ((Subscriber) o).getObject().toString();
-    if (data.compareTo("FIN") != 0)
-      textArea.append(data + "\n" );
+    if (data.compareTo("FIN") != 0) {
+    	panel1Text.append(data + "\n" );
+    	panel2Text.append(data + "\n" );
+    }
     else {
       close();
       buttonConnect1.setEnabled(true);
@@ -297,25 +327,27 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    buttonConnect1.setEnabled(false);
-    buttonConnect2.setEnabled(false);
-    buttonConnect3.setEnabled(false);
-    buttonConnect4.setEnabled(false);
-    buttonConnect5.setEnabled(false);
-    service.submit(subscriber[0]);
-    subscriber[0].addObserver(this);
-
-    service.submit(subscriber[1]);
-    subscriber[1].addObserver(this);
-
-    service.submit(subscriber[2]);
-    subscriber[2].addObserver(this);
-
-    service.submit(subscriber[3]);
-    subscriber[3].addObserver(this);
-
-    service.submit(subscriber[4]);
-    subscriber[4].addObserver(this);
+	  if (e.getSource() == buttonConnect1) {
+		  	buttonConnect1.setEnabled(false);
+		    service.submit(subscriber[0]);
+		    subscriber[0].addObserver(this);
+	  }else if (e.getSource() == buttonConnect2) {
+		  buttonConnect2.setEnabled(false);
+		  	service.submit(subscriber[1]);
+		    subscriber[1].addObserver(this);
+	  }else if (e.getSource() == buttonConnect3) {
+		  buttonConnect3.setEnabled(false);
+		  	service.submit(subscriber[2]);
+		    subscriber[2].addObserver(this);
+	  }else if (e.getSource() == buttonConnect4) {
+		  buttonConnect4.setEnabled(false);
+		  	service.submit(subscriber[3]);
+		    subscriber[3].addObserver(this);
+	  }else if (e.getSource() == buttonConnect5) {
+		  buttonConnect5.setEnabled(false);
+		  	service.submit(subscriber[4]);
+		    subscriber[4].addObserver(this);
+	  }
 
     
   }
