@@ -47,8 +47,8 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     
     // TO TEST, RUN TWO SERVERS IN PORTS 1594 and 1595
     
-    subscriber[0] = new Subscriber("localhost", 1594);
-    subscriber[1] = new Subscriber("localhost", 1595);
+    //subscriber[0] = new Subscriber("localhost", 1594);
+    //subscriber[1] = new Subscriber("localhost", 1595);
 
     JLabel ipLabel1 = new JLabel("IP Address:");
     JLabel portLabel1 = new JLabel("Port Number:");
@@ -195,12 +195,12 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
   private void close() {
     System.out.println("clossing ....... +++++++");
     subscriber[0].stop();
-    subscriber[1].stop();
+    //subscriber[1].stop();
   }
   
     private void shutdown() {
     subscriber[0].stop();
-    subscriber[1].stop();
+    //subscriber[1].stop();
     service.shutdown();
     try {
       if (!service.awaitTermination(10, TimeUnit.SECONDS)) {
@@ -229,11 +229,34 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    buttonConnect1.setEnabled(false);
-    service.submit(subscriber[0]);
-    subscriber[0].addObserver(this); 
+    int [] ports = new int[5];
+    String [] ips = new String[5];
+    try {
+      for(int i=0;i<5;i++) {
+        ports[i] = Integer.parseInt(portNum1.getText());
+        ips[i++] = ipNum1.getText();
+        ports[i] = Integer.parseInt(portNum2.getText());
+        ips[i++] = ipNum2.getText();
+        ports[i] = Integer.parseInt(portNum3.getText());
+        ips[i++] = ipNum3.getText();
+        ports[i] = Integer.parseInt(portNum4.getText());
+        ips[i++] = ipNum4.getText();
+        ports[i] = Integer.parseInt(portNum5.getText());
+        ips[i++] = ipNum5.getText();
 
-    service.submit(subscriber[1]);
-    subscriber[1].addObserver(this);     
+      }
+    } catch (NumberFormatException nfe) {
+      System.out.println("Exception: " + nfe);
+    }
+	  /*for (int i=0;i<5;i++) {
+		  System.out.println("ipaddress from textboxes = " + ips[i]);
+		  System.out.println("ports from textboxes = " + ports[i]);
+	  }*/
+    for(int i=0;i<5;i++) {
+      subscriber[i] = new Subscriber(ips[i], ports[i]);
+      buttonConnect.setEnabled(false);
+      service.submit(subscriber[i]);
+      subscriber[i].addObserver(this);
+    }
   }
 }
