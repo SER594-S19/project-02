@@ -7,105 +7,110 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
+
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JSlider;
 
 public class Gui extends JPanel implements ActionListener {
 
+  /**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
-
 private static Model model;
-  
   static String agreementString = "Agreement";
   static String concentratingString = "Concentrating";
   static String disagreementString = "Disagreement";
   static String interestedString = "Interested";
   static String thinkingString = "Thinking";
   static String unsureString = "Unsure";
-  private final int PORT = 5914;
+  private final int PORT = 1594;
   protected JLabel labelPublishPort;
-  private final JButton buttonConnect = new JButton("RUN");
-  private static String setEmotion = "Agreement";
-  static JSlider[] slider = new JSlider[6];
-  
+  private final JButton buttonConnect = new JButton("run");
+   static JSlider[] slider = new JSlider[6];
+  private Component createPanelSouth() {
 
+	  JPanel portNumber = new JPanel();
+	    portNumber.setBackground(Color.RED);
+	    portNumber.add(new JLabel("  Publishing at port: "));
+	    labelPublishPort = new JLabel("" + PORT);
+	    portNumber.add(labelPublishPort);
+	    
+	    JRadioButton agreementButton = new JRadioButton(agreementString);
+	    agreementButton.setActionCommand(agreementString);
+	    agreementButton.setSelected(true);
 
-  private Component createBottomPanel() {
+	    JRadioButton concentratingButton = new JRadioButton(concentratingString);
+	    concentratingButton.setActionCommand(concentratingString);
+	    
+	    JRadioButton disagreementButton = new JRadioButton(disagreementString);
+	    disagreementButton.setActionCommand(disagreementString);
+	    
+	    JRadioButton interestedButton = new JRadioButton(interestedString);
+	    interestedButton.setActionCommand(interestedString);
+	    
+	    JRadioButton thinkingButton = new JRadioButton(thinkingString);
+	    thinkingButton.setActionCommand(thinkingString);
+	    
+	    JRadioButton unsureButton = new JRadioButton(unsureString);
+	    unsureButton.setActionCommand(unsureString);
+	    
+	    ButtonGroup selectMood = new ButtonGroup();
+	    selectMood.add(agreementButton);
+	    selectMood.add(concentratingButton);
+	    selectMood.add(disagreementButton);
+	    selectMood.add(interestedButton);
+	    selectMood.add(thinkingButton);
+	    selectMood.add(unsureButton);
+	    
+	    agreementButton.addActionListener(this);
+	    concentratingButton.addActionListener(this);
+	    disagreementButton.addActionListener(this);
+	    interestedButton.addActionListener(this);
+	    thinkingButton.addActionListener(this);
+	    unsureButton.addActionListener(this);
+	    
 
-    JPanel portNumber = new JPanel();
-    portNumber.setBackground(Color.RED);
-    portNumber.add(new JLabel("  Publishing at port: "));
-    labelPublishPort = new JLabel("" + PORT);
-    portNumber.add(labelPublishPort);
-    
-    JRadioButton agreementButton = new JRadioButton(agreementString);
-    agreementButton.setActionCommand(agreementString);
-    agreementButton.setSelected(true);
-
-    JRadioButton concentratingButton = new JRadioButton(concentratingString);
-    concentratingButton.setActionCommand(concentratingString);
-    
-    JRadioButton disagreementButton = new JRadioButton(disagreementString);
-    disagreementButton.setActionCommand(disagreementString);
-    
-    JRadioButton interestedButton = new JRadioButton(interestedString);
-    interestedButton.setActionCommand(interestedString);
-    
-    JRadioButton thinkingButton = new JRadioButton(thinkingString);
-    thinkingButton.setActionCommand(thinkingString);
-    
-    JRadioButton unsureButton = new JRadioButton(unsureString);
-    unsureButton.setActionCommand(unsureString);
-    
-    ButtonGroup selectMood = new ButtonGroup();
-    selectMood.add(agreementButton);
-    selectMood.add(concentratingButton);
-    selectMood.add(disagreementButton);
-    selectMood.add(interestedButton);
-    selectMood.add(thinkingButton);
-    selectMood.add(unsureButton);
-    
-    agreementButton.addActionListener(this);
-    concentratingButton.addActionListener(this);
-    disagreementButton.addActionListener(this);
-    interestedButton.addActionListener(this);
-    thinkingButton.addActionListener(this);
-    unsureButton.addActionListener(this);
-    
-
-    JPanel moodPanel = new JPanel(new GridLayout(0, 1));
-    moodPanel.add(agreementButton);
-    moodPanel.add(slider[0]);
-    moodPanel.add(concentratingButton);
-    moodPanel.add(slider[1]);
-    moodPanel.add(disagreementButton);
-    moodPanel.add(slider[2]);
-    moodPanel.add(interestedButton);
-    moodPanel.add(slider[3]);
-    moodPanel.add(thinkingButton);
-    moodPanel.add(slider[4]);
-    moodPanel.add(unsureButton);
-    moodPanel.add(slider[5]);
-    
-    JPanel moodPanel1 = new JPanel(new GridLayout(0, 1));
-    JLabel moodGif = new JLabel(createImageIcon("images.png"));
-    //ImageIcon icon = new ImageIcon("images.png");
-    //JLabel moodGif = new JLabel(icon);
-   
-    //moodGif.setMinimumSize(10,10);
-    moodGif.setPreferredSize(new Dimension(30, 30));
-    //moodGif.setMaximumSize(30,30);
-    moodPanel1.add(moodGif,BorderLayout.NORTH);
-    add(moodPanel, BorderLayout.WEST);
-    //add(moodPanel1, BorderLayout.CENTER);
-    setBorder(BorderFactory.createEmptyBorder(15,15,15,15));
-    
-    JPanel bottomPanel = new JPanel(new BorderLayout());
-    bottomPanel.add(portNumber, BorderLayout.WEST);
-    bottomPanel.add(buttonConnect, BorderLayout.EAST);
-    buttonConnect.addActionListener(this);
-    buttonConnect.setEnabled(true);
-    return bottomPanel;  
-    
+	    JPanel moodPanel = new JPanel(new GridLayout(0, 1));
+	    moodPanel.add(agreementButton);
+	    moodPanel.add(slider[0]);
+	    moodPanel.add(concentratingButton);
+	    moodPanel.add(slider[1]);
+	    moodPanel.add(disagreementButton);
+	    moodPanel.add(slider[2]);
+	    moodPanel.add(interestedButton);
+	    moodPanel.add(slider[3]);
+	    moodPanel.add(thinkingButton);
+	    moodPanel.add(slider[4]);
+	    moodPanel.add(unsureButton);
+	    moodPanel.add(slider[5]);
+	    
+	    JPanel moodPanel1 = new JPanel(new GridLayout(0, 1));
+	    JLabel moodGif = new JLabel(createImageIcon("images.png"));
+	    //ImageIcon icon = new ImageIcon("images.png");
+	    //JLabel moodGif = new JLabel(icon);
+	   
+	    //moodGif.setMinimumSize(10,10);
+	    moodGif.setPreferredSize(new Dimension(30, 30));
+	    //moodGif.setMaximumSize(30,30);
+	    moodPanel1.add(moodGif,BorderLayout.NORTH);
+	    add(moodPanel, BorderLayout.WEST);
+	    //add(moodPanel1, BorderLayout.CENTER);
+	    setBorder(BorderFactory.createEmptyBorder(15,15,15,15));
+	    
+	    JPanel bottomPanel = new JPanel(new BorderLayout());
+	    bottomPanel.add(portNumber, BorderLayout.WEST);
+	    bottomPanel.add(buttonConnect, BorderLayout.EAST);
+	    buttonConnect.addActionListener(this);
+	    buttonConnect.setEnabled(true);
+	    return bottomPanel; 
   }
 
   public Gui() {
@@ -113,7 +118,7 @@ private static Model model;
     model = new Model(new DataGenerator(), new Publisher(PORT));
     this.setBackground(Color.WHITE);
     this.setLayout(new BorderLayout());
-    this.add(createBottomPanel(), BorderLayout.SOUTH);
+    this.add(createPanelSouth(), BorderLayout.SOUTH);
     Dimension screen = getToolkit().getScreenSize();
     this.setSize(screen.width / 2, 3 * screen.height / 4);
     this.setLocation((screen.width - getSize().width) / 2, (screen.height - getSize().height) / 2);
@@ -121,24 +126,17 @@ private static Model model;
   }
 
   @Override
-  public void actionPerformed(ActionEvent e) { 
-	String emotion = e.getActionCommand();
-	if(!emotion.equals("RUN")) {
-		setEmotion = emotion;
-		//moodGif.setIcon(createImageIcon(e.getActionCommand()
-          //    + ".gif"));
-	}
-	  
+  public void actionPerformed(ActionEvent e) {
     System.out.println("listener trigger");
     if (e.getSource() == buttonConnect) {
-      if (buttonConnect.getText().compareTo("RUN") == 0) {
+      if (buttonConnect.getText().compareTo("run") == 0) {
             System.out.println("start");
-        model.start(setEmotion);
-        buttonConnect.setText("STOP");
-      } else if (buttonConnect.getText().compareTo("STOP") == 0) {
+        model.start();
+        buttonConnect.setText("stop");
+      } else if (buttonConnect.getText().compareTo("stop") == 0) {
                     System.out.println("stop");
         model.stop();
-        buttonConnect.setText("RUN");
+        buttonConnect.setText("run");
       }
     }
   }
@@ -153,15 +151,14 @@ private static Model model;
       }
   }
   
-  
   public static void main(String[] args) {
-
-	for(int i = 0; i < 6; i++) {
-		slider[i] = new JSlider(0, 10, 0);
-		slider[i].setMinorTickSpacing(10);
-		slider[i].setPaintTicks(true);
-	}
-    JFrame frame = new JFrame("Face Detection Simulator");
+	
+		for(int i = 0; i < 6; i++) {
+			slider[i] = new JSlider(0, 10, 0);
+			slider[i].setMinorTickSpacing(10);
+			slider[i].setPaintTicks(true);
+		}
+    JFrame frame = new JFrame("Simulator");
     frame.setLayout(new GridLayout(1, 1));
     frame.add(new Gui());
     frame.addWindowListener(new java.awt.event.WindowAdapter() {
@@ -172,10 +169,8 @@ private static Model model;
       }
     });
     frame.pack();
-    frame.setSize(800, 800);
+    frame.setSize(500, 300);
     frame.setVisible(true);
-    
-   
   }
   
 }
