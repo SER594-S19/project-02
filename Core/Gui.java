@@ -19,7 +19,7 @@ public class Gui extends JPanel implements ActionListener {
 
     private final int PORT = 1594;
     private JLabel labelPublishPort;
-    private final JButton buttonConnect = new JButton("run");
+    private final JButton buttonConnect = new JButton("Run");
     private JSlider voltage, conductance;
 
     private Component createPanelConductance() {
@@ -64,12 +64,12 @@ public class Gui extends JPanel implements ActionListener {
     private Component createPanelSouth() {
 
         JPanel labels = new JPanel();
-        labels.setBackground(Color.GRAY);
+        labels.setBackground(Color.LIGHT_GRAY);
         labels.add(new JLabel("  Publishing at port: "));
         labelPublishPort = new JLabel("" + PORT);
         labels.add(labelPublishPort);
         JPanel panel = new JPanel();
-        panel.setBackground(Color.CYAN);
+        panel.setBackground(Color.LIGHT_GRAY);
         panel.add(Box.createHorizontalGlue());
         panel.add(labels);
         panel.add(Box.createRigidArea(new Dimension(40,0)));
@@ -167,7 +167,7 @@ public class Gui extends JPanel implements ActionListener {
 
     public static void main(String[] args) {
 
-        JFrame frame = new JFrame("Simulator");
+        JFrame frame = new JFrame("Skin Conductance Simulator");
         frame.setMinimumSize(frame.getPreferredSize());
         frame.add(new Gui());
         frame.addWindowListener(new java.awt.event.WindowAdapter() {

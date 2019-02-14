@@ -41,16 +41,16 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     //subscriber[0] = new Subscriber("localhost", 1594);
     //subscriber[1] = new Subscriber("localhost", 1595);
 
-    JLabel ipLabel1 = new JLabel("IP Address:");
-    JLabel portLabel1 = new JLabel("Port Number:");
-    JLabel ipLabel2 = new JLabel("IP Address:");
-    JLabel portLabel2 = new JLabel("Port Number:");
-    JLabel ipLabel3 = new JLabel("IP Address:");
-    JLabel portLabel3 = new JLabel("Port Number:");
-    JLabel ipLabel4 = new JLabel("IP Address:");
-    JLabel portLabel4 = new JLabel("Port Number:");
-    JLabel ipLabel5 = new JLabel("IP Address:");
-    JLabel portLabel5 = new JLabel("Port Number:");
+    JLabel ipLabel1 = new JLabel("IP Address: ");
+    JLabel portLabel1 = new JLabel("Port Number: ");
+    JLabel ipLabel2 = new JLabel("IP Address: ");
+    JLabel portLabel2 = new JLabel("Port Number: ");
+    JLabel ipLabel3 = new JLabel("IP Address: ");
+    JLabel portLabel3 = new JLabel("Port Number: ");
+    JLabel ipLabel4 = new JLabel("IP Address: ");
+    JLabel portLabel4 = new JLabel("Port Number: ");
+    JLabel ipLabel5 = new JLabel("IP Address: ");
+    JLabel portLabel5 = new JLabel("Port Number: ");
     JPanel topPanel= new JPanel();
     topPanel.setLayout(new BoxLayout(topPanel, BoxLayout.Y_AXIS));
 
