@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,89 +26,58 @@ public class Gui extends JPanel implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 private static Model model;
-  static String agreementString = "Agreement";
-  static String concentratingString = "Concentrating";
-  static String disagreementString = "Disagreement";
-  static String interestedString = "Interested";
-  static String thinkingString = "Thinking";
-  static String unsureString = "Unsure";
+  static String[] emotions = {"Agreement", "Concentrating", "Disagreement", "Interested", "Thinking", "Unsure"};
+  static JLabel[] labels = new JLabel[emotions.length];
   private final int PORT = 1594;
   protected JLabel labelPublishPort;
   private final JButton buttonConnect = new JButton("run");
-   static JSlider[] slider = new JSlider[6];
+  static JSlider[] slider = new JSlider[emotions.length];
   private Component createPanelSouth() {
 
 	  JPanel portNumber = new JPanel();
-	    portNumber.setBackground(Color.RED);
-	    portNumber.add(new JLabel("  Publishing at port: "));
+	    portNumber.setBackground(new Color(51,204,255));
+	    JLabel temp = new JLabel("  Publishing at port: ");
+	    temp.setFont(new Font("Serif", Font.PLAIN, 30));
+	    portNumber.add(temp);
 	    labelPublishPort = new JLabel("" + PORT);
+	    labelPublishPort.setFont(new Font("Serif", Font.PLAIN, 30));
 	    portNumber.add(labelPublishPort);
+	    portNumber.setPreferredSize(new Dimension(200, 50));
+	    portNumber.setMaximumSize(portNumber.getPreferredSize()); 
+	    portNumber.setMinimumSize(portNumber.getPreferredSize());
 	    
-	    JRadioButton agreementButton = new JRadioButton(agreementString);
-	    agreementButton.setActionCommand(agreementString);
-	    agreementButton.setSelected(true);
-
-	    JRadioButton concentratingButton = new JRadioButton(concentratingString);
-	    concentratingButton.setActionCommand(concentratingString);
-	    
-	    JRadioButton disagreementButton = new JRadioButton(disagreementString);
-	    disagreementButton.setActionCommand(disagreementString);
-	    
-	    JRadioButton interestedButton = new JRadioButton(interestedString);
-	    interestedButton.setActionCommand(interestedString);
-	    
-	    JRadioButton thinkingButton = new JRadioButton(thinkingString);
-	    thinkingButton.setActionCommand(thinkingString);
-	    
-	    JRadioButton unsureButton = new JRadioButton(unsureString);
-	    unsureButton.setActionCommand(unsureString);
-	    
-	    ButtonGroup selectMood = new ButtonGroup();
-	    selectMood.add(agreementButton);
-	    selectMood.add(concentratingButton);
-	    selectMood.add(disagreementButton);
-	    selectMood.add(interestedButton);
-	    selectMood.add(thinkingButton);
-	    selectMood.add(unsureButton);
-	    
-	    agreementButton.addActionListener(this);
-	    concentratingButton.addActionListener(this);
-	    disagreementButton.addActionListener(this);
-	    interestedButton.addActionListener(this);
-	    thinkingButton.addActionListener(this);
-	    unsureButton.addActionListener(this);
-	    
-
+	    for(int i = 0; i < emotions.length; i++) {
+	    	labels[i] = new JLabel(emotions[i]);
+		    labels[i].setFont(new Font("Serif", Font.PLAIN, 30));
+		    labels[i].setHorizontalAlignment(JLabel.CENTER);
+	    }
 	    JPanel moodPanel = new JPanel(new GridLayout(0, 1));
-	    moodPanel.add(agreementButton);
-	    moodPanel.add(slider[0]);
-	    moodPanel.add(concentratingButton);
-	    moodPanel.add(slider[1]);
-	    moodPanel.add(disagreementButton);
-	    moodPanel.add(slider[2]);
-	    moodPanel.add(interestedButton);
-	    moodPanel.add(slider[3]);
-	    moodPanel.add(thinkingButton);
-	    moodPanel.add(slider[4]);
-	    moodPanel.add(unsureButton);
-	    moodPanel.add(slider[5]);
+	    for(int i = 0; i < emotions.length; i++) {
+		    moodPanel.add(labels[i]);
+		    moodPanel.add(slider[i]);
+	    }
+
+	    moodPanel.setPreferredSize(new Dimension(600, 400));
+	    moodPanel.setMaximumSize(moodPanel.getPreferredSize()); 
+	    moodPanel.setMinimumSize(moodPanel.getPreferredSize());
 	    
-	    JPanel moodPanel1 = new JPanel(new GridLayout(0, 1));
-	    JLabel moodGif = new JLabel();
-	    //ImageIcon icon = new ImageIcon("images.png");
-	    //JLabel moodGif = new JLabel(icon);
-	   
-	    //moodGif.setMinimumSize(10,10);
-	    moodGif.setPreferredSize(new Dimension(30, 30));
-	    //moodGif.setMaximumSize(30,30);
-	    moodPanel1.add(moodGif,BorderLayout.NORTH);
+	    JPanel moodPanel1 = new JPanel(new GridLayout(6, 1));
+	    //JLabel moodGif = new JLabel(createImageIcon("car.png"));
+	    //JLabel moodGif1 = new JLabel(createImageIcon("car.png"));
+
+	    //moodPanel1.add(moodGif);
+	    //moodPanel1.add(moodGif1);
+
+	    
 	    add(moodPanel, BorderLayout.WEST);
-	    //add(moodPanel1, BorderLayout.CENTER);
+	    add(moodPanel1, BorderLayout.CENTER);
 	    setBorder(BorderFactory.createEmptyBorder(15,15,15,15));
-	    
+	    buttonConnect.setPreferredSize(new Dimension(200, 50));
+	    buttonConnect.setMaximumSize(moodPanel.getPreferredSize()); 
+	    buttonConnect.setMinimumSize(moodPanel.getPreferredSize());
 	    JPanel bottomPanel = new JPanel(new BorderLayout());
-	    bottomPanel.add(portNumber, BorderLayout.WEST);
-	    bottomPanel.add(buttonConnect, BorderLayout.EAST);
+	    bottomPanel.add(portNumber, BorderLayout.CENTER);
+	    bottomPanel.add(buttonConnect, BorderLayout.LINE_END);
 	    buttonConnect.addActionListener(this);
 	    buttonConnect.setEnabled(true);
 	    return bottomPanel; 
@@ -119,9 +89,9 @@ private static Model model;
     this.setBackground(Color.WHITE);
     this.setLayout(new BorderLayout());
     this.add(createPanelSouth(), BorderLayout.SOUTH);
-    Dimension screen = getToolkit().getScreenSize();
-    this.setSize(screen.width / 2, 3 * screen.height / 4);
-    this.setLocation((screen.width - getSize().width) / 2, (screen.height - getSize().height) / 2);
+    //Dimension screen = getToolkit().getScreenSize();
+    //this.setSize(screen.width / 2, 3 * screen.height / 4);
+    //this.setLocation((screen.width - getSize().width) / 2, (screen.height - getSize().height) / 2);
     System.out.println("gui done");
   }
 
@@ -153,11 +123,15 @@ private static Model model;
   
   public static void main(String[] args) {
 	
-		for(int i = 0; i < 6; i++) {
-			slider[i] = new JSlider(0, 10, 0);
-			slider[i].setMinorTickSpacing(10);
-			slider[i].setPaintTicks(true);
-		}
+	for(int i = 0; i < 6; i++) {
+		slider[i] = new JSlider(0, 10, 0);
+		slider[i].setMajorTickSpacing(1);
+		slider[i].setPaintTicks(true);
+		slider[i].setSize(400,100);
+		slider[i].setPaintLabels(true);
+		slider[i].setForeground(Color.black);
+		slider[i].setBackground(new Color(204,204,204));
+	}
     JFrame frame = new JFrame("Simulator");
     frame.setLayout(new GridLayout(1, 1));
     frame.add(new Gui());
@@ -169,7 +143,7 @@ private static Model model;
       }
     });
     frame.pack();
-    frame.setSize(500, 300);
+    frame.setSize(800, 1000);
     frame.setVisible(true);
   }
   
