@@ -69,7 +69,7 @@ public class Gui extends JPanel implements ActionListener {
     Validation.setPaintTicks(true);
     Validation.setValue(0);
     Validation.setFont(new Font("Calibri", Font.BOLD, 16));
-    Validation.setToolTipText("Validating");
+    Validation.setToolTipText("VALIDATION POINTS");
     Validation.setForeground(Color.WHITE);
     Validation.setBackground(Color.PINK);
     Validation.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
@@ -78,7 +78,7 @@ public class Gui extends JPanel implements ActionListener {
         validation = Validation.getValue(); }});
   
     Pupilx.setFont(new Font("Calibri", Font.BOLD, 20));
-    Pupilx.setToolTipText("PUPIL RIGHT");
+    Pupilx.setToolTipText("PUPIL RIGHT SIZE");
     Pupilx.setForeground(Color.WHITE);
     Pupilx.setBackground(Color.GRAY);
     Pupilx.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
@@ -108,7 +108,7 @@ public class Gui extends JPanel implements ActionListener {
     });
     
     Pupily.setFont(new Font("Calibri", Font.BOLD, 16));
-    Pupily.setToolTipText("PUPIL LEFT");
+    Pupily.setToolTipText("PUPIL LEFT SIZE");
     Pupily.setForeground(Color.WHITE);
     Pupily.setBackground(Color.GRAY);
     Pupily.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)));
