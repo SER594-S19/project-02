@@ -96,6 +96,11 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     subscriber[0] = new Subscriber(ipFace, Integer.parseInt(port_face));
     
     buttonConnect1.addActionListener(this);
+    buttonConnect2.addActionListener(this);
+    buttonConnect3.addActionListener(this);
+    buttonConnect4.addActionListener(this);
+    buttonConnect5.addActionListener(this);
+
     
     /*buttonConnect1.addActionListener(new ActionListener() {
       @Override
