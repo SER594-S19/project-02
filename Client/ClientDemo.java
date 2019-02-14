@@ -307,7 +307,7 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     String data = ((Subscriber) o).getObject().toString();
     if (data.compareTo("FIN") != 0) {
     	panel1Text.append(data + "\n" );
-    	panel2Text.append(data + "\n" );
+    	
     }
     else {
       close();
