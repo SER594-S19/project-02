@@ -90,30 +90,17 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     panel.add(filler1);
     panel.add(spinner);
     panel.add(buttonConnect1);
-    
-    ipFace = textField.getText();
-    port_face = spinner.getValue().toString();
-    subscriber[0] = new Subscriber(ipFace, Integer.parseInt(port_face));
-    
     buttonConnect1.addActionListener(this);
-    buttonConnect2.addActionListener(this);
-    buttonConnect3.addActionListener(this);
-    buttonConnect4.addActionListener(this);
-    buttonConnect5.addActionListener(this);
 
-    
-    /*buttonConnect1.addActionListener(new ActionListener() {
+    buttonConnect1.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
         ipFace = textField.getText();
         port_face = spinner.getValue().toString();
         subscriber[0] = new Subscriber(ipFace, Integer.parseInt(port_face));
-        
-        buttonConnect1.setEnabled(false);
-	    service.submit(subscriber[0]);
-	    subscriber[0].addObserver(this);
+
       }
-    });*/
+    });
     addWindowListener(new java.awt.event.WindowAdapter() {
       @Override
       public void windowClosing(java.awt.event.WindowEvent e) {
@@ -142,6 +129,7 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     panel.add(filler1);
     panel.add(spinner);
     panel.add(buttonConnect2);
+    buttonConnect2.addActionListener(this);
     
     buttonConnect2.addActionListener(new ActionListener() {
       @Override
@@ -180,7 +168,7 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     panel.add(filler1);
     panel.add(spinner);
     panel.add(buttonConnect3);
-    
+    buttonConnect3.addActionListener(this);
     buttonConnect3.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -218,7 +206,7 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     panel.add(filler1);
     panel.add(spinner);
     panel.add(buttonConnect4);
-    
+    buttonConnect4.addActionListener(this);
     buttonConnect4.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
@@ -259,7 +247,7 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     panel.add(filler1);
     panel.add(spinner);
     panel.add(buttonConnect5);
-    
+    buttonConnect5.addActionListener(this);
     buttonConnect5.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
