@@ -1,4 +1,5 @@
 package Core;
+
 import com.jfoenix.controls.JFXSlider;
 import com.jfoenix.controls.JFXToggleButton;
 import javafx.beans.value.ChangeListener;
@@ -8,8 +9,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.*;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Ellipse;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.QuadCurve;
 import javafx.scene.text.Text;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -21,6 +26,10 @@ import java.util.ResourceBundle;
 
 public class Controller implements Initializable {
     private static Model model;
+    private static Model model1;
+    private static Model model2;
+    private static Model model3;
+    private static Model model4;
     private final int PORT = 1594;
     Text val;
     String one = "100";
@@ -253,11 +262,23 @@ public class Controller implements Initializable {
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if(toggle.isSelected() == true){
                     model = new Model(new DataGenerator(), new Publisher(PORT));
+                    model1 = new Model(new DataGenerator(), new Publisher(PORT+1));
+                    model2 = new Model(new DataGenerator(), new Publisher(PORT+2));
+                    model3 = new Model(new DataGenerator(), new Publisher(PORT+3));
+                    model4 = new Model(new DataGenerator(), new Publisher(PORT+4));
                     model.start();
+                    model1.start();
+                    model2.start();
+                    model3.start();
+                    model4.start();
                     toggle.setText("STOP");
                 }
                 else{
                     model.stop();
+                    model1.stop();
+                    model2.stop();
+                    model3.stop();
+                    model4.stop();
                     toggle.setText("RUN");
                 }
             }
