@@ -23,6 +23,12 @@ public class Subscriber extends Observable implements Runnable {
   private int port;
   private String data;
 
+
+  public int getPort(){
+    return this.port;
+  }
+
+
   public Subscriber(String Ip, int port) {
     this.stop = false;
     this.Ip = Ip;
@@ -76,7 +82,7 @@ public class Subscriber extends Observable implements Runnable {
         Thread.sleep(100);
       } catch (InterruptedException ex) {
       }
-  System.out.println("in hello end while" + stop);
+         System.out.println("in hello end while" + stop);
     }
                   System.out.println("in hello end loop");
     try {
