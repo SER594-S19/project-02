@@ -62,12 +62,19 @@ private static Model model;
 	    moodPanel.setMinimumSize(moodPanel.getPreferredSize());
 	    
 	    JPanel moodPanel1 = new JPanel(new GridLayout(6, 1));
-	    //JLabel moodGif = new JLabel(createImageIcon("car.png"));
-	    //JLabel moodGif1 = new JLabel(createImageIcon("car.png"));
-
-	    //moodPanel1.add(moodGif);
-	    //moodPanel1.add(moodGif1);
-
+	    JLabel moodGif = new JLabel(createImageIcon("agree.jpg"));
+	    JLabel moodGif1 = new JLabel(createImageIcon("concent.png"));
+	    JLabel moodGif2 = new JLabel(createImageIcon("disagree.png"));
+	    JLabel moodGif3 = new JLabel(createImageIcon("inter.png"));
+	    JLabel moodGif4 = new JLabel(createImageIcon("think.png"));
+	    JLabel moodGif5 = new JLabel(createImageIcon("unsure.png"));
+	    
+	    moodPanel1.add(moodGif);
+	    moodPanel1.add(moodGif1);
+	    moodPanel1.add(moodGif2);
+	    moodPanel1.add(moodGif3);
+	    moodPanel1.add(moodGif4);
+	    moodPanel1.add(moodGif5);
 	    
 	    add(moodPanel, BorderLayout.WEST);
 	    add(moodPanel1, BorderLayout.CENTER);
@@ -89,7 +96,7 @@ private static Model model;
     this.setBackground(Color.WHITE);
     this.setLayout(new BorderLayout());
     this.add(createPanelSouth(), BorderLayout.SOUTH);
-    //Dimension screen = getToolkit().getScreenSize();
+   // Dimension screen = getToolkit().getScreenSize();
     //this.setSize(screen.width / 2, 3 * screen.height / 4);
     //this.setLocation((screen.width - getSize().width) / 2, (screen.height - getSize().height) / 2);
     System.out.println("gui done");
@@ -125,7 +132,7 @@ private static Model model;
 	
 	for(int i = 0; i < 6; i++) {
 		slider[i] = new JSlider(0, 10, 0);
-		slider[i].setMajorTickSpacing(1);
+		slider[i].setMajorTickSpacing(1	);
 		slider[i].setPaintTicks(true);
 		slider[i].setSize(400,100);
 		slider[i].setPaintLabels(true);
