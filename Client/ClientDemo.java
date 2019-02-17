@@ -297,10 +297,25 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
 
   @Override
   public void update(Observable o, Object arg) {
+	int portNo = ((Subscriber) o).getPort();
     String data = ((Subscriber) o).getObject().toString();
     if (data.compareTo("FIN") != 0) {
-    	panel1Text.append(data + "\n" );
-    	
+
+        if(portNo == 1594){
+          panel1Text.append(data + "\n" );
+        }
+        else if(portNo == 1595){
+          panel2Text.append(data + "\n" );
+        }
+        else if(portNo == 1596){
+          panel3Text.append(data + "\n" );
+        }
+        else if(portNo == 1597){
+          panel4Text.append(data + "\n" );
+        }
+        else if(portNo == 1598){
+          panel5Text.append(data + "\n" );
+        }
     }
     else {
       close();
