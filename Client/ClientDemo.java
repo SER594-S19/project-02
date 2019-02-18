@@ -1,17 +1,19 @@
 package Client;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-import javax.swing.*;
 
 public class ClientDemo extends JFrame implements Observer, ActionListener {
 
+  public static HashMap<Integer,String> port_panel_mapping = new HashMap<Integer,String>();
   private final Subscriber [] subscriber = new Subscriber[5];
   private final ExecutorService service;
   JTextArea panel1Text = new JTextArea(" ", 20, 30);
@@ -19,7 +21,7 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
   JTextArea panel3Text = new JTextArea(" ", 30, 30);
   JTextArea panel4Text = new JTextArea(" ", 30, 30);
   JTextArea panel5Text = new JTextArea(" ", 30, 30);
-  
+
   private JTabbedPane tabbedPane1 = new JTabbedPane();
   private String ipFace;
   private String ipEyes;
@@ -44,7 +46,7 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
   private JComponent panel3 = makeTextPanel3("Skin");
   private JComponent panel4 = makeTextPanel4("Heart Rate");
   private JComponent panel5 = makeTextPanel5("BCI");
-//  private JComponent panel1 = makeTextPanel("Panel #1");
+  //  private JComponent panel1 = makeTextPanel("Panel #1");
 //  tabbedPane.add
   public ClientDemo() {
 
@@ -53,13 +55,13 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     setLayout(new BorderLayout());
     //frame.add(textArea, BorderLayout.CENTER);
 
-   
+
     panel1.add(panel1Text, BorderLayout.SOUTH);
     panel2.add(panel2Text, BorderLayout.SOUTH);
     panel3.add(panel3Text, BorderLayout.SOUTH);
     panel4.add(panel4Text, BorderLayout.SOUTH);
     panel5.add(panel5Text, BorderLayout.SOUTH);
-    
+
     frame.add(tabbedPane1);
     tabbedPane1.addTab("Face",panel1);
     tabbedPane1.addTab("Eyes",panel2);
@@ -68,7 +70,7 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     tabbedPane1.addTab("BCI",panel5);
     frame.setSize(500,500);
     frame.setVisible(true);
-    
+
 
   }
 
@@ -84,7 +86,7 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     SpinnerListModel portModel = new SpinnerListModel(portNumber);
     JSpinner spinner = new JSpinner(portModel);
 
-   // panel.setLayout(new GridLayout(4, 4));
+    // panel.setLayout(new GridLayout(4, 4));
     panel.add(filler);
     panel.add(textField);
     panel.add(filler1);
@@ -97,6 +99,9 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
       public void actionPerformed(ActionEvent e) {
         ipFace = textField.getText();
         port_face = spinner.getValue().toString();
+        Client.ClientDemo.port_panel_mapping.put(Integer.parseInt(port_face), "textPanel1");
+        // To add for loop to connect other ports.
+
         subscriber[0] = new Subscriber(ipFace, Integer.parseInt(port_face));
 
       }
@@ -112,6 +117,7 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     });
     return panel;
   }
+
   protected JComponent makeTextPanel2(String text) {
     JPanel panel = new JPanel(false);
     JLabel filler = new JLabel("Enter IP address of Server ");
@@ -130,13 +136,14 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     panel.add(spinner);
     panel.add(buttonConnect2);
     buttonConnect2.addActionListener(this);
-    
+
     buttonConnect2.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
         ipEyes = textField.getText();
         port_eyes = spinner.getValue().toString();
         subscriber[1] = new Subscriber(ipEyes, Integer.parseInt(port_eyes));
+        Client.ClientDemo.port_panel_mapping.put(Integer.parseInt(port_eyes), "textPanel2");
       }
     });
     addWindowListener(new java.awt.event.WindowAdapter() {
@@ -175,6 +182,7 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
         ipSkin = textField.getText();
         port_skin = spinner.getValue().toString();
         subscriber[2] = new Subscriber(ipSkin, Integer.parseInt(port_skin));
+        Client.ClientDemo.port_panel_mapping.put(Integer.parseInt(port_skin), "textPanel3");
       }
     });
     addWindowListener(new java.awt.event.WindowAdapter() {
@@ -211,8 +219,9 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
       @Override
       public void actionPerformed(ActionEvent e) {
         ipHeart = textField.getText();
-        port_heart = spinner.getValue().toString();
+        port_heart =spinner.getValue().toString();
         subscriber[3] = new Subscriber(ipHeart, Integer.parseInt(port_heart));
+        Client.ClientDemo.port_panel_mapping.put(Integer.parseInt(port_heart), "textPanel4");
       }
     });
     addWindowListener(new java.awt.event.WindowAdapter() {
@@ -237,8 +246,8 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     String[] portNumber = {"1594","1595","1596","1597","1598"};
     SpinnerListModel portModel = new SpinnerListModel(portNumber);
     JSpinner spinner = new JSpinner(portModel);
-    
-    
+
+
 
 
     // panel.setLayout(new GridLayout(4, 4));
@@ -254,7 +263,7 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
         ipBCI = textField.getText();
         port_bci = spinner.getValue().toString();
         subscriber[4] = new Subscriber(ipBCI, Integer.parseInt(port_bci));
-
+        Client.ClientDemo.port_panel_mapping.put(Integer.parseInt(port_bci), "textPanel5");
       }
     });
     addWindowListener(new java.awt.event.WindowAdapter() {
@@ -277,8 +286,8 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     subscriber[3].stop();
     subscriber[4].stop();
   }
-  
-    private void shutdown() {
+
+  private void shutdown() {
     subscriber[0].stop();
     subscriber[1].stop();
     subscriber[2].stop();
@@ -293,29 +302,31 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     } catch (InterruptedException ex) {
     }
   }
-  
+
+
 
   @Override
   public void update(Observable o, Object arg) {
-	int portNo = ((Subscriber) o).getPort();
+    int portNo = ((Subscriber) o).getPort();
     String data = ((Subscriber) o).getObject().toString();
     if (data.compareTo("FIN") != 0) {
 
-        if(portNo == 1594){
-          panel1Text.append(data + "\n" );
-        }
-        else if(portNo == 1595){
-          panel2Text.append(data + "\n" );
-        }
-        else if(portNo == 1596){
-          panel3Text.append(data + "\n" );
-        }
-        else if(portNo == 1597){
-          panel4Text.append(data + "\n" );
-        }
-        else if(portNo == 1598){
-          panel5Text.append(data + "\n" );
-        }
+      if(portNo == 1594){
+        checkPaneltoAppend(portNo, data);
+      }
+      else if(portNo == 1595){
+        checkPaneltoAppend(portNo, data);
+      }
+      else if(portNo == 1596){
+        checkPaneltoAppend(portNo, data);
+      }
+      else if(portNo == 1597){
+        checkPaneltoAppend(portNo, data);
+      }
+      else if(portNo == 1598){
+        checkPaneltoAppend(portNo, data);
+      }
+
     }
     else {
       close();
@@ -325,38 +336,58 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
       buttonConnect4.setEnabled(true);
       buttonConnect5.setEnabled(true);
 
-    }    
+    }
+  }
+
+  private void checkPaneltoAppend(int portNo, String data) {
+    switch (Client.ClientDemo.port_panel_mapping.get(portNo)){
+      case "textPanel1":
+        panel1Text.append(data + "\n" );
+        break;
+      case "textPanel2":
+        panel2Text.append(data + "\n" );
+        break;
+      case "textPanel3":
+        panel3Text.append(data + "\n" );
+        break;
+      case "textPanel4":
+        panel4Text.append(data + "\n" );
+        break;
+      case "textPanel5":
+        panel5Text.append(data + "\n" );
+        break;
+    }
   }
 
   public static void main(String[] args) {
-    ClientDemo tester = new ClientDemo();
-     
+    Client.ClientDemo tester = new Client.ClientDemo();
+
   }
 
   @Override
   public void actionPerformed(ActionEvent e) {
-	  if (e.getSource() == buttonConnect1) {
-		  	buttonConnect1.setEnabled(false);
-		    service.submit(subscriber[0]);
-		    subscriber[0].addObserver(this);
-	  }else if (e.getSource() == buttonConnect2) {
-		  buttonConnect2.setEnabled(false);
-		  	service.submit(subscriber[1]);
-		    subscriber[1].addObserver(this);
-	  }else if (e.getSource() == buttonConnect3) {
-		  buttonConnect3.setEnabled(false);
-		  	service.submit(subscriber[2]);
-		    subscriber[2].addObserver(this);
-	  }else if (e.getSource() == buttonConnect4) {
-		  buttonConnect4.setEnabled(false);
-		  	service.submit(subscriber[3]);
-		    subscriber[3].addObserver(this);
-	  }else if (e.getSource() == buttonConnect5) {
-		  buttonConnect5.setEnabled(false);
-		  	service.submit(subscriber[4]);
-		    subscriber[4].addObserver(this);
-	  }
+    if (e.getSource() == buttonConnect1) {
+      buttonConnect1.setEnabled(false);
+      service.submit(subscriber[0]);
+      subscriber[0].addObserver(this);
+    }else if (e.getSource() == buttonConnect2) {
+      buttonConnect2.setEnabled(false);
+      service.submit(subscriber[1]);
+      subscriber[1].addObserver(this);
+    }else if (e.getSource() == buttonConnect3) {
+      buttonConnect3.setEnabled(false);
+      service.submit(subscriber[2]);
+      subscriber[2].addObserver(this);
+    }else if (e.getSource() == buttonConnect4) {
+      buttonConnect4.setEnabled(false);
+      service.submit(subscriber[3]);
+      subscriber[3].addObserver(this);
+    }else if (e.getSource() == buttonConnect5) {
+      buttonConnect5.setEnabled(false);
+      service.submit(subscriber[4]);
+      subscriber[4].addObserver(this);
+    }
 
-    
+
   }
 }
