@@ -112,6 +112,10 @@ public class Gui extends JPanel implements ActionListener {
 		});
 		return slider;
 	}
+	
+//	public JSlider addSlider_2(JLabel labelNum, int x_axis, int y_axis, int val) {
+//		
+//	}
 
 	public Gui() {
 		expressionToIndexMapping();
@@ -282,34 +286,53 @@ public class Gui extends JPanel implements ActionListener {
     JLabel fru = label("Frustration", 16, 180);
     affective.add(fru);
     
-    JRadioButton radioButtonEngage = radio_button(engageIcon, 40);
-    radioButtonEngage.setActionCommand(engageIcon);
-    JRadioButton radioButtonST = radio_button(shortTermIcon, 75);
-    radioButtonST.setActionCommand(shortTermIcon);
-    JRadioButton radioButtonLT = radio_button(longTermIcon, 110);
-    radioButtonLT.setActionCommand(longTermIcon);
-    JRadioButton radioButtonMed = radio_button(meditateIcon, 145);
-    radioButtonMed.setActionCommand(meditateIcon);
-    JRadioButton radioButtonFrus = radio_button(frustrateIcon, 180);
-    radioButtonFrus.setActionCommand(frustrateIcon);
-    affective.add(radioButtonEngage);
-    affective.add(radioButtonST);
-    affective.add(radioButtonLT);
-    affective.add(radioButtonMed);
-    affective.add(radioButtonFrus);
+//    JRadioButton radioButtonEngage = radio_button(engageIcon, 40);
+//    radioButtonEngage.setActionCommand(engageIcon);
+//    JRadioButton radioButtonST = radio_button(shortTermIcon, 75);
+//    radioButtonST.setActionCommand(shortTermIcon);
+//    JRadioButton radioButtonLT = radio_button(longTermIcon, 110);
+//    radioButtonLT.setActionCommand(longTermIcon);
+//    JRadioButton radioButtonMed = radio_button(meditateIcon, 145);
+//    radioButtonMed.setActionCommand(meditateIcon);
+//    JRadioButton radioButtonFrus = radio_button(frustrateIcon, 180);
+//    radioButtonFrus.setActionCommand(frustrateIcon);
+//    affective.add(radioButtonEngage);
+//    affective.add(radioButtonST);
+//    affective.add(radioButtonLT);
+//    affective.add(radioButtonMed);
+//    affective.add(radioButtonFrus);
+//    
+//    ButtonGroup group = new ButtonGroup();
+//    group.add(radioButtonEngage);
+//    group.add(radioButtonST);
+//    group.add(radioButtonLT);
+//    group.add(radioButtonMed);
+//    group.add(radioButtonFrus);
     
-    ButtonGroup group = new ButtonGroup();
-    group.add(radioButtonEngage);
-    group.add(radioButtonST);
-    group.add(radioButtonLT);
-    group.add(radioButtonMed);
-    group.add(radioButtonFrus);
+//    radioButtonEngage.addActionListener(this);
+//	radioButtonST.addActionListener(this);
+//	radioButtonLT.addActionListener(this);
+//	radioButtonMed.addActionListener(this);
+//	radioButtonFrus.addActionListener(this);  
+//    JSlider slider_en = addSlider_2(num, 120, 30, 10);
+//    JSlider slider_st = addSlider_2(num1, 120, 65, 11);
+//    JSlider slider_lt = addSlider_2(num2, 120, 100, 12);
+//    JSlider slider_me = addSlider_2(num3, 120, 135, 13);
+//    JSlider slider_frus = addSlider_2(num4, 120, 170, 14);
     
-    radioButtonEngage.addActionListener(this);
-	radioButtonST.addActionListener(this);
-	radioButtonLT.addActionListener(this);
-	radioButtonMed.addActionListener(this);
-	radioButtonFrus.addActionListener(this);  
+//    affective.add(slider_en);
+//    affective.add(slider_st);
+//    affective.add(slider_lt);    
+//    affective.add(slider_me);
+//    affective.add(slider_frus);
+
+    expressive_cont.add(slider);
+    expressive_cont.add(slider_1);
+    expressive_cont.add(slider_2);    
+    expressive_cont.add(slider_3);
+    expressive_cont.add(slider_4);
+    expressive_cont.add(slider_5);
+    expressive_cont.add(slider_6);
 
 	gifIcon = new JLabel(createImageIcon("" + ".gif"));
 	gifIcon.setBounds(197, 30, 280, 200);
