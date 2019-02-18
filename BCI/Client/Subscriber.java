@@ -1,5 +1,6 @@
 package BCI.Client;
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -54,6 +55,8 @@ public class Subscriber extends Observable implements Runnable {
       input = new BufferedReader(new InputStreamReader(client.getInputStream()));      
       client.setSoTimeout(1000);
     } catch (IOException ex) {
+      String errorMessage = "Cannot connect to the server. Please make sure the server is running and try again";
+      JOptionPane.showMessageDialog(null, errorMessage, "Connection failed", JOptionPane.ERROR_MESSAGE);
       stop = true;
     }
     while (!stop) {
