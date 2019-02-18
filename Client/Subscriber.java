@@ -22,6 +22,9 @@ public class Subscriber extends Observable implements Runnable {
   private String Ip;
   private int port;
   private String data;
+  private String serverPortActive;
+  private String serverPortSelected;
+
 
   public Subscriber(String Ip, int port) {
     this.stop = false;
@@ -34,8 +37,25 @@ public class Subscriber extends Observable implements Runnable {
   }
 
   public synchronized Object getObject() {
-    return this.data;
+	  return this.data;
   }
+  
+  public String getServerPortActive() {
+	  return serverPortActive;
+  }
+
+  public void setServerPortActive(String serverPortActive) {
+	  this.serverPortActive = serverPortActive;
+  }
+  
+  public String getServerPortSelected() {
+	  return serverPortSelected;
+  }
+
+  public void setServerPortSelected(String serverPortSelected) {
+	  this.serverPortSelected = serverPortSelected;
+  }
+
 
   public void stop() {
     stop = true;
@@ -68,7 +88,11 @@ public class Subscriber extends Observable implements Runnable {
         stop = true;
       } else {
               System.out.println("in hello read and =" + stop + " " + measureLocal);
-        setData(measureLocal);
+        if(serverPortActive.equals(serverPortSelected)) {
+            setData(measureLocal);
+        }else {
+            setData("");
+        }
         setChanged();
         notifyObservers();
       }
@@ -95,5 +119,5 @@ public class Subscriber extends Observable implements Runnable {
     setChanged();
     notifyObservers();
   }
-
+  
 }
