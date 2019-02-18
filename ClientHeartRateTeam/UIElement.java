@@ -146,17 +146,21 @@ public class UIElement extends JPanel implements Observer, ActionListener{
 	@Override
 	public void update(Observable o, Object arg) {
 		String data = ((ClientSubscriber) o).getObject().toString();
-		if (data.compareTo("FIN") != 0) {
-			dataPane.setText(dataPane.getText() + "\n" + data);
-			this.getParent().revalidate();
-			this.getParent().repaint();
-		}
-		else {
-			dataPane.setText("Csv file generated in source directory.");
+		if (data.compareTo("STOPPED") == 0 || data.compareTo("FIN") == 0) {
 			this.getParent().revalidate();
 			this.getParent().repaint();
 			close();
 			connect.setText("Connect");
+			if (data.compareTo("STOPPED") == 0)
+				JOptionPane.showMessageDialog(new JPanel(), "Server Stopped", "Error", JOptionPane.ERROR_MESSAGE);
+			dataPane.setText("CSV file generated");
+		} else if (data.compareTo("FAIL") == 0) {
+			JOptionPane.showMessageDialog(new JPanel(), "Connection Fail", "Error", JOptionPane.ERROR_MESSAGE);
+			connect.setText("Connect");
+		} else {
+			dataPane.setText(dataPane.getText() + "\n" + data);
+			this.getParent().revalidate();
+			this.getParent().repaint();
 		}
 	}
 }

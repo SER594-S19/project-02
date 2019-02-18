@@ -76,6 +76,8 @@ public class ClientSubscriber extends Observable implements Runnable {
 		BufferedReader input = null;
 		stop = false;
 		String measureLocal;
+		boolean serverCheck = false;
+		boolean serverRunning = false;
 
 		try {
 			client = new Socket(InetAddress.getByName(Ip.trim()), port);
@@ -83,6 +85,8 @@ public class ClientSubscriber extends Observable implements Runnable {
 			client.setSoTimeout(1000);
 			file = new FileOutputObserver();
 			this.addObserver(file);
+			serverCheck = true;
+			serverRunning = true;
 		} catch (IOException ex) {
 			stop = true;
 		}
@@ -95,6 +99,7 @@ public class ClientSubscriber extends Observable implements Runnable {
 			}
 			if (measureLocal == null) {
 				stop = true;
+				serverRunning = false;
 			} else {
 				System.out.println(measureLocal);
 				setData(measureLocal);
@@ -118,7 +123,12 @@ public class ClientSubscriber extends Observable implements Runnable {
 		} catch (IOException e) {
 			System.out.println("Exception: " + e);
 		}
-		setData("FIN");
+		if (!serverCheck)
+			setData("FAIL");
+		else if (!serverRunning)
+			setData("STOPPED");
+		else
+			setData("FIN");
 		setChanged();
 		notifyObservers();
 	}

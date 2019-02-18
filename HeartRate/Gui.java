@@ -25,6 +25,7 @@ public class Gui extends JPanel implements ActionListener {
 	private final JRadioButton moderate = new JRadioButton("Moderate Exercise");
 	private final JRadioButton vigorous = new JRadioButton("Vigorous Exercise");
 	private final JPanel gifPanel = new JPanel();
+	private final JLabel connectLabel = new JLabel("Click on the heart below to start/stop the server");
 	private final JTextPane textPane = new JTextPane();
 
 	// Method to get object of GUI class
@@ -90,7 +91,8 @@ public class Gui extends JPanel implements ActionListener {
 	
 	private Component createRunLabel() {
 		JPanel panel = new JPanel();
-		JLabel connectLabel = new JLabel("Click on the heart below to start/stop the server");
+		connectLabel.setForeground(Color.GRAY);
+		panel.setBackground(Color.WHITE);
 		panel.add(connectLabel);
 		
 		return panel;
@@ -105,6 +107,7 @@ public class Gui extends JPanel implements ActionListener {
 		buttonConnect.add(gifPanel);
 		buttonConnect.setBackground(Color.WHITE);
 		buttonConnect.setEnabled(true);
+		buttonConnect.setBorder(null);
 
 		return panel;
 	}
