@@ -3,7 +3,9 @@ package Core;
 import java.util.Calendar;
 import java.util.Observable;
 
-public class DataGenerator extends Observable implements Runnable {
+import static Core.Gui.getData;
+
+class DataGenerator extends Observable implements Runnable {
 
   private Data data;
   private boolean stop = false;
@@ -11,6 +13,7 @@ public class DataGenerator extends Observable implements Runnable {
   public void stop() {
     this.stop = true;
   }
+
 
   public Object getObject() {
     return data;
@@ -24,12 +27,10 @@ public class DataGenerator extends Observable implements Runnable {
     calendar.set(Calendar.MINUTE, 0);
     calendar.set(Calendar.SECOND, 0);
     long initialTime = calendar.getTimeInMillis();
-    double timeStamp = 0;
 
     while (!stop) {
               System.out.println("data generator running");
-      timeStamp = (System.currentTimeMillis() - initialTime) * .001;
-      createAndNotify(timeStamp, Math.random());
+      createAndNotify(getData());
       try {
         Thread.sleep(1000);
       } catch (InterruptedException ex) {
@@ -37,10 +38,10 @@ public class DataGenerator extends Observable implements Runnable {
     }
   }
 
-  private void createAndNotify(double timestampsystem, double s) {
+  private void createAndNotify(Data d) {
                   System.out.println("notifying ...");
-
-    data = new Data(timestampsystem, s);
+    data = d;
+    System.out.println(data.toString());
     setChanged();
     notifyObservers();
   }

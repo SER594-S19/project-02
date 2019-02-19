@@ -1,6 +1,7 @@
 package Client;
-
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
@@ -10,25 +11,28 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
+public class ClientEyeTracker extends JFrame implements Observer, ActionListener {
 
-public class ClientDemo extends JFrame implements Observer, ActionListener {
-
-  private final Subscriber  [] subscriber = new Subscriber[2];
+  private final Subscriber subscriber;
   private final ExecutorService service;
-  private JTextArea textArea = new JTextArea();
-  private JButton buttonConnect = new JButton("connect");
+  private JTextArea textArea = new JTextArea("This is Text Area");
+  private JButton buttonConnect = new JButton("CONNECT FOR EYE TRACKING");
+  private JLabel label = new JLabel("EYE TRACKING CLIENT");
   
-  public ClientDemo() {
+  public ClientEyeTracker() {
 
     service = Executors.newCachedThreadPool();
-    
-    // TO TEST, RUN TWO SERVERS IN PORTS 1594 and 1595
-    
-    subscriber[0] = new Subscriber("localhost", 1594);
-    subscriber[1] = new Subscriber("localhost", 1595);
-    
+    subscriber = new Subscriber("localhost", 1594);
     setLayout(new BorderLayout());
+    label.setBounds(100,100,100,100);  
+	label.setForeground(Color.DARK_GRAY); 
+	label.setFont(new Font("Courier",Font.BOLD, 41));
+	buttonConnect.setBackground(Color.CYAN);
+	buttonConnect.setFont(new Font("Courier",Font.BOLD, 20));	
+	add(label, BorderLayout.NORTH);
     add(textArea, BorderLayout.CENTER);  
     add(buttonConnect, BorderLayout.SOUTH);  
     buttonConnect.addActionListener(this);
@@ -46,13 +50,11 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
 
   private void close() {
     System.out.println("clossing ....... +++++++");
-    subscriber[0].stop();
-    subscriber[1].stop();
+    subscriber.stop();
   }
   
     private void shutdown() {
-    subscriber[0].stop();
-    subscriber[1].stop();
+    subscriber.stop();
     service.shutdown();
     try {
       if (!service.awaitTermination(10, TimeUnit.SECONDS)) {
@@ -75,17 +77,16 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
   }
 
   public static void main(String[] args) {
-    ClientDemo tester = new ClientDemo();
+	  ClientEyeTracker tester = new ClientEyeTracker();
      
   }
 
   @Override
   public void actionPerformed(ActionEvent e) {
-    buttonConnect.setEnabled(false);
-    service.submit(subscriber[0]);
-    subscriber[0].addObserver(this); 
-
-    service.submit(subscriber[1]);
-    subscriber[1].addObserver(this);     
-  }
+	  if (e.getSource() == buttonConnect) {
+		  JOptionPane.showMessageDialog(null,"Port Connecting");
+		    service.submit(subscriber);
+		    subscriber.addObserver(this);
+	  }
+}
 }
