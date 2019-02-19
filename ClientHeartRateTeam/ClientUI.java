@@ -18,6 +18,8 @@ public class ClientUI extends JPanel {
 
     private static ClientUI instance = null;
     private List<UIElement> simulators = new ArrayList<>();
+    
+    String[] colors= {"#0d3d56","#1e4b63","#335a70","#4a6b7c","#687e8f"};
 
     // Method used to get instance of the Client UI class
     private static ClientUI getInstance() {
@@ -33,7 +35,7 @@ public class ClientUI extends JPanel {
         this.setLayout(new GridLayout(5, 1));
 
         for(int i=0 ;i<5;i++) {
-            UIElement uiElement = new UIElement(new ClientSubscriber("",-1));
+            UIElement uiElement = new UIElement(new ClientSubscriber("",-1),colors[i]);
             simulators.add(uiElement);
             this.add(uiElement);
         }

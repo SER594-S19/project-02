@@ -1,6 +1,11 @@
 package ClientHeartRateTeam;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
@@ -9,7 +14,16 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.regex.Pattern;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.JTextPane;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 /**
  * This class is used to create a UI element in the client frame
@@ -18,7 +32,7 @@ import javax.swing.*;
  *
  */
 
-public class UIElement extends JPanel implements Observer, ActionListener{
+public class UIElement extends JPanel implements Observer, ActionListener {
 
 	private ClientSubscriber subscriber;
 	private final ExecutorService service;
@@ -29,12 +43,15 @@ public class UIElement extends JPanel implements Observer, ActionListener{
 	static private final String IPV4_REGEX = "(([0-1]?[0-9]{1,2}\\.)|(2[0-4][0-9]\\.)|(25[0-5]\\.)){3}(([0-1]?[0-9]{1,2})|(2[0-4][0-9])|(25[0-5]))";
 	static private Pattern IPV4_PATTERN = Pattern.compile(IPV4_REGEX);
 
+	
+	
+
+
 	// Constructor for UI element present in client frame
-	UIElement(ClientSubscriber subscriber) {
+	UIElement(ClientSubscriber subscriber, String color) {
 
 		service = Executors.newCachedThreadPool();
-
-		this.setBackground(Color.WHITE);
+		this.setBackground(Color.decode(color));
 		this.setLayout(new FlowLayout());
 		this.add(createMainPanel());
 		this.add(createRightButtonGroup());
@@ -43,9 +60,8 @@ public class UIElement extends JPanel implements Observer, ActionListener{
 	}
 
 	// Method used to validate the IP
-	public static boolean isValidIPV4(final String s)
-	{
-		if(s.equals("localhost") || s.equals("LOCALHOST"))
+	public static boolean isValidIPV4(final String s) {
+		if (s.equals("localhost") || s.equals("LOCALHOST"))
 			return true;
 		else {
 			return IPV4_PATTERN.matcher(s).matches();
@@ -68,13 +84,14 @@ public class UIElement extends JPanel implements Observer, ActionListener{
 		buttons.setBackground(Color.WHITE);
 
 		this.ipAddress.setText("localhost");
-		this.port.setText("PORT");
+		this.port.setText("port");
 		this.connect.setText("Connect");
 
 		buttons.add(ipAddress);
 		buttons.add(port);
 		buttons.add(connect);
 		buttons.setLayout(new GridLayout(3, 1));
+		buttons.setOpaque(false);
 
 		connect.setPreferredSize(new Dimension(100, 20));
 		connect.addActionListener(this);
@@ -86,11 +103,17 @@ public class UIElement extends JPanel implements Observer, ActionListener{
 	private Component createMainPanel() {
 		JPanel panel = new JPanel(new GridLayout());
 		panel.setPreferredSize(new Dimension(400, 150));
-		panel.setBackground(Color.WHITE);
+		panel.setBackground(Color.decode("#7d7d7d"));
+		panel.setOpaque(false);
 
 		this.dataPane.setFont(new Font("Tahoma", Font.BOLD, 12));
+		this.dataPane.setForeground(Color.BLUE);
+		
+		//this.dataPane.setCaretColor(Color.decode("#030303"));
+		this.dataPane.setBackground(Color.decode("#c0e0f0"));
 		this.dataPane.setEnabled(false);
 		this.dataPane.setEditable(true);
+		//this.dataPane.
 
 		JScrollPane scrollPane = new JScrollPane(this.dataPane);
 		panel.add(scrollPane);
@@ -115,7 +138,7 @@ public class UIElement extends JPanel implements Observer, ActionListener{
 	// Method used for action listeners
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(connect.getText().equals("Connect")) {
+		if (connect.getText().equals("Connect")) {
 
 			if (!isValidIPV4(ipAddress.getText())) {
 				JOptionPane.showMessageDialog(new JPanel(), "Invalid IP", "Error", JOptionPane.ERROR_MESSAGE);
@@ -133,12 +156,16 @@ public class UIElement extends JPanel implements Observer, ActionListener{
 			subscriber.setPort(Integer.parseInt(port.getText()));
 			service.submit(subscriber);
 			subscriber.addObserver(this);
-			//JOptionPane.showMessageDialog(new JPanel(), "Connected to "+ ipAddress.getText() + " on PORT: "+ port.getText(), "Information", JOptionPane.INFORMATION_MESSAGE);
+			// JOptionPane.showMessageDialog(new JPanel(), "Connected to "+
+			// ipAddress.getText() + " on PORT: "+ port.getText(), "Information",
+			// JOptionPane.INFORMATION_MESSAGE);
 
 		} else {
 			close();
 			connect.setText("Connect");
-			//JOptionPane.showMessageDialog(new JPanel(), "Not connected to "+ ipAddress.getText() + " on PORT: "+ port.getText(), "Error", JOptionPane.ERROR_MESSAGE);
+			// JOptionPane.showMessageDialog(new JPanel(), "Not connected to "+
+			// ipAddress.getText() + " on PORT: "+ port.getText(), "Error",
+			// JOptionPane.ERROR_MESSAGE);
 		}
 	}
 
@@ -153,12 +180,13 @@ public class UIElement extends JPanel implements Observer, ActionListener{
 			connect.setText("Connect");
 			if (data.compareTo("STOPPED") == 0)
 				JOptionPane.showMessageDialog(new JPanel(), "Server Stopped", "Error", JOptionPane.ERROR_MESSAGE);
-			dataPane.setText("CSV file generated");
+			dataPane.setText("CSV file generated in spruce directory.");
 		} else if (data.compareTo("FAIL") == 0) {
 			JOptionPane.showMessageDialog(new JPanel(), "Connection Fail", "Error", JOptionPane.ERROR_MESSAGE);
 			connect.setText("Connect");
 		} else {
 			dataPane.setText(dataPane.getText() + "\n" + data);
+			dataPane.setForeground(Color.BLACK);
 			this.getParent().revalidate();
 			this.getParent().repaint();
 		}
