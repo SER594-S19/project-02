@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -57,6 +58,7 @@ public class Gui extends JPanel implements ActionListener {
 	HashMap<String, Integer> listOfExpressions = new HashMap<>();
 	ArrayList<Double> arrayList = new ArrayList<Double>();
 	JSlider slider;
+	DecimalFormat one = new DecimalFormat("#0.0");
 
 	private Eye leftOfEye = new Eye(300 - 50, 100, 50, 20);
 	private Eye rightOfEye = new Eye(300 + 58, 100, 50, 20);
@@ -88,13 +90,20 @@ public class Gui extends JPanel implements ActionListener {
 	public JLabel label(String name, int x_axis, int y_axis) {
 		JLabel label = new JLabel(name);
 		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setBounds(x_axis, y_axis, 100, 25);
+		label.setBounds(x_axis, y_axis, 135, 25);
 		return label;
 	}
 
 	public JSlider addSlider(JLabel labelNum, int x_axis, int y_axis, int val) {
-		JSlider slider = new JSlider();
-		slider.setBounds(x_axis, y_axis, 120, 50);
+		JSlider slider = new JSlider(0, 10, 5);
+		slider.setMajorTickSpacing(5);  
+		java.util.Hashtable<Integer,JLabel> labelTable = new java.util.Hashtable<Integer,JLabel>();
+		labelTable.put(new Integer(0), new JLabel("0"));
+	    labelTable.put(new Integer(5), new JLabel("0.5"));
+	    labelTable.put(new Integer(10), new JLabel("1"));
+	    slider.setLabelTable( labelTable );
+		slider.setPaintLabels(true);  
+		slider.setBounds(x_axis, y_axis, 180, 50);
 		slider.setMaximum(10);
 		slider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
@@ -108,6 +117,27 @@ public class Gui extends JPanel implements ActionListener {
 				labelNum.setVisible(true);
 				labelNum.setBounds(x_axis + 116, y_axis + 10, 40, 30);
 				arrayList.set(5, value);
+			}
+		});
+		return slider;
+	}
+	
+	public JSlider addSlider_2(JLabel labelNum, int x_axis, int y_axis, int val) {
+		JSlider slider = new JSlider(0, 10, 5); 
+		slider.setMajorTickSpacing(5);  
+		java.util.Hashtable<Integer,JLabel> labelTable = new java.util.Hashtable<Integer,JLabel>();
+		labelTable.put(new Integer(0), new JLabel("0"));
+	    labelTable.put(new Integer(5), new JLabel("0.5"));
+	    labelTable.put(new Integer(10), new JLabel("1"));
+	    slider.setLabelTable( labelTable );
+		slider.setPaintLabels(true);  
+		slider.setBounds(x_axis, y_axis, 180, 50);
+		slider.setMaximum(10);
+		slider.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				double value = ((JSlider) e.getSource()).getValue() * 0.1;
+				labelNum.setText(String.valueOf(one.format(value)));
+				
 			}
 		});
 		return slider;
@@ -203,19 +233,19 @@ public class Gui extends JPanel implements ActionListener {
     expressive_cont.setBounds(334, 28, 339, 497);
     expressive_cont.setLayout(null);
     
-    JLabel lblLeftSmirk = label("Left Smirk", 16, 25);
+    JLabel lblLeftSmirk = label("Left Smirk", 0, 25);
     expressive_cont.add(lblLeftSmirk);
-    JLabel lblRightSmirk = label("Right Smirk", 16, 61);
+    JLabel lblRightSmirk = label("Right Smirk", 0, 61);
     expressive_cont.add(lblRightSmirk);
-    JLabel lblRaiseBurrow = label("Raise Brow", 16, 97);
+    JLabel lblRaiseBurrow = label("Raise Brow", 0, 97);
     expressive_cont.add(lblRaiseBurrow);
-    JLabel lblFurrowBrow = label("Furrow Brow", 16, 137);
+    JLabel lblFurrowBrow = label("Furrow Brow", 0, 137);
     expressive_cont.add(lblFurrowBrow);
-    JLabel lblSmile = label("Smile", 16, 173);
+    JLabel lblSmile = label("Smile", 0, 173);
     expressive_cont.add(lblSmile);
-    JLabel lblLaugh = label("Laugh", 16, 209);
+    JLabel lblLaugh = label("Laugh", 0, 209);
     expressive_cont.add(lblLaugh);
-    JLabel lblClench = label("Clench", 16, 243);
+    JLabel lblClench = label("Clench", 0, 243);
     expressive_cont.add(lblClench);
     
     JLabel num = label("",215, 25);
@@ -271,45 +301,47 @@ public class Gui extends JPanel implements ActionListener {
     affective.setLayout(null);
     setBorder(BorderFactory.createEmptyBorder(15,15,15,15));  
     
-    JLabel engage = label("Engagement", 16, 40);
+    JLabel engage = label("Engagement", 16, 35);
     affective.add(engage);
-    JLabel sExcite = label("Short Term Excitement", 16, 75);
+    JLabel sExcite = label("Short Term Excitement", 16, 80);
     affective.add(sExcite);
-    JLabel lExcite = label("Long Term Excitement", 16, 110);
+    JLabel lExcite = label("Long Term Excitement", 16, 125);
     affective.add(lExcite);
-    JLabel med = label("Meditation", 16, 145);
+    JLabel med = label("Meditation", 16, 170);
     affective.add(med);
-    JLabel fru = label("Frustration", 16, 180);
+    JLabel fru = label("Frustration", 16, 215);
     affective.add(fru);
+  
+    JLabel lbl_en = label("0.5", 280, 35);
+    affective.add(lbl_en);
+    JLabel lbl_st = label("0.5", 280, 80);
+    affective.add(lbl_st);
+    JLabel lbl_lt = label("0.5", 280, 125);
+    affective.add(lbl_lt);
+    JLabel lbl_me = label("0.5", 280, 170);
+    affective.add(lbl_me);
+    JLabel lbl_frus = label("0.5", 280, 215);
+    affective.add(lbl_frus);
     
-    JRadioButton radioButtonEngage = radio_button(engageIcon, 40);
-    radioButtonEngage.setActionCommand(engageIcon);
-    JRadioButton radioButtonST = radio_button(shortTermIcon, 75);
-    radioButtonST.setActionCommand(shortTermIcon);
-    JRadioButton radioButtonLT = radio_button(longTermIcon, 110);
-    radioButtonLT.setActionCommand(longTermIcon);
-    JRadioButton radioButtonMed = radio_button(meditateIcon, 145);
-    radioButtonMed.setActionCommand(meditateIcon);
-    JRadioButton radioButtonFrus = radio_button(frustrateIcon, 180);
-    radioButtonFrus.setActionCommand(frustrateIcon);
-    affective.add(radioButtonEngage);
-    affective.add(radioButtonST);
-    affective.add(radioButtonLT);
-    affective.add(radioButtonMed);
-    affective.add(radioButtonFrus);
+    JSlider slider_en = addSlider_2(lbl_en, 150, 30, 10);
+    JSlider slider_st = addSlider_2(lbl_st, 150, 75, 11);
+    JSlider slider_lt = addSlider_2(lbl_lt, 150, 120, 12);
+    JSlider slider_me = addSlider_2(lbl_me, 150, 165, 13);
+    JSlider slider_frus = addSlider_2(lbl_frus, 150, 210, 14);
     
-    ButtonGroup group = new ButtonGroup();
-    group.add(radioButtonEngage);
-    group.add(radioButtonST);
-    group.add(radioButtonLT);
-    group.add(radioButtonMed);
-    group.add(radioButtonFrus);
+    affective.add(slider_en);
+    affective.add(slider_st);
+    affective.add(slider_lt);    
+    affective.add(slider_me);
+    affective.add(slider_frus);
     
-    radioButtonEngage.addActionListener(this);
-	radioButtonST.addActionListener(this);
-	radioButtonLT.addActionListener(this);
-	radioButtonMed.addActionListener(this);
-	radioButtonFrus.addActionListener(this);  
+    expressive_cont.add(slider);
+    expressive_cont.add(slider_1);
+    expressive_cont.add(slider_2);    
+    expressive_cont.add(slider_3);
+    expressive_cont.add(slider_4);
+    expressive_cont.add(slider_5);
+    expressive_cont.add(slider_6);
 
 	gifIcon = new JLabel(createImageIcon("" + ".gif"));
 	gifIcon.setBounds(197, 30, 280, 200);
@@ -463,7 +495,7 @@ public class Gui extends JPanel implements ActionListener {
 	}
 
 	public static void main(String[] args) {
-		JFrame frame = new JFrame("Simulator");
+		JFrame frame = new JFrame("Simulator11");
 		frame.setLayout(new GridLayout(1, 1));
 		frame.add(new Gui());
 		frame.addWindowListener(new java.awt.event.WindowAdapter() {
