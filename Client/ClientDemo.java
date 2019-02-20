@@ -10,6 +10,8 @@ import java.util.Observer;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 public class ClientDemo extends JFrame implements Observer, ActionListener {
 
@@ -98,20 +100,39 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     panel.add(filler1);
     panel.add(spinner);
     panel.add(buttonConnect1);
+    
+    ipFace = textField.getText();
+    port_face = spinner.getValue().toString();
+    subscriber[0] = new Subscriber(ipFace, Integer.parseInt(port_face));
+    Client.ClientDemo.port_panel_mapping.put(Integer.parseInt(port_face), "textPanel1");
+    
+    spinner.addChangeListener(new ChangeListener() {
+        @Override
+        public void stateChanged(ChangeEvent e) {
+            JSpinner spinner = (JSpinner) e.getSource();
+            ipFace = textField.getText();
+            port_face = spinner.getValue().toString();
+            subscriber[0] = new Subscriber(ipFace, Integer.parseInt(port_face));
+            Client.ClientDemo.port_panel_mapping.put(Integer.parseInt(port_face), "textPanel1");
+            System.out.println("New port is " + port_face);
+        }
+    });
+    
     buttonConnect1.addActionListener(this);
 
-    buttonConnect1.addActionListener(new ActionListener() {
+    /*buttonConnect1.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
         ipFace = textField.getText();
         port_face = spinner.getValue().toString();
+        subscriber[0] = new Subscriber(ipFace, Integer.parseInt(port_face));
         Client.ClientDemo.port_panel_mapping.put(Integer.parseInt(port_face), "textPanel1");
         // To add for loop to connect other ports.
 
         subscriber[0] = new Subscriber(ipFace, Integer.parseInt(port_face));
 
       }
-    });
+    });*/
     addWindowListener(new java.awt.event.WindowAdapter() {
       @Override
       public void windowClosing(java.awt.event.WindowEvent e) {
@@ -142,9 +163,28 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     panel.add(filler1);
     panel.add(spinner);
     panel.add(buttonConnect2);
+    
+    port_eyes = spinner.getValue().toString();
+    ipEyes = textField.getText();
+    subscriber[1] = new Subscriber(ipEyes, Integer.parseInt(port_eyes));
+    Client.ClientDemo.port_panel_mapping.put(Integer.parseInt(port_eyes), "textPanel2");
+    
+    
+    spinner.addChangeListener(new ChangeListener() {
+        @Override
+        public void stateChanged(ChangeEvent e) {
+            JSpinner spinner = (JSpinner) e.getSource();
+            port_eyes = spinner.getValue().toString();
+            ipEyes = textField.getText();
+            subscriber[1] = new Subscriber(ipEyes, Integer.parseInt(port_eyes));
+            Client.ClientDemo.port_panel_mapping.put(Integer.parseInt(port_eyes), "textPanel2");
+            System.out.println("New port is " + port_eyes);
+        }
+    });
+    
     buttonConnect2.addActionListener(this);
 
-    buttonConnect2.addActionListener(new ActionListener() {
+    /*buttonConnect2.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
         ipEyes = textField.getText();
@@ -152,7 +192,7 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
         subscriber[1] = new Subscriber(ipEyes, Integer.parseInt(port_eyes));
         Client.ClientDemo.port_panel_mapping.put(Integer.parseInt(port_eyes), "textPanel2");
       }
-    });
+    });*/
     addWindowListener(new java.awt.event.WindowAdapter() {
       @Override
       public void windowClosing(java.awt.event.WindowEvent e) {
@@ -183,8 +223,29 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     panel.add(filler1);
     panel.add(spinner);
     panel.add(buttonConnect3);
+    
+    ipSkin = textField.getText();
+    port_skin = spinner.getValue().toString();
+    subscriber[2] = new Subscriber(ipSkin, Integer.parseInt(port_skin));
+    Client.ClientDemo.port_panel_mapping.put(Integer.parseInt(port_skin), "textPanel3");
+    
+    spinner.addChangeListener(new ChangeListener() {
+        @Override
+        public void stateChanged(ChangeEvent e) {
+            JSpinner spinner = (JSpinner) e.getSource();
+            ipSkin = textField.getText();
+            port_skin = spinner.getValue().toString();
+            subscriber[2] = new Subscriber(ipSkin, Integer.parseInt(port_skin));
+            Client.ClientDemo.port_panel_mapping.put(Integer.parseInt(port_skin), "textPanel3");
+            System.out.println("New port is " + port_skin);
+        }
+    });
+    
+    
     buttonConnect3.addActionListener(this);
-    buttonConnect3.addActionListener(new ActionListener() {
+    
+    
+    /*buttonConnect3.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
         ipSkin = textField.getText();
@@ -192,7 +253,7 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
         subscriber[2] = new Subscriber(ipSkin, Integer.parseInt(port_skin));
         Client.ClientDemo.port_panel_mapping.put(Integer.parseInt(port_skin), "textPanel3");
       }
-    });
+    });*/
     addWindowListener(new java.awt.event.WindowAdapter() {
       @Override
       public void windowClosing(java.awt.event.WindowEvent e) {
@@ -223,8 +284,26 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     panel.add(filler1);
     panel.add(spinner);
     panel.add(buttonConnect4);
+    
+    ipHeart = textField.getText();
+    port_heart =spinner.getValue().toString();
+    subscriber[3] = new Subscriber(ipHeart, Integer.parseInt(port_heart));
+    Client.ClientDemo.port_panel_mapping.put(Integer.parseInt(port_heart), "textPanel4");
+    
+    spinner.addChangeListener(new ChangeListener() {
+        @Override
+        public void stateChanged(ChangeEvent e) {
+            JSpinner spinner = (JSpinner) e.getSource();
+            ipHeart = textField.getText();
+            port_heart =spinner.getValue().toString();
+            subscriber[3] = new Subscriber(ipHeart, Integer.parseInt(port_heart));
+            Client.ClientDemo.port_panel_mapping.put(Integer.parseInt(port_heart), "textPanel4");
+            System.out.println("New port is " + port_heart);
+        }
+    });
+    
     buttonConnect4.addActionListener(this);
-    buttonConnect4.addActionListener(new ActionListener() {
+    /*buttonConnect4.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
         ipHeart = textField.getText();
@@ -232,7 +311,7 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
         subscriber[3] = new Subscriber(ipHeart, Integer.parseInt(port_heart));
         Client.ClientDemo.port_panel_mapping.put(Integer.parseInt(port_heart), "textPanel4");
       }
-    });
+    });*/
     addWindowListener(new java.awt.event.WindowAdapter() {
       @Override
       public void windowClosing(java.awt.event.WindowEvent e) {
@@ -266,8 +345,28 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     panel.add(filler1);
     panel.add(spinner);
     panel.add(buttonConnect5);
+    
+    ipBCI = textField.getText();
+    port_bci = spinner.getValue().toString();
+    subscriber[4] = new Subscriber(ipBCI, Integer.parseInt(port_bci));
+    Client.ClientDemo.port_panel_mapping.put(Integer.parseInt(port_bci), "textPanel5");
+    
+    spinner.addChangeListener(new ChangeListener() {
+        @Override
+        public void stateChanged(ChangeEvent e) {
+            JSpinner spinner = (JSpinner) e.getSource();
+            ipBCI = textField.getText();
+            port_bci = spinner.getValue().toString();
+            subscriber[4] = new Subscriber(ipBCI, Integer.parseInt(port_bci));
+            Client.ClientDemo.port_panel_mapping.put(Integer.parseInt(port_bci), "textPanel5");
+            System.out.println("New port is " + port_bci);
+        }
+    });
+    
     buttonConnect5.addActionListener(this);
-    buttonConnect5.addActionListener(new ActionListener() {
+    
+    
+    /*buttonConnect5.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
         ipBCI = textField.getText();
@@ -275,7 +374,7 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
         subscriber[4] = new Subscriber(ipBCI, Integer.parseInt(port_bci));
         Client.ClientDemo.port_panel_mapping.put(Integer.parseInt(port_bci), "textPanel5");
       }
-    });
+    });*/
     addWindowListener(new java.awt.event.WindowAdapter() {
       @Override
       public void windowClosing(java.awt.event.WindowEvent e) {
@@ -469,16 +568,6 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
 
 
   }
-  
-
-  
-
-	  
-//	String  name = ((JComponent) e.getSource()).getName();
-//	
-//	String buttonobj = "buttonConnect"+name;
-//	String connect_status = "connect_status"+name;
-//  }
   
   
 }
