@@ -22,11 +22,11 @@ public class MainClient extends JFrame implements ActionListener {
 
 	public static void main(String[] args) {
 		MainClient tester = new MainClient();
-		HeartClient heart = new HeartClient();
-		SkinClient skin = new SkinClient();
-		BCIClient bci = new BCIClient();
-		EyeClient eye = new EyeClient();
-		FaceClient face = new FaceClient();
+		HeartClient heart = new HeartClient(new Subscriber("", -1));
+		SkinClient skin = new SkinClient(new Subscriber("", -1));
+		BCIClient bci = new BCIClient(new Subscriber("", -1));
+		EyeClient eye = new EyeClient(new Subscriber("", -1));
+		FaceClient face = new FaceClient(new Subscriber("", -1));
 		client.setBounds(0, 0, 600, 600);
 		client.addTab("Heart", heart.processPanelHeart("Heart"));
 		client.addTab("Skin", skin.processPanelSkin("Skin"));

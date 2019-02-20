@@ -14,13 +14,15 @@ import java.util.regex.Pattern;
 import javax.swing.*;
 import javax.swing.border.Border;
 
-public class EyeClient extends JPanel implements ActionListener {
+public class EyeClient extends JPanel implements Observer,ActionListener {
 	private JTextArea textArea = new JTextArea();
 	private JButton connect = new JButton("Connect");
 	private JTextField eyeIp = new JTextField();
 	private JTextField eyePort = new JTextField();
 	private Border border = BorderFactory.createLineBorder(Color.BLACK);
-
+	private Subscriber subscriber;
+	private ExecutorService service;
+	
 	private Pattern pattern;
 	private Matcher matcher;
 	private static final String PORT_PATTERN = "[0-9]+";
@@ -28,6 +30,12 @@ public class EyeClient extends JPanel implements ActionListener {
 			+ "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."
 			+ "([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
 
+	public EyeClient(Subscriber subscriber) {
+		// TODO Auto-generated constructor stub
+		service = Executors.newCachedThreadPool();
+		this.subscriber = subscriber;
+	}
+	
 	public void IPAddressValidator() {
 		pattern = Pattern.compile(IPADDRESS_PATTERN);
 	}
@@ -49,6 +57,14 @@ public class EyeClient extends JPanel implements ActionListener {
 		Pattern patternPort = Pattern.compile(PORT_PATTERN);
 		matcher = patternPort.matcher(port);
 		return matcher.matches();
+	}
+	
+	public ExecutorService getService() {
+		return service;
+	}
+
+	public Subscriber getSubscriber() {
+		return subscriber;
 	}
 
 	public JPanel processPanelEye(String lableName) {
@@ -111,7 +127,8 @@ public class EyeClient extends JPanel implements ActionListener {
 	}
 
 	public void close() {
-
+		System.out.println("Closing...");
+		subscriber.stop();
 	}
 
 	public static void setWarningMsg(String text) {

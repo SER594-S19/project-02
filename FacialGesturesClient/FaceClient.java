@@ -8,6 +8,9 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
+import java.util.Observer;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,8 +26,11 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.Border;
 
-public class FaceClient extends JPanel implements ActionListener {
+public class FaceClient extends JPanel implements Observer,ActionListener {
 	private JTextArea textArea = new JTextArea();
+	private Subscriber subscriber;
+	private ExecutorService service;
+	
 	private JButton connect = new JButton("Connect");
 	private JTextField faceIp = new JTextField();
 	private JTextField facePort = new JTextField();
@@ -36,6 +42,12 @@ public class FaceClient extends JPanel implements ActionListener {
 	private static final String IPADDRESS_PATTERN = "^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."
 			+ "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."
 			+ "([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
+	
+	public FaceClient(Subscriber subscriber) {
+		// TODO Auto-generated constructor stub
+		service = Executors.newCachedThreadPool();
+		this.subscriber = subscriber;
+	}
 
 	public void IPAddressValidator() {
 		pattern = Pattern.compile(IPADDRESS_PATTERN);
@@ -60,6 +72,15 @@ public class FaceClient extends JPanel implements ActionListener {
 		return matcher.matches();
 	}
 
+	public ExecutorService getService() {
+		return service;
+	}
+
+	public Subscriber getSubscriber() {
+		return subscriber;
+	}
+
+	
 	public JPanel processPanelFace(String lableName) {
 
 		JPanel jLabel = new JPanel();
@@ -121,7 +142,8 @@ public class FaceClient extends JPanel implements ActionListener {
 	}
 
 	public void close() {
-
+		System.out.println("Closing...");
+		subscriber.stop();
 	}
 
 	public static void setWarningMsg(String text) {

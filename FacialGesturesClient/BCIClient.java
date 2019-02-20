@@ -8,6 +8,9 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Observable;
+import java.util.Observer;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,13 +26,15 @@ import javax.swing.JTextField;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.Border;
 
-public class BCIClient extends JPanel implements ActionListener{
+public class BCIClient extends JPanel implements Observer,ActionListener{
 	private JTextArea textArea = new JTextArea();
 	  private JButton connect = new JButton("Connect");
 	  private JTextField bciIp = new JTextField();
 	  private JTextField bciPort = new JTextField();
 	  private Border border = BorderFactory.createLineBorder(Color.BLACK);
-	  
+	  private Subscriber subscriber;
+	  private ExecutorService service;
+		
 	  private Pattern pattern;
 	    private Matcher matcher;
 	    private static final String PORT_PATTERN = "[0-9]+";
@@ -39,6 +44,12 @@ public class BCIClient extends JPanel implements ActionListener{
 			"([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
 			"([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
 			"([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
+	    
+	    public BCIClient(Subscriber subscriber) {
+			// TODO Auto-generated constructor stub
+	    	service = Executors.newCachedThreadPool();
+			this.subscriber = subscriber;
+		}
 		  
 	    public void IPAddressValidator(){
 		  pattern = Pattern.compile(IPADDRESS_PATTERN);
@@ -60,6 +71,14 @@ public class BCIClient extends JPanel implements ActionListener{
 	    	matcher = patternPort.matcher(port);
 	    	return matcher.matches();
 	    }
+	    
+	    public ExecutorService getService() {
+			return service;
+		}
+
+		public Subscriber getSubscriber() {
+			return subscriber;
+		}
 	  
 	  public JPanel processPanelBCI(String lableName) {
 
@@ -124,7 +143,8 @@ public class BCIClient extends JPanel implements ActionListener{
 		  }
 
 	  public void close() {
-		  
+		  System.out.println("Closing...");
+			subscriber.stop();
 	  }
 	  
 	  public static void setWarningMsg(String text){
