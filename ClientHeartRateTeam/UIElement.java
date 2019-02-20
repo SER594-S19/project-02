@@ -141,12 +141,12 @@ public class UIElement extends JPanel implements Observer, ActionListener {
 		if (connect.getText().equals("Connect")) {
 
 			if (!isValidIPV4(ipAddress.getText())) {
-				JOptionPane.showMessageDialog(new JPanel(), "Invalid IP", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(new JPanel(), "Invalid IP. Please enter valid value to continue.", "Error", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 
 			if (!isPortValid()) {
-				JOptionPane.showMessageDialog(new JPanel(), "Invalid PORT", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(new JPanel(), "Invalid Port. Please enter valid value to continue.", "Error", JOptionPane.ERROR_MESSAGE);
 				return;
 			}
 
