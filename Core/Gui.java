@@ -45,7 +45,7 @@ private static Model model;
   private final int PORT = 1594;
   protected JLabel labelPublishPort;
   private final static JButton buttonConnect = new JButton("Connect");
-  static JFrame frame = new JFrame("Simulator");
+  static JFrame frame = new JFrame("Face Simulator");
   static AlphaPanel[] ip = new AlphaPanel[6];
   Dimension screen;
   static Box outerBox;
@@ -58,7 +58,7 @@ private void createPanelSouth() {
 
 	  
 
-	    portNumber.setBackground(new Color(51,204,255));
+	    portNumber.setBackground(new Color(192,192,192));
 	    JLabel temp = new JLabel("  Publishing at port: ");
 	    System.out.println(frame.getHeight());
 	    System.out.println(frame.getWidth());
@@ -67,7 +67,7 @@ private void createPanelSouth() {
 	    labelPublishPort = new JLabel("" + PORT);
 	    labelPublishPort.setFont(new Font("Serif", Font.PLAIN, 30));
 	    portNumber.add(labelPublishPort);
-	    portNumber.setPreferredSize(new Dimension(500, 50));
+	    portNumber.setPreferredSize(new Dimension(frame.getWidth()/3, frame.getHeight()/11));
 	    portNumber.setMaximumSize(portNumber.getPreferredSize()); 
 	    portNumber.setMinimumSize(portNumber.getPreferredSize());
 	    Container content = frame.getContentPane();
@@ -83,7 +83,7 @@ private void createPanelSouth() {
 	    
 	    for(int i = 0; i < emotions.length; i++) {
 	    	labels[i] = new JLabel(emotions[i]);
-		    labels[i].setFont(new Font("Serif", Font.PLAIN, 30));
+		    labels[i].setFont(new Font("Serif", Font.BOLD, 15));
 		    labels[i].setHorizontalAlignment(JLabel.CENTER);
 	    }
 	    
@@ -92,7 +92,7 @@ private void createPanelSouth() {
 			slider[i] = new JSlider(0, 10, 5);
 			slider[i].setMajorTickSpacing(1);
 			slider[i].setPaintTicks(true);
-			slider[i].setSize(800,400);
+			//slider[i].setSize(frame.getWidth()/2, frame.getHeight()/2);
 			slider[i].setPaintLabels(true);
 			slider[i].setForeground(Color.BLUE);
 			slider[i].setBackground(new Color(204,204,204));
@@ -107,18 +107,22 @@ private void createPanelSouth() {
 	    	
 	    	constraints.gridx = 0;
 	    	constraints.gridy = t;
-	    	constraints.gridwidth = 1;
+	    	constraints.gridwidth = 2;
 	    	constraints.gridheight = 1;
 	        //ip[i].setPreferredSize(new Dimension(100, 100));
-		    constraints.insets = new Insets(50,30,0,0);
+		    constraints.insets = new Insets(0,30,0,0);
 		   
-	    	constraints.gridwidth = 1;
+	    	constraints.gridwidth = 2;
+	    	constraints.fill = GridBagConstraints.HORIZONTAL;
+	    	constraints.anchor = GridBagConstraints.NORTH;
+	    	content.add(labels[i],constraints);
+	    	
+	    	constraints.insets = new Insets(10,30,0,0);
+			   
 	    	constraints.fill = GridBagConstraints.HORIZONTAL;
 	    	constraints.anchor = GridBagConstraints.CENTER;
 	    	content.add(slider[i],constraints);
-	    	constraints.anchor = GridBagConstraints.NORTH;
-	    	 constraints.fill = GridBagConstraints.HORIZONTAL;
-		     content.add(labels[i],constraints);
+	    	
 	    	//constraints.gridy = 2*t+1;
 	    	
 	    	
@@ -141,29 +145,31 @@ private void createPanelSouth() {
 	      constraints.gridx = 1;
 	      constraints.weightx = 1;
 	      constraints.weighty = 1;
-	      constraints.insets = new Insets(50,100,0,0);
+	     constraints.insets = new Insets(0,50,0,0);
 		    //content.add(ip,constraints);
 		    for(int i=0;i<6;i++) {
 		    	//constraints.insets = new Insets(-300+(i*150), 100, 0, 0);
 		    	constraints.anchor = GridBagConstraints.CENTER;
-		    	 constraints.gridx = 3;
+		    	 constraints.gridx = 2;
 		    	 constraints.gridy = i;
 		        //ip[i].setPreferredSize(new Dimension(100, 100));
 		    	content.add(ip[i],constraints);
 		    }
 //		    
 
+		     constraints.gridx = 0;
+		      constraints.gridy = 6; 
+		      constraints.insets = new Insets(0,100,0,50);
+			    content.add(buttonConnect, constraints);
+			    buttonConnect.setPreferredSize(new Dimension(200, 50));
 	      constraints.gridx = 0;
-	      constraints.gridy = 6;   
+	      constraints.gridy = 7;   
 	    	 constraints.fill = GridBagConstraints.HORIZONTAL;
 	      content.add(portNumber, constraints);
-		    buttonConnect.setPreferredSize(new Dimension(200, 100));
+		    
 
 	     // constraints.insets = new Insets(100, -650,-200,-100);
-	      constraints.gridx = 3;
-	      constraints.gridy = 6; 
-	      constraints.insets = new Insets(50,100,0,50);
-		    content.add(buttonConnect, constraints);
+
   }
 
 
@@ -183,7 +189,7 @@ public Gui() {
 //    });
     //frame.setSize(new Dimension(screen.width/2, 3 * screen.height/4));
     //frame.setLocation((screen.width - getSize().width) / 2, (screen.height - getSize().height) / 2);
-    frame.setBounds((screen.width)/5, (screen.height) /7, screen.width/3, 3 * screen.height/4);
+    frame.setBounds(0, 0, screen.width, screen.height);
     //System.out.println(frame.getContentPane().getSize());
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     createPanelSouth();
@@ -275,7 +281,7 @@ class AlphaPanel extends JPanel {
         this.bi = new BufferedImage(
             width, height, BufferedImage.TYPE_INT_ARGB);
         this.bi.createGraphics().drawImage(
-            icon.getImage(), 0, 0, width, height, null);
+            icon.getImage(), 0, 0, width/2, height/2, null);
         rop = new RescaleOp(scales, offsets, null);
     }
 
