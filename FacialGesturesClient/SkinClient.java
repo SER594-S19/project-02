@@ -44,10 +44,10 @@ public class SkinClient extends JPanel implements Observer, ActionListener {
 			+ "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."
 			+ "([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
 	
-	public SkinClient(Subscriber subscriber) {
+	public SkinClient(Subscriber s) {
 		// TODO Auto-generated constructor stub
 		service = Executors.newCachedThreadPool();
-		this.subscriber = subscriber;
+		this.subscriber = s;
 	}
 
 	public void IPAddressValidator() {
@@ -63,6 +63,8 @@ public class SkinClient extends JPanel implements Observer, ActionListener {
 	 */
 	public boolean validate(final String ip) {
 		IPAddressValidator();
+		if(ip.equals("localhost") || ip.equals("LOCALHOST"))
+			  return true;
 		matcher = pattern.matcher(ip);
 		return matcher.matches();
 	}
@@ -157,11 +159,14 @@ public class SkinClient extends JPanel implements Observer, ActionListener {
 			close();
 			connect.setEnabled(true);
 		}
+//		textArea.append(data + "\n");
 	}
 
 	public void close() {
 		System.out.println("Closing...");
+		textArea.append("Connection to the server has been Terminated.." + "\n" );
 		subscriber.stop();
+		connect.setText("Connect");
 	}
 
 	public static void setWarningMsg(String text) {
@@ -176,20 +181,24 @@ public class SkinClient extends JPanel implements Observer, ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 
-		connect.setEnabled(false);
-		service.submit(subscriber);
-		subscriber.addObserver(this);
-
 		if (connect.getText().equals("Connect")) {
 			if (skinIp.getText().equals("") || skinPort.getText().equals("")) {
 				setWarningMsg("Please enter a valid IP Address & Port Number.");
 			} else if (validate(skinIp.getText()) && skinPort.getText().length() == 4
 					&& validatePort(skinPort.getText())) {
+				textArea.append("Connected to the Server." + "\n" );
+				textArea.append("Starting to receive data." + "\n" );
 				connect.setText("Disconnect");
+				subscriber.setIp(skinIp.getText());
+				subscriber.setPort(Integer.parseInt(skinPort.getText()));
+				 service.submit(subscriber);
+				 subscriber.addObserver(this);
 			} else {
 				setWarningMsg("Please enter a valid IP Address & Port Number.");
 			}
 		} else {
+//			close();
+			subscriber.stop();
 			connect.setText("Connect");
 		}
 	}

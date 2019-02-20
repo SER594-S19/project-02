@@ -20,7 +20,23 @@ public class Subscriber extends Observable implements Runnable {
 
   private boolean stop;
   private String Ip;
-  private int port;
+  public String getIp() {
+	return Ip;
+}
+
+public void setIp(String ip) {
+	Ip = ip;
+}
+
+public int getPort() {
+	return port;
+}
+
+public void setPort(int port) {
+	this.port = port;
+}
+
+private int port;
   private String data;
 
   public Subscriber(String Ip, int port) {

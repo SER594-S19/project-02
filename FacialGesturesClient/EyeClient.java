@@ -30,10 +30,10 @@ public class EyeClient extends JPanel implements Observer,ActionListener {
 			+ "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." + "([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\."
 			+ "([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
 
-	public EyeClient(Subscriber subscriber) {
+	public EyeClient(Subscriber s) {
 		// TODO Auto-generated constructor stub
 		service = Executors.newCachedThreadPool();
-		this.subscriber = subscriber;
+		this.subscriber = s;
 	}
 	
 	public void IPAddressValidator() {
@@ -49,12 +49,15 @@ public class EyeClient extends JPanel implements Observer,ActionListener {
 	 */
 	public boolean validate(final String ip) {
 		IPAddressValidator();
+		if(ip.equals("localhost") || ip.equals("LOCALHOST"))
+			  return true;
 		matcher = pattern.matcher(ip);
 		return matcher.matches();
 	}
 
 	public boolean validatePort(String port) {
 		Pattern patternPort = Pattern.compile(PORT_PATTERN);
+		
 		matcher = patternPort.matcher(port);
 		return matcher.matches();
 	}
@@ -124,11 +127,14 @@ public class EyeClient extends JPanel implements Observer,ActionListener {
 			close();
 			connect.setEnabled(true);
 		}
+//		textArea.append(data + "\n");
 	}
 
 	public void close() {
 		System.out.println("Closing...");
+		textArea.append("Connection to the server has been Terminated.." + "\n" );
 		subscriber.stop();
+		connect.setText("Connect");
 	}
 
 	public static void setWarningMsg(String text) {
@@ -147,11 +153,19 @@ public class EyeClient extends JPanel implements Observer,ActionListener {
 				setWarningMsg("Please enter a valid IP Address & Port Number.");
 			} else if (validate(eyeIp.getText()) && eyePort.getText().length() == 4
 					&& validatePort(eyePort.getText())) {
+				textArea.append("Connected to the Server." + "\n" );
+				textArea.append("Starting to receive data." + "\n" );
 				connect.setText("Disconnect");
+				subscriber.setIp(eyeIp.getText());
+				subscriber.setPort(Integer.parseInt(eyePort.getText()));
+				 service.submit(subscriber);
+				 subscriber.addObserver(this);
 			} else {
 				setWarningMsg("Please enter a valid IP Address & Port Number.");
 			}
 		} else {
+//			close();
+			subscriber.stop();
 			connect.setText("Connect");
 		}
 	}

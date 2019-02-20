@@ -44,10 +44,10 @@ public class HeartClient extends JPanel implements Observer,ActionListener {
 
 	private static final String PORT_PATTERN = "[0-9]+";
 	
-	public HeartClient(Subscriber subscriber) {
+	public HeartClient(Subscriber s) {
 		// TODO Auto-generated constructor stub
 		service = Executors.newCachedThreadPool();
-		this.subscriber = subscriber;
+		this.subscriber = s;
 	}
 
 	public void IPAddressValidator() {
@@ -64,6 +64,8 @@ public class HeartClient extends JPanel implements Observer,ActionListener {
 	public boolean validate(String ip) {
 		IPAddressValidator();
 		matcher = pattern.matcher(ip);
+		if(ip.equals("localhost") || ip.equals("LOCALHOST"))
+			  return true;
 		return matcher.matches();
 	}
 
@@ -139,11 +141,14 @@ public class HeartClient extends JPanel implements Observer,ActionListener {
 			close();
 			connect.setEnabled(true);
 		}
+//		textArea.append(data + "\n");
 	}
 
 	public void close() {
 		System.out.println("Closing...");
+		textArea.append("Connection to the server has been Terminated.." + "\n" );
 		subscriber.stop();
+		connect.setText("Connect");
 	}
 
 	public static void setWarningMsg(String text) {
@@ -162,11 +167,20 @@ public class HeartClient extends JPanel implements Observer,ActionListener {
 				setWarningMsg("Please enter a valid IP Address & Port Number.");
 			} else if (validate(heartIp.getText()) && heartPort.getText().length() == 4
 					&& validatePort(heartPort.getText())) {
+				textArea.append("Connected to the Server." + "\n" );
+				textArea.append("Starting to receive data." + "\n" );
 				connect.setText("Disconnect");
+				subscriber.setIp(heartIp.getText());
+				subscriber.setPort(Integer.parseInt(heartPort.getText()));
+				subscriber = new Subscriber(heartIp.getText(),Integer.parseInt(heartPort.getText()));
+				 service.submit(subscriber);
+				 subscriber.addObserver(this);
 			} else {
 				setWarningMsg("Please enter a valid IP Address & Port Number.");
 			}
 		} else {
+//			close();
+			subscriber.stop();
 			connect.setText("Connect");
 		}
 	}

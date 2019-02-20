@@ -11,6 +11,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -45,10 +46,10 @@ public class BCIClient extends JPanel implements Observer,ActionListener{
 			"([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
 			"([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
 	    
-	    public BCIClient(Subscriber subscriber) {
+	    public BCIClient(Subscriber s) {
 			// TODO Auto-generated constructor stub
-	    	service = Executors.newCachedThreadPool();
-			this.subscriber = subscriber;
+			service = Executors.newCachedThreadPool();
+			this.subscriber = s;
 		}
 		  
 	    public void IPAddressValidator(){
@@ -63,6 +64,8 @@ public class BCIClient extends JPanel implements Observer,ActionListener{
 	    public boolean validate(final String ip){
 	    	IPAddressValidator();
 		  matcher = pattern.matcher(ip);
+		  if(ip.equals("localhost") || ip.equals("LOCALHOST"))
+			  return true;
 		  return matcher.matches();	    	    
 	    }
 	    
@@ -79,6 +82,7 @@ public class BCIClient extends JPanel implements Observer,ActionListener{
 		public Subscriber getSubscriber() {
 			return subscriber;
 		}
+		
 	  
 	  public JPanel processPanelBCI(String lableName) {
 
@@ -140,11 +144,14 @@ public class BCIClient extends JPanel implements Observer,ActionListener{
 		      close();
 		      connect.setEnabled(true);
 		    }
+//		    textArea.append(data + "\n" );
 		  }
 
 	  public void close() {
 		  System.out.println("Closing...");
-			subscriber.stop();
+		  textArea.append("Connection to the server has been Terminated.." + "\n" );
+		  subscriber.stop();
+		  connect.setText("Connect");
 	  }
 	  
 	  public static void setWarningMsg(String text){
@@ -164,10 +171,18 @@ public class BCIClient extends JPanel implements Observer,ActionListener{
 			}
 			else if(validate(bciIp.getText())  && bciPort.getText().length() == 4 && validatePort(bciPort.getText())) {
 				connect.setText("Disconnect");
+				textArea.append("Connected to the Server." + "\n" );
+				textArea.append("Starting to receive data." + "\n" );
+				subscriber.setIp(bciIp.getText());
+				subscriber.setPort(Integer.parseInt(bciPort.getText()));
+				 service.submit(subscriber);
+				 subscriber.addObserver(this);
 			}else {
 				setWarningMsg("Please enter a valid IP Address & Port Number.");
 			}
 		}else {
+//			close();
+			subscriber.stop();
 			connect.setText("Connect");
 		}
 	}
