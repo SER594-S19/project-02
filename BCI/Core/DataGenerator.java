@@ -63,15 +63,15 @@ public class DataGenerator extends Observable implements Runnable {
   private void setBackGround(double val,int index) {
 	  Gui.channelButtons.get(index).setOpaque(true);
 	  if(val<0.2 && val>0) {
-		  Gui.channelButtons.get(index).setBackground(Color.pink);
+		  Gui.channelButtons.get(index).setBackground(Color.decode("#b2dcb2"));
 	  } else if(val<0.4 && val>0.2) {
-		  Gui.channelButtons.get(index).setBackground(Color.ORANGE);
+		  Gui.channelButtons.get(index).setBackground(Color.decode("#7fc57f"));
 	  } else if(val<0.6 && val>0.4) {
-		  Gui.channelButtons.get(index).setBackground(Color.RED);
+		  Gui.channelButtons.get(index).setBackground(Color.decode("#66b966"));
 	  } else if(val<0.8 && val>0.6) {
-		  Gui.channelButtons.get(index).setBackground(Color.MAGENTA);
+		  Gui.channelButtons.get(index).setBackground(Color.decode("#32a232"));
 	  } else  {
-		  Gui.channelButtons.get(index).setBackground(Color.black);
+		  Gui.channelButtons.get(index).setBackground(Color.decode("#008b00"));
 	  }
   }
 

@@ -43,7 +43,7 @@ public class Expressions extends JPanel {
 		JRadioButton rdbtnWinkLeft = new JRadioButton("Wink Left");
 		rdbtnWinkLeft.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		blinkButtonGroup.add(rdbtnWinkLeft);
-		rdbtnWinkLeft.setBounds(112, 58, 109, 23);
+		rdbtnWinkLeft.setBounds(122, 58, 109, 23);
 		add(rdbtnWinkLeft);
 		
 		JRadioButton rdbtnWinkRight = new JRadioButton("Wink Right");
@@ -55,7 +55,7 @@ public class Expressions extends JPanel {
 		JRadioButton rdbtnNone = new JRadioButton("None");
 		rdbtnNone.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		blinkButtonGroup.add(rdbtnNone);
-		rdbtnNone.setBounds(112, 93, 109, 23);
+		rdbtnNone.setBounds(122, 89, 109, 23);
 		add(rdbtnNone);
 		
 		//label for eye vision
@@ -78,7 +78,7 @@ public class Expressions extends JPanel {
 		JRadioButton rdbtnLookRight = new JRadioButton("Look Right");
 		rdbtnLookRight.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		visionButtonGroup.add(rdbtnLookRight);
-		rdbtnLookRight.setBounds(103, 163, 122, 23);
+		rdbtnLookRight.setBounds(117, 163, 122, 23);
 		add(rdbtnLookRight);
 		
 		JRadioButton rdbtnNone_1 = new JRadioButton("None");
@@ -107,7 +107,7 @@ public class Expressions extends JPanel {
 		JRadioButton rdbtnFurrow = new JRadioButton("Furrow");
 		rdbtnFurrow.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		eyeBrowButtonGroup.add(rdbtnFurrow);
-		rdbtnFurrow.setBounds(112, 270, 109, 23);
+		rdbtnFurrow.setBounds(116, 270, 109, 23);
 		add(rdbtnFurrow);
 		
 		JRadioButton rdbtnNone_2 = new JRadioButton("None");
@@ -123,17 +123,17 @@ public class Expressions extends JPanel {
 		smirkSlider.setValue(0);
 		smirkSlider.setMaximum(100);
 		smirkSlider.setMinimum(-100);
-		smirkSlider.setBounds(282, 47, 221, 26);
+		smirkSlider.setBounds(327, 48, 221, 26);
 		add(smirkSlider);
 		
 		JLabel lblLeftSmirk = new JLabel("Left Smirk");
 		lblLeftSmirk.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		lblLeftSmirk.setBounds(270, 81, 100, 23);
+		lblLeftSmirk.setBounds(281, 81, 100, 23);
 		add(lblLeftSmirk);
 		
 		JLabel lblRightSmirk = new JLabel("Right Smirk");
 		lblRightSmirk.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		lblRightSmirk.setBounds(448, 81, 100, 23);
+		lblRightSmirk.setBounds(481, 81, 100, 23);
 		add(lblRightSmirk);
 		
 		//slider for clench and smile.
@@ -141,29 +141,29 @@ public class Expressions extends JPanel {
 		clenchSlider.setValue(0);
 		clenchSlider.setMinimum(-100);
 		clenchSlider.setMaximum(100);
-		clenchSlider.setBounds(282, 141, 221, 26);
+		clenchSlider.setBounds(327, 146, 221, 26);
 		add(clenchSlider);
 		
 		JLabel lblClench = new JLabel("Clench");
 		lblClench.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		lblClench.setBounds(272, 164, 55, 23);
+		lblClench.setBounds(283, 173, 55, 23);
 		add(lblClench);
 		
 		JLabel lblSmile = new JLabel("Smile");
 		lblSmile.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		lblSmile.setBounds(461, 164, 55, 23);
+		lblSmile.setBounds(511, 173, 55, 23);
 		add(lblSmile);
 		
 		//sliders for laugh.
 		JSlider laughSlider = new JSlider();
 		laughSlider.setValue(0);
 		laughSlider.setMaximum(100);
-		laughSlider.setBounds(282, 222, 221, 26);
+		laughSlider.setBounds(330, 252, 221, 26);
 		add(laughSlider);
 		
 		JLabel lblLaugh = new JLabel("Laugh");
 		lblLaugh.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		lblLaugh.setBounds(372, 255, 63, 32);
+		lblLaugh.setBounds(427, 265, 63, 32);
 		add(lblLaugh);
 		
 		

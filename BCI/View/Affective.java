@@ -54,28 +54,24 @@ public class Affective extends JPanel{
 		
 		JSlider sliderFrustration = new JSlider();
 		sliderFrustration.setPaintLabels(true);
-		sliderFrustration.setValue(0);
 		sliderFrustration.setMinorTickSpacing(1);
 		sliderFrustration.setBounds(201, 90, 288, 29);
 		add(sliderFrustration);
 		
 		JSlider sliderEngagement = new JSlider();
 		sliderEngagement.setPaintLabels(true);
-		sliderEngagement.setValue(0);
 		sliderEngagement.setMinorTickSpacing(1);
 		sliderEngagement.setBounds(201, 118, 288, 29);
 		add(sliderEngagement);
 		
 		JSlider sliderMeditation = new JSlider();
 		sliderMeditation.setPaintLabels(true);
-		sliderMeditation.setValue(0);
 		sliderMeditation.setMinorTickSpacing(1);
 		sliderMeditation.setBounds(201, 146, 288, 29);
 		add(sliderMeditation);
 		
 		JSlider sliderSTEngagement = new JSlider();
 		sliderSTEngagement.setPaintLabels(true);
-		sliderSTEngagement.setValue(0);
 		sliderSTEngagement.setMinorTickSpacing(1);
 		sliderSTEngagement.setBounds(201, 177, 286, 29);
 		add(sliderSTEngagement);
@@ -83,7 +79,6 @@ public class Affective extends JPanel{
 		JSlider sliderLTEngagement = new JSlider();
 		sliderLTEngagement.setPaintLabels(true);
 		sliderLTEngagement.setMinorTickSpacing(1);
-		sliderLTEngagement.setValue(0);
 		sliderLTEngagement.setBounds(201, 206, 288, 29);
 		add(sliderLTEngagement);
 	
