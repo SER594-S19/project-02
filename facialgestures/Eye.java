@@ -24,17 +24,17 @@ public class Eye {
 		
 		positionOfIris = positionOfIris.addNew(position);
 		graphic.setColor(Color.BLACK);
-		graphic.fillOval((int) (position.getX() - rad1 - 8), (int) (position.getY() - rad1 - 8), (int) (2 * rad1 + 16),
-				(int) (2 * rad1 + 16));
+		graphic.fillOval((int) (position.getX() - rad1 - 6.9), (int) (position.getY() - rad1 - 6.9), (int) (2 * rad1 + 5),
+				(int) (2 * rad1 + 5));
 
 		graphic.setColor(col);
-		graphic.fillOval((int) (position.getX() - rad1), (int) (position.getY() - rad1), (int) (2 * rad1),
-				(int) (2 * rad1));
+		graphic.fillOval((int) (position.getX() - rad1), (int) (position.getY() - rad1), (int) (2 * rad1 - 10),
+				(int) (2 * rad1 - 10));
 
 		if (showPupil) {
 			graphic.setColor(Color.BLACK);
-			graphic.fillOval((int) (positionOfIris.getX() - rad2), (int) (positionOfIris.getY() - rad2),
-					(int) (2 * rad2), (int) (2 * rad2));
+			graphic.fillOval((int) (positionOfIris.getX() - rad2), (int) (positionOfIris.getY() - rad2 + 10),
+					(int) (2 * rad2 - 8), (int) (2 * rad2 - 8));
 
 		}
 	}

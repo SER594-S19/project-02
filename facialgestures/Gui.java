@@ -5,12 +5,16 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DecimalFormat;
+import java.awt.geom.QuadCurve2D;
+import java.awt.geom.RoundRectangle2D;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.text.DecimalFormat;
 
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -32,7 +36,6 @@ public class Gui extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private static Model model;
 	private final int PORT = 1598;
-	private JRadioButton radioButton;
 	protected JLabel labelPublishPort;
 	private final JButton buttonConnect = new JButton("run");
 	static String engageIcon = "Engagement";
@@ -55,25 +58,53 @@ public class Gui extends JPanel implements ActionListener {
 	static String laugh = "Laugh";
 	static String clench = "Clench";
 	JLabel gifIcon;
+	public int flag = 0;
 	HashMap<String, Integer> listOfExpressions = new HashMap<>();
 	ArrayList<Double> arrayList = new ArrayList<Double>();
 	JSlider slider;
 	DecimalFormat one = new DecimalFormat("#0.0");
 
-	private Eye leftOfEye = new Eye(300 - 50, 100, 50, 20);
-	private Eye rightOfEye = new Eye(300 + 58, 100, 50, 20);
+	private Eye leftOfEye = new Eye(300 - 50, 110, 50, 20);
+	private Eye rightOfEye = new Eye(300 + 58, 110, 50, 20);
 	private VectorForEye position = new VectorForEye(300, 0);
 	public int mode = 0;// 1, 2, 3, 4, 5
 	public JPanel expressive_bin;
+	public JPanel expressive_cont;
+	
+	private static class Line{
+	    final int x1; 
+	    final int y1;
+	    final int x2;
+	    final int y2;   
+	    final Color color;
+
+	public Line(int x1, int y1, int x2, int y2, Color color) {
+	        this.x1 = x1;
+	        this.y1 = y1;
+	        this.x2 = x2;
+	        this.y2 = y2;
+	        this.color = color;
+	    }               
+	}
+	public void clearLines() {
+	    lines.clear();
+	    repaint();
+	}
+	private final LinkedList<Line> lines = new LinkedList<Line>();
+	
+	public void addLine(int x1, int y1, int x2, int y2, Color color) { 
+		lines.add(new Line(x1, y1, x2, y2, color));
+	    repaint();
+	}
 
 	private Component createPanelSouth() {
 		JPanel labels = new JPanel();
-		labels.setBackground(Color.GRAY);
+		labels.setBackground(Color.white);
 		labels.add(new JLabel("  Publishing at port: "));
 		labelPublishPort = new JLabel("" + PORT);
 		labels.add(labelPublishPort);
 		JPanel panel = new JPanel(new BorderLayout());
-		panel.setBackground(Color.CYAN);
+		panel.setBackground(Color.white);
 		panel.add(labels, BorderLayout.WEST);
 		panel.add(buttonConnect, BorderLayout.EAST);
 		buttonConnect.addActionListener(this);
@@ -83,7 +114,7 @@ public class Gui extends JPanel implements ActionListener {
 
 	public JRadioButton radio_button(String name, int y_axis) {
 		JRadioButton radioButton = new JRadioButton(name);
-		radioButton.setBounds(158, y_axis, 21, 23);
+		radioButton.setBounds(120, y_axis, 21, 23);
 		return radioButton;
 	}
 
@@ -95,32 +126,147 @@ public class Gui extends JPanel implements ActionListener {
 	}
 
 	public JSlider addSlider(JLabel labelNum, int x_axis, int y_axis, int val) {
-		JSlider slider = new JSlider(0, 10, 5);
-		slider.setMajorTickSpacing(5);  
-		java.util.Hashtable<Integer,JLabel> labelTable = new java.util.Hashtable<Integer,JLabel>();
-		labelTable.put(new Integer(0), new JLabel("0"));
-	    labelTable.put(new Integer(5), new JLabel("0.5"));
-	    labelTable.put(new Integer(10), new JLabel("1"));
-	    slider.setLabelTable( labelTable );
-		slider.setPaintLabels(true);  
-		slider.setBounds(x_axis, y_axis, 180, 50);
-		slider.setMaximum(10);
-		slider.addChangeListener(new ChangeListener() {
+	JSlider slider = new JSlider(0, 10, 5);
+	slider.setMajorTickSpacing(5);  
+	java.util.Hashtable<Integer,JLabel> labelTable = new java.util.Hashtable<Integer,JLabel>();
+	labelTable.put(new Integer(0), new JLabel("0"));
+    labelTable.put(new Integer(5), new JLabel("0.5"));
+    labelTable.put(new Integer(10), new JLabel("1"));
+    slider.setBackground(Color.white);
+    slider.setLabelTable( labelTable );
+	slider.setPaintLabels(true);  
+	slider.setBounds(x_axis, y_axis, 180, 50);
+	slider.setMaximum(10);
+	slider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				double value = ((JSlider) e.getSource()).getValue() * 0.1;
 				System.out.println(labelNum.getText());
-				if (((JSlider) e.getSource()).getValue() >= 5) {
-					labelNum.setIcon(createImageIcon(labelNum.getText() + ".gif"));
-				} else {
-					labelNum.setIcon(createImageIcon("Neutral" + ".gif"));
+			if (labelNum.getText()== "Left Smirk") {
+				Gui.this.flag = 1;
+					if (((JSlider) e.getSource()).getValue() <3) { 
+						Gui.this.clearLines();
+						Gui.this.addLine(x_axis + 186, y_axis + 25, x_axis + 203, y_axis + 25, Color.BLACK);
+						}
+					else if (((JSlider) e.getSource()).getValue() >= 3 && ((JSlider) e.getSource()).getValue() < 7) {
+						Gui.this.clearLines();
+						Gui.this.addLine(x_axis + 186, y_axis + 25, x_axis + 205, y_axis + 20, Color.BLACK);
+						}
+					else if (((JSlider) e.getSource()).getValue() >= 7){
+						Gui.this.clearLines();
+						Gui.this.addLine(x_axis + 186, y_axis + 25, x_axis + 215, y_axis + 20, Color.BLACK);
+					}
+					//labelNum.setText(String.valueOf(value));
+					//labelNum.setVisible(true);
+			}
+			if (labelNum.getText()== "Right Smirk") {
+				Gui.this.flag = 2;
+
+				if (((JSlider) e.getSource()).getValue() <3) { 
+					Gui.this.clearLines();
+					Gui.this.addLine(x_axis + 186, y_axis + 16, x_axis + 203, y_axis + 16, Color.BLACK);
+					}
+				else if (((JSlider) e.getSource()).getValue() >= 3 && ((JSlider) e.getSource()).getValue() < 7) {
+					Gui.this.clearLines();
+					Gui.this.addLine(x_axis + 186, y_axis + 16, x_axis + 205, y_axis + 21, Color.BLACK);
+					}
+				else if (((JSlider) e.getSource()).getValue() > 7){
+					Gui.this.clearLines();
+					Gui.this.addLine(x_axis + 186, y_axis + 16, x_axis + 221, y_axis + 21, Color.BLACK);
+					}
+			}
+			if (labelNum.getText()== "Raise Brow") {
+				Gui.this.flag = 3;
+				if (((JSlider) e.getSource()).getValue() <3) { 
+					Gui.this.clearLines();
+					Gui.this.addLine(x_axis + 186, y_axis + 20, x_axis + 199, y_axis + 20, Color.BLACK);
+					Gui.this.addLine(x_axis + 206, y_axis + 20, x_axis + 219, y_axis + 20, Color.BLACK);
+					}
+				else if (((JSlider) e.getSource()).getValue() >=3 && ((JSlider) e.getSource()).getValue() < 7) {
+					Gui.this.clearLines();
+					Gui.this.addLine(x_axis + 186, y_axis + 19, x_axis + 199, y_axis + 22, Color.BLACK);
+					Gui.this.addLine(x_axis + 206, y_axis + 22, x_axis + 219, y_axis + 19, Color.BLACK);
 				}
-				labelNum.setVisible(true);
-				labelNum.setBounds(x_axis + 116, y_axis + 10, 40, 30);
+				else if (((JSlider) e.getSource()).getValue() > 7){
+					Gui.this.clearLines();
+					Gui.this.addLine(x_axis + 186, y_axis + 16, x_axis + 200, y_axis + 22, Color.BLACK);
+					Gui.this.addLine(x_axis + 208, y_axis + 22, x_axis + 222, y_axis + 16, Color.BLACK);
+				}
+			}
+			if (labelNum.getText()== "Furrow Brow") {
+				Gui.this.flag = 4;
+				if (((JSlider) e.getSource()).getValue() <3) { 
+					Gui.this.clearLines();
+					Gui.this.addLine(x_axis + 186, y_axis + 20, x_axis + 199, y_axis + 20, Color.BLACK);
+					Gui.this.addLine(x_axis + 206, y_axis + 20, x_axis + 219, y_axis + 20, Color.BLACK);
+					}
+				else if (((JSlider) e.getSource()).getValue() >=3 && ((JSlider) e.getSource()).getValue() < 7) {
+					Gui.this.clearLines();
+					Gui.this.addLine(x_axis + 186, y_axis + 22, x_axis + 199, y_axis + 19, Color.BLACK);
+					Gui.this.addLine(x_axis + 206, y_axis + 19, x_axis + 219, y_axis + 22, Color.BLACK);
+				}
+				else if (((JSlider) e.getSource()).getValue() > 7){
+					Gui.this.clearLines();
+					Gui.this.addLine(x_axis + 186, y_axis + 24, x_axis + 200, y_axis + 18, Color.BLACK);
+					Gui.this.addLine(x_axis + 208, y_axis + 18, x_axis + 222, y_axis + 24, Color.BLACK);
+					}
+			}
+			if (labelNum.getText()== "Smile") {
+				Gui.this.flag = 1;
+				if (((JSlider) e.getSource()).getValue() <3) { 
+					Gui.this.clearLines();
+					Gui.this.addLine(x_axis + 186, y_axis + 25, x_axis + 203, y_axis + 25, Color.BLACK);
+						}
+				else if (((JSlider) e.getSource()).getValue() >= 3 && ((JSlider) e.getSource()).getValue() < 7) {
+					Gui.this.flag = 5;
+					Gui.this.clearLines();
+					Gui.this.addLine(x_axis + 193, y_axis + 25, x_axis + 210, y_axis + 25, Color.BLACK);
+						}
+				else if (((JSlider) e.getSource()).getValue() >= 7){
+					Gui.this.flag = 5;
+					Gui.this.clearLines();
+					Gui.this.addLine(x_axis + 190, y_axis + 25, x_axis + 215, y_axis + 25, Color.BLACK);
+					}
+				}
+			if (labelNum.getText()== "Laugh") {
+				Gui.this.flag = 1;
+				if (((JSlider) e.getSource()).getValue() <3) { 
+					Gui.this.clearLines();
+					Gui.this.addLine(x_axis + 186, y_axis + 25, x_axis + 203, y_axis + 25, Color.BLACK);
+						}
+				else if (((JSlider) e.getSource()).getValue() >= 3 && ((JSlider) e.getSource()).getValue() < 7) {
+					Gui.this.flag = 6;
+					Gui.this.clearLines();
+					Gui.this.addLine(x_axis + 193, y_axis + 25, x_axis + 206, y_axis + 25, Color.BLACK);
+						}
+				else if (((JSlider) e.getSource()).getValue() >= 7){
+					Gui.this.flag = 9;
+					Gui.this.clearLines();
+					Gui.this.addLine(x_axis + 190, y_axis + 25, x_axis + 215, y_axis + 25, Color.BLACK);
+					}
+				}
+			if (labelNum.getText()== "Clench") {
+				if (((JSlider) e.getSource()).getValue() <3) { 
+					Gui.this.flag = 1;
+					Gui.this.clearLines();
+					Gui.this.addLine(x_axis + 186, y_axis + 25, x_axis + 198, y_axis + 25, Color.BLACK);
+					}
+				else if (((JSlider) e.getSource()).getValue() >=3 && ((JSlider) e.getSource()).getValue() < 7) {
+					Gui.this.flag = 7;
+					Gui.this.clearLines();
+					Gui.this.addLine(x_axis + 199, y_axis + 25, x_axis + 196, y_axis + 25, Color.BLACK);
+				}
+				else if (((JSlider) e.getSource()).getValue() > 7){
+					Gui.this.flag = 8;
+					Gui.this.clearLines();
+					Gui.this.addLine(x_axis + 184, y_axis + 25, x_axis + 196, y_axis + 21, Color.BLACK);
+				}
+			}
 				arrayList.set(5, value);
 			}
-		});
+			});
 		return slider;
 	}
+
 	
 	public JSlider addSlider_2(JLabel labelNum, int x_axis, int y_axis, int val) {
 		JSlider slider = new JSlider(0, 10, 5); 
@@ -133,6 +279,7 @@ public class Gui extends JPanel implements ActionListener {
 		slider.setPaintLabels(true);  
 		slider.setBounds(x_axis, y_axis, 180, 50);
 		slider.setMaximum(10);
+		slider.setBackground(Color.white);
 		slider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				double value = ((JSlider) e.getSource()).getValue() * 0.1;
@@ -154,10 +301,16 @@ public class Gui extends JPanel implements ActionListener {
     Dimension screen = getToolkit().getScreenSize();
     this.setSize(screen.width / 2, 3 * screen.height / 4);
     this.setLocation((screen.width - getSize().width) / 2, (screen.height - getSize().height) / 2);
-   
+   Color eyeLidColor = new Color(255, 231, 226);
+   Color eyeIrisColor = new Color(237,237,237);
     expressive_bin = new JPanel()
     		 {
-    		    	@Override
+    		    	/**
+				 * 
+				 */
+				private static final long serialVersionUID = 1L;
+
+					@Override
     		        public void paintComponent(Graphics g) {
     		            super.paintComponent(g);
     		            if (mode == 1) {
@@ -188,7 +341,7 @@ public class Gui extends JPanel implements ActionListener {
     		    };
     expressive_bin.setBounds(0, 28, 331, 497);
     expressive_bin.setLayout(null);
-    expressive_bin.setBackground(Color.RED);
+    expressive_bin.setBackground(Color.white);
     
     JLabel lblBlink = label("Blink", 16, 31);
     expressive_bin.add(lblBlink);
@@ -203,18 +356,23 @@ public class Gui extends JPanel implements ActionListener {
  
     JRadioButton radioButtonBlink = radio_button("Blink_0", 33);
     expressive_bin.add(radioButtonBlink);
+    radioButtonBlink.setBackground(Color.white);
     
     JRadioButton radioButtonLWink = radio_button("LWink_0", 68);
     expressive_bin.add(radioButtonLWink);
+    radioButtonLWink.setBackground(Color.white);
     
     JRadioButton radioButtonRwink = radio_button("RWink_0", 104);
     expressive_bin.add(radioButtonRwink);
+    radioButtonRwink.setBackground(Color.white);
     
     JRadioButton radioButtonLLeft = radio_button("LookL_0", 140);
     expressive_bin.add(radioButtonLLeft);
+    radioButtonLLeft.setBackground(Color.white);
     
     JRadioButton radioButtonLRight = radio_button("LookR_0", 176);
     expressive_bin.add(radioButtonLRight);
+    radioButtonLRight.setBackground(Color.white);
     
     ButtonGroup group1 = new ButtonGroup();
     group1.add(radioButtonBlink);
@@ -229,9 +387,52 @@ public class Gui extends JPanel implements ActionListener {
     radioButtonLLeft.addActionListener(this);
     radioButtonLRight.addActionListener(this);
     
-    JPanel expressive_cont = new JPanel();
+    expressive_cont = new JPanel() {
+    	/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		
+    	protected void paintComponent(Graphics g) {
+			Graphics2D g2 = (Graphics2D) g;
+			super.paintComponent(g);
+    	    	for (Line line : lines) {
+    	    	g.setColor(line.color);
+    	    	if(Gui.this.flag == 5) {
+    	    		QuadCurve2D q = new QuadCurve2D.Float();
+    	    		q.setCurve(line.x1, line.y1, 310, 190 , line.x2, line.y2);
+    	    		g2.draw(q);
+    	    	}
+    	    	else if(Gui.this.flag == 6) {
+    	    		g.drawLine(line.x1, line.y1, line.x2+5, line.y2);
+    	    		QuadCurve2D q = new QuadCurve2D.Float();
+    	    		q.setCurve(line.x1, line.y1, 310, 235 , line.x2+7, line.y2);
+    	    		g2.draw(q);
+    	    	}
+    	    	else if(Gui.this.flag == 9) {
+    	    		g.drawLine(line.x1, line.y1, line.x2+5, line.y2);
+    	    		QuadCurve2D q = new QuadCurve2D.Float();
+    	    		q.setCurve(line.x1, line.y1, 310, 240 , line.x2+5, line.y2);
+    	    		g2.draw(q);
+    	    	}
+    	    	else if(Gui.this.flag==7) {
+    	    		g2.draw(new RoundRectangle2D.Double(line.x1-3, line.y1, 18, 5, 10, 10));
+    	    	}
+    	    	else if(Gui.this.flag==8) {
+    	    		g2.draw(new RoundRectangle2D.Double(line.x1+5, line.y1, 22, 5, 10, 10));
+    	    	}
+    	    	else
+        	    	{
+    	        g.drawLine(line.x1+5, line.y1, line.x2+5, line.y2);
+    	    	}  
+    	    }
+    	 }
+		};
     expressive_cont.setBounds(334, 28, 339, 497);
     expressive_cont.setLayout(null);
+    expressive_cont.setBackground(Color.white);
     
     JLabel lblLeftSmirk = label("Left Smirk", 0, 25);
     expressive_cont.add(lblLeftSmirk);
@@ -300,6 +501,7 @@ public class Gui extends JPanel implements ActionListener {
     affective.setBounds(334, 28, 339, 497);
     affective.setLayout(null);
     setBorder(BorderFactory.createEmptyBorder(15,15,15,15));  
+    affective.setBackground(Color.white);
     
     JLabel engage = label("Engagement", 16, 35);
     affective.add(engage);
@@ -421,63 +623,102 @@ public class Gui extends JPanel implements ActionListener {
 	}
 
 	private void setExpressiveBinary(ActionEvent e, ArrayList<Double> arrayList) {
-		if(e.getActionCommand().equals(blinkTrue))
-		{
+		if (e.getActionCommand().equals(blinkTrue)) {
 			this.mode = 1;
-			arrayList.set(listOfExpressions.get(blinkTrue), (double) 1);	
+			arrayList.set(listOfExpressions.get(blinkTrue), (double) 1);
 			this.expressive_bin.repaint();
 			new Thread(new Runnable() {
 				public void run() {
-					if(Gui.this.mode != 1) {
+					if (Gui.this.mode != 1) {
 						return;
 					}
-					while(true) {
-						if(Gui.this.mode != 1) {
+					while (true) {
+						if (Gui.this.mode != 1) {
 							return;
 						}
 						try {
-							
-							Thread.sleep(2000);
-							if(Gui.this.mode != 1) {
+
+							Thread.sleep(750);
+							if (Gui.this.mode != 1) {
 								return;
 							}
 							Gui.this.mode = 0;
 							Gui.this.expressive_bin.repaint();
-							Thread.sleep(2000);
-							if(Gui.this.mode > 1) {
-								return;
-							}
-							Gui.this.mode = 1;
-							Gui.this.expressive_bin.repaint();
 						} catch (InterruptedException e) {
-							
+
 							e.printStackTrace();
 						}
-						
+
 					}
 				}
 			}).start();
 		}
-		if(e.getActionCommand().equals(leftWinkTrue))
-		{
+		if (e.getActionCommand().equals(leftWinkTrue)) {
 			this.mode = 2;
 			arrayList.set(listOfExpressions.get(leftWinkTrue), (double) 1);
 			this.expressive_bin.repaint();
+			new Thread(new Runnable() {
+				public void run() {
+					if (Gui.this.mode != 2) {
+						return;
+					}
+					while (true) {
+						if (Gui.this.mode != 2) {
+							return;
+						}
+						try {
+
+							Thread.sleep(750);
+							if (Gui.this.mode != 2) {
+								return;
+							}
+							Gui.this.mode = 0;
+							Gui.this.expressive_bin.repaint();
+						} catch (InterruptedException e) {
+
+							e.printStackTrace();
+						}
+
+					}
+				}
+			}).start();
 		}
-		if(e.getActionCommand().equals(rightWinkTrue))
-		{
+		if (e.getActionCommand().equals(rightWinkTrue)) {
 			this.mode = 3;
 			arrayList.set(listOfExpressions.get(rightWinkTrue), (double) 1);
 			this.expressive_bin.repaint();
+			new Thread(new Runnable() {
+				public void run() {
+					if (Gui.this.mode != 3) {
+						return;
+					}
+					while (true) {
+						if (Gui.this.mode != 3) {
+							return;
+						}
+						try {
+
+							Thread.sleep(750);
+							if (Gui.this.mode != 3) {
+								return;
+							}
+							Gui.this.mode = 0;
+							Gui.this.expressive_bin.repaint();
+						} catch (InterruptedException e) {
+
+							e.printStackTrace();
+						}
+
+					}
+				}
+			}).start();
 		}
-		if(e.getActionCommand().equals(lookLeftTrue))
-		{
+		if (e.getActionCommand().equals(lookLeftTrue)) {
 			this.mode = 4;
 			arrayList.set(listOfExpressions.get(lookLeftTrue), (double) 1);
 			this.expressive_bin.repaint();
 		}
-		if(e.getActionCommand().equals(lookRightTrue))
-		{
+		if (e.getActionCommand().equals(lookRightTrue)) {
 			this.mode = 5;
 			arrayList.set(listOfExpressions.get(lookRightTrue), (double) 1);
 			this.expressive_bin.repaint();
