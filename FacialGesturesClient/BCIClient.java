@@ -35,7 +35,7 @@ public class BCIClient extends JPanel implements Observer,ActionListener{
 	  private Border border = BorderFactory.createLineBorder(Color.BLACK);
 	  private Subscriber subscriber;
 	  private ExecutorService service;
-		
+	  private boolean firstCheck = true;
 	  private Pattern pattern;
 	    private Matcher matcher;
 	    private static final String PORT_PATTERN = "[0-9]+";
@@ -138,20 +138,32 @@ public class BCIClient extends JPanel implements Observer,ActionListener{
 
 	  public void update(Observable o, Object arg) {
 		    String data = ((Subscriber) o).getObject().toString();
-		    if (data.compareTo("FIN") != 0)
-		      textArea.append(data + "\n" );
-		    else {
-		      close();
-		      connect.setEnabled(true);
+		    if(data.compareTo("STOPPED")==0) {
+		    	textArea.append("Connection to the server has been Terminated. Closing the Client Connection." + "\n" );
+		    	close();
+		    }else if(data.compareTo("FAIL")==0) {
+		    	textArea.append("Server Not Up.  Closing the Client Connection." + "\n" );
+		    	close();
+		    }else if(data.compareTo("FIN")==0) {
+		    	textArea.append("Connection to the server has been Terminated. Closing the Client Connection." + "\n" );
+		    	close();
+		    }else {
+		    	if(firstCheck) {
+		    		textArea.append("Connection Estabished with the server." + "\n" );
+					textArea.append("Starting to receive data..." + "\n" );
+					firstCheck = false;
+		    	}
+		    	
+				textArea.append(data + "\n" );
 		    }
-//		    textArea.append(data + "\n" );
+		    
 		  }
 
 	  public void close() {
 		  System.out.println("Closing...");
-		  textArea.append("Connection to the server has been Terminated.." + "\n" );
 		  subscriber.stop();
 		  connect.setText("Connect");
+		  firstCheck = true;
 	  }
 	  
 	  public static void setWarningMsg(String text){
@@ -171,8 +183,8 @@ public class BCIClient extends JPanel implements Observer,ActionListener{
 			}
 			else if(validate(bciIp.getText())  && bciPort.getText().length() == 4 && validatePort(bciPort.getText())) {
 				connect.setText("Disconnect");
-				textArea.append("Connected to the Server." + "\n" );
-				textArea.append("Starting to receive data." + "\n" );
+				textArea.append("Connecting to the Server...." + "\n" );
+				
 				subscriber.setIp(bciIp.getText());
 				subscriber.setPort(Integer.parseInt(bciPort.getText()));
 				 service.submit(subscriber);

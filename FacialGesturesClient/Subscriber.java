@@ -60,21 +60,27 @@ private int port;
   @Override
   public void run() {
 
+	boolean serverCheck = false;
+	boolean serverRunning = false;
     Socket client = null;
     ObjectInputStream ois = null;
     BufferedReader input = null;
     stop = false;
     String measureLocal=null;
+    
     try {
       client = new Socket(InetAddress.getByName(Ip.trim()), port); 
       input = new BufferedReader(new InputStreamReader(client.getInputStream()));      
       client.setSoTimeout(1000);
+      serverCheck = true;
+  	  serverRunning = true;
     } catch (IOException ex) {
       stop = true;
     }
     while (!stop) {
       System.out.println("in hello");
       try {
+    	  
         measureLocal= input.readLine();
       System.out.println("in hello read");
       } catch (IOException sce) {
@@ -82,6 +88,7 @@ private int port;
       }
       if (measureLocal == null) {
         stop = true;
+        serverRunning = false;
       } else {
               System.out.println("in hello read and =" + stop + " " + measureLocal);
         setData(measureLocal);
@@ -107,7 +114,12 @@ private int port;
       }
     } catch (IOException e) {
     }
-    setData("FIN");
+    if (!serverCheck)
+		setData("FAIL");
+	else if (!serverRunning)
+		setData("FIN");
+	else
+		setData("FIN");
     setChanged();
     notifyObservers();
   }
