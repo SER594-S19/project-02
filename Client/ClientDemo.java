@@ -33,6 +33,11 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
   private String port_skin;
   private String port_heart;
   private String port_bci;
+  private boolean connect_status1 = false;
+  private boolean connect_status2 = false;
+  private boolean connect_status3 = false;
+  private boolean connect_status4 = false;
+  private boolean connect_status5 = false;
 
 
   private JFrame frame = new JFrame();
@@ -75,6 +80,7 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
   }
 
   protected JComponent makeTextPanel1(String text) {
+	buttonConnect1.setName("1");
     JPanel panel = new JPanel(false);
     JLabel filler = new JLabel("Enter IP address of Server ");
     filler.setHorizontalAlignment(JLabel.LEFT);
@@ -119,6 +125,7 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
   }
 
   protected JComponent makeTextPanel2(String text) {
+	  buttonConnect2.setName("2");
     JPanel panel = new JPanel(false);
     JLabel filler = new JLabel("Enter IP address of Server ");
     filler.setHorizontalAlignment(JLabel.LEFT);
@@ -158,6 +165,7 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     return panel;
   }
   protected JComponent makeTextPanel3(String text) {
+	  buttonConnect3.setName("3");
     JPanel panel = new JPanel(false);
     JLabel filler = new JLabel("Enter IP address of Server ");
     filler.setHorizontalAlignment(JLabel.LEFT);
@@ -197,6 +205,7 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     return panel;
   }
   protected JComponent makeTextPanel4(String text) {
+	  buttonConnect4.setName("4");
     JPanel panel = new JPanel(false);
     JLabel filler = new JLabel("Enter IP address of Server ");
     filler.setHorizontalAlignment(JLabel.LEFT);
@@ -236,6 +245,7 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     return panel;
   }
   protected JComponent makeTextPanel5(String text) {
+	  buttonConnect5.setName("5");
     JPanel panel = new JPanel(false);
     JLabel filler = new JLabel("Enter IP address of Server ");
     filler.setHorizontalAlignment(JLabel.LEFT);
@@ -311,19 +321,19 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     String data = ((Subscriber) o).getObject().toString();
     if (data.compareTo("FIN") != 0) {
 
-      if(portNo == 1594){
+      if(portNo == 1594 && connect_status1){
         checkPaneltoAppend(portNo, data);
       }
-      else if(portNo == 1595){
+      else if(portNo == 1595 && connect_status2){
         checkPaneltoAppend(portNo, data);
       }
-      else if(portNo == 1596){
+      else if(portNo == 1596 && connect_status3){
         checkPaneltoAppend(portNo, data);
       }
-      else if(portNo == 1597){
+      else if(portNo == 1597 && connect_status4){
         checkPaneltoAppend(portNo, data);
       }
-      else if(portNo == 1598){
+      else if(portNo == 1598 && connect_status5){
         checkPaneltoAppend(portNo, data);
       }
 
@@ -367,27 +377,108 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
   @Override
   public void actionPerformed(ActionEvent e) {
     if (e.getSource() == buttonConnect1) {
-      buttonConnect1.setEnabled(false);
-      service.submit(subscriber[0]);
-      subscriber[0].addObserver(this);
+    	
+    	connect_status1 = !connect_status1;
+    	
+      if(connect_status1)
+      {
+    	  
+    	  buttonConnect1.setText("DisConnect");
+    	  service.submit(subscriber[0]);
+          subscriber[0].addObserver(this);
+    	  
+      }
+      else
+      {
+    	  
+    	  buttonConnect1.setText("Connect");
+      }
+      
+      
     }else if (e.getSource() == buttonConnect2) {
-      buttonConnect2.setEnabled(false);
-      service.submit(subscriber[1]);
-      subscriber[1].addObserver(this);
+    	
+    	connect_status2 = !connect_status2;
+      
+      if(connect_status2)
+      {
+    	  
+    	  buttonConnect2.setText("DisConnect");
+    	  service.submit(subscriber[1]);
+          subscriber[1].addObserver(this);
+    	  
+      }
+      else
+      {
+    	  
+    	  buttonConnect2.setText("Connect");
+      }
+      
+      
     }else if (e.getSource() == buttonConnect3) {
-      buttonConnect3.setEnabled(false);
-      service.submit(subscriber[2]);
-      subscriber[2].addObserver(this);
+    	
+    	connect_status3 = !connect_status3;
+    	
+    	if(connect_status3)
+    	{
+    		  buttonConnect3.setText("DisConnect");
+    	      service.submit(subscriber[2]);
+    	      subscriber[2].addObserver(this);
+    		
+    	}
+    	   else
+    	      {
+    	    	  
+    	    	  buttonConnect3.setText("Connect");
+    	      }
+
     }else if (e.getSource() == buttonConnect4) {
-      buttonConnect4.setEnabled(false);
-      service.submit(subscriber[3]);
-      subscriber[3].addObserver(this);
+    	
+    	connect_status4 = !connect_status4;
+    	
+    	if(connect_status4) {
+    		
+    		  buttonConnect4.setText("DisConnect");
+    	      service.submit(subscriber[3]);
+    	      subscriber[3].addObserver(this);
+    		
+    		
+    	}
+    	 else
+	      {
+	    	  
+	    	  buttonConnect4.setText("Connect");
+	      }
+    
     }else if (e.getSource() == buttonConnect5) {
-      buttonConnect5.setEnabled(false);
-      service.submit(subscriber[4]);
-      subscriber[4].addObserver(this);
+    	
+    	connect_status5 = !connect_status5;
+    	
+    	if(connect_status5)
+    	{	
+    		  buttonConnect5.setText("DisConnect");
+    	      service.submit(subscriber[4]);
+    	      subscriber[4].addObserver(this);
+    	}
+   	 else
+     {
+   	  
+   	  buttonConnect5.setText("Connect");
+     }
+
     }
 
 
   }
+  
+
+  
+
+	  
+//	String  name = ((JComponent) e.getSource()).getName();
+//	
+//	String buttonobj = "buttonConnect"+name;
+//	String connect_status = "connect_status"+name;
+//  }
+  
+  
 }
