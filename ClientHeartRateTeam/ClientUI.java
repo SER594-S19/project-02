@@ -8,9 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * This class is used to design the Client UI for getting data from different servers
- *
  * @version 20190213
- *
  */
 
 
@@ -56,7 +54,6 @@ public class ClientUI extends JPanel {
         }
     }
 
-    // Method to run the Client UI application
     public static void main(String[] args) {
         JFrame frame = new JFrame("Client");
         frame.getContentPane().setLayout(new GridLayout(1, 1));
