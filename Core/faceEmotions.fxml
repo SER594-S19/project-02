@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.effect.*?>
 <?import com.jfoenix.controls.*?>
@@ -20,9 +21,12 @@
          <font>
             <Font name="Hiragino Kaku Gothic StdN W8" size="13.0" />
          </font></Label>
-      <Ellipse fx:id="face" fill="DODGERBLUE" layoutX="127.0" layoutY="141.0" radiusX="101.0" radiusY="108.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="98.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="349.0" AnchorPane.topAnchor="30.0" />
+      <Ellipse fx:id="face" fill="#2197ff" layoutX="127.0" layoutY="141.0" radiusX="101.0" radiusY="108.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="98.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="349.0" AnchorPane.topAnchor="30.0" />
       <QuadCurve fx:id="smile" controlY="30.0" endX="50.0" endY="2.0" fill="DODGERBLUE" layoutX="119.0" layoutY="175.0" startX="-50.0" startY="2.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="177.0" AnchorPane.leftAnchor="69.0" AnchorPane.rightAnchor="417.4142150878906" AnchorPane.topAnchor="177.0" />
-      <JFXToggleButton fx:id="toggle" layoutX="400.0" layoutY="281.0" prefHeight="48.0" prefWidth="140.0" text="RUN" textFill="#086f18" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="420.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="291.0" />
+      <JFXToggleButton fx:id="toggle" layoutX="400.0" layoutY="281.0" prefHeight="48.0" prefWidth="140.0" text="RUN" textFill="#086f18" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="420.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="291.0">
+         <font>
+            <Font name="Hiragino Kaku Gothic StdN W8" size="14.0" />
+         </font></JFXToggleButton>
       <Circle fx:id="leftEye" fill="DODGERBLUE" layoutX="81.0" layoutY="98.0" radius="16.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="233.0" AnchorPane.leftAnchor="53.0" AnchorPane.rightAnchor="480.0" AnchorPane.topAnchor="82.0" />
       <Circle fx:id="rightEye" fill="DODGERBLUE" layoutX="173.0" layoutY="98.0" radius="16.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="233.0" AnchorPane.leftAnchor="149.0" AnchorPane.rightAnchor="388.0" AnchorPane.topAnchor="82.0" />
       <Line fx:id="nose" endX="100.0" endY="-4.0" layoutX="32.0" layoutY="143.0" rotate="81.9" startX="75.0" AnchorPane.bottomAnchor="209.292893409729" AnchorPane.leftAnchor="102.70710754394531" AnchorPane.rightAnchor="442.2928924560547" AnchorPane.topAnchor="130.0" />
@@ -32,11 +36,18 @@
       <JFXSlider fx:id="concentrate" blockIncrement="0.1" layoutX="362.0" layoutY="156.0" majorTickUnit="1.0" max="1.0" minorTickCount="0" onMouseReleased="#sliderConcentrateDragged" showTickLabels="true" showTickMarks="true" value="0.01" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="370.0" AnchorPane.rightAnchor="64.0" AnchorPane.topAnchor="150.0" />
       <JFXSlider fx:id="thinking" blockIncrement="0.1" layoutX="382.0" layoutY="194.0" majorTickUnit="1.0" max="1.0" minorTickCount="0" onMouseReleased="#sliderThinkingDragged" showTickLabels="true" showTickMarks="true" value="0.01" AnchorPane.bottomAnchor="110.0" AnchorPane.leftAnchor="370.0" AnchorPane.rightAnchor="64.0" AnchorPane.topAnchor="190.0" />
       <JFXSlider fx:id="unsure" blockIncrement="0.2" layoutX="382.0" layoutY="234.0" majorTickUnit="1.0" max="1.0" minorTickCount="0" onMouseReleased="#sliderUnsureDragged" showTickLabels="true" showTickMarks="true" value="0.01" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="370.0" AnchorPane.rightAnchor="64.0" AnchorPane.topAnchor="230.0" />
-      <Line endX="461.0" layoutX="115.0" layoutY="281.0" startX="-100.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="290.0" />
-      <AnchorPane layoutX="43.0" layoutY="308.0" prefHeight="35.0" prefWidth="202.0" style="-fx-background-radius: 5px;" AnchorPane.bottomAnchor="13.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="338.0" AnchorPane.topAnchor="305.0">
+      <Line endX="485.0" layoutX="115.0" layoutY="281.0" startX="-100.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="290.0" />
+      <AnchorPane layoutX="46.0" layoutY="311.0" prefHeight="50.0" prefWidth="257.0" style="-fx-background-radius: 5px;" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="43.0" AnchorPane.rightAnchor="292.0" AnchorPane.topAnchor="308.0">
          <children>
-            <Label id="portNumber" fx:id="portNumber" layoutX="145.0" layoutY="3.0" prefHeight="17.0" prefWidth="48.0" text="1594" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-            <Label layoutX="25.0" layoutY="3.0" text="Publishing At Port:" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="28.414215087890625" AnchorPane.rightAnchor="54.0" AnchorPane.topAnchor="11.0" />
+            <Label id="portNumber" fx:id="portNumber" layoutX="169.0" prefHeight="44.0" prefWidth="75.0" text="1594" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="169.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="0.0">
+               <font>
+                  <Font name="Hiragino Kaku Gothic StdN W8" size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="14.0" layoutY="14.0" text="Publishing At Port:" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="68.41421508789062" AnchorPane.topAnchor="14.0">
+               <font>
+                  <Font name="Hiragino Kaku Gothic StdN W8" size="13.0" />
+               </font></Label>
          </children>
       </AnchorPane>
       <Label layoutX="274.0" layoutY="36.0" prefHeight="21.0" prefWidth="66.0" text="AGREE" AnchorPane.bottomAnchor="290.0" AnchorPane.leftAnchor="271.0" AnchorPane.rightAnchor="240.0" AnchorPane.topAnchor="33.0">

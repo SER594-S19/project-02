@@ -20,7 +20,7 @@ public class Gui extends Application {
   public void start(Stage primaryStage) throws Exception {
     Parent root = FXMLLoader.load(getClass().getResource("faceEmotions.fxml"));
     primaryStage.setTitle("Simulator");
-    primaryStage.setScene(new Scene(root, 580, 362
+    primaryStage.setScene(new Scene(root, 592, 374
     ));
     primaryStage.show();
     primaryStage.setResizable(false);

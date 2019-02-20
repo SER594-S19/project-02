@@ -153,7 +153,7 @@ public class Controller implements Initializable {
             leftEye.setFill(Color.WHITE);
             smile.setFill(Color.WHITE);
             smile.setControlY(-20.0);
-            face.setFill(Color.RED);
+            face.setFill(Color.valueOf("#ff21ca"));
 
         }
         else if (frustate.getValue() >= 0.3 && frustate.getValue() < 0.7){
@@ -161,7 +161,7 @@ public class Controller implements Initializable {
             leftEye.setFill(Color.WHITE);
             smile.setFill(Color.WHITE);
             smile.setControlY(0.0);
-            face.setFill(Color.PINK);
+            face.setFill(Color.valueOf("#9f21ff"));
         }
         else{
             rightEye.setFill(Color.DODGERBLUE);
@@ -256,6 +256,12 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        aggrementIndicator.setStyle("-fx-progress-color: #086f18 ;");
+        disagreementIndicator.setStyle("-fx-progress-color: #086f18 ;");
+        frustateIndicator.setStyle("-fx-progress-color: #086f18 ;");
+        concentrateIndicator.setStyle("-fx-progress-color: #086f18 ;");
+        unsureIndicator.setStyle("-fx-progress-color: #086f18 ;");
+        thinkingIndicator.setStyle("-fx-progress-color: #086f18 ;");
 
         toggle.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
