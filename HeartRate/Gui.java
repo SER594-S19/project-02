@@ -154,7 +154,7 @@ public class Gui extends JPanel implements ActionListener {
 					buttonConnect.setText("stop");
 				} else {
 					JOptionPane.showMessageDialog(
-							new JPanel(), "Frequency entered is not valid", "Error",
+							new JPanel(), "Invalid Frequency. Please enter valid value", "Error",
 							JOptionPane.ERROR_MESSAGE);
 				}
 			} else if (buttonConnect.getText().compareTo("stop") == 0) {
@@ -197,7 +197,7 @@ public class Gui extends JPanel implements ActionListener {
 		}
 	}
 
-	// Method to update GIF based on state
+	// Method to update GIF based on heart state
 	private void updateHeartGif(String image) {
 		ImageIcon ii = new ImageIcon(this.getClass().getResource(image));
 		JLabel imageLabel = new JLabel();
@@ -232,7 +232,7 @@ public class Gui extends JPanel implements ActionListener {
 		textPane.setText("SERVER IS RUNNING..." + "\n" + data);
 	}
 
-	// Method used to start the GUI application
+	
 	public static void main(String[] args) {
 		JFrame frame = new JFrame("Heart Rate Simulator");
 		frame.getContentPane().setLayout(new GridLayout(1, 1));
