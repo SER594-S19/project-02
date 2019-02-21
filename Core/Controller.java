@@ -15,6 +15,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.QuadCurve;
 import javafx.scene.text.Text;
 
+import javax.swing.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -83,6 +84,9 @@ public class Controller implements Initializable {
 
     @FXML
     ProgressIndicator unsureIndicator;
+
+    @FXML
+    Label serverRunning;
 
 
     @FXML void sliderAgreementDragged(){
@@ -267,6 +271,7 @@ public class Controller implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if(toggle.isSelected() == true){
+                    serverRunning.setVisible(true);
                     model = new Model(new DataGenerator(), new Publisher(PORT));
                     model1 = new Model(new DataGenerator(), new Publisher(PORT+1));
                     model2 = new Model(new DataGenerator(), new Publisher(PORT+2));
@@ -278,13 +283,16 @@ public class Controller implements Initializable {
                     model3.start();
                     model4.start();
                     toggle.setText("STOP");
+
                 }
                 else{
+                    //JOptionPane.showMessageDialog(null,"Server Stopped");
                     model.stop();
                     model1.stop();
                     model2.stop();
                     model3.stop();
                     model4.stop();
+                    serverRunning.setVisible(false);
                     toggle.setText("RUN");
                 }
             }

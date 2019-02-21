@@ -53,6 +53,11 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
   private JComponent panel3 = makeTextPanel3("Skin");
   private JComponent panel4 = makeTextPanel4("Heart Rate");
   private JComponent panel5 = makeTextPanel5("BCI");
+  private JTextField textField ;
+  private JTextField textField1 ;
+  private JTextField textField2 ;
+  private JTextField textField3 ;
+  private JTextField textField4 ;
   //  private JComponent panel1 = makeTextPanel("Panel #1");
 //  tabbedPane.add
   public ClientDemo() {
@@ -88,22 +93,19 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     filler.setHorizontalAlignment(JLabel.LEFT);
     JLabel filler1 = new JLabel("Select Port Number ");
     filler1.setHorizontalAlignment(JLabel.LEFT);
-    JTextField textField = new JTextField();
-    textField.setColumns(8);
     String[] portNumber = {"1594","1595","1596","1597","1598"};
     SpinnerListModel portModel = new SpinnerListModel(portNumber);
     JSpinner spinner = new JSpinner(portModel);
-
-    // panel.setLayout(new GridLayout(4, 4));
     panel.add(filler);
+    textField = new JTextField();
     panel.add(textField);
+    textField.setColumns(8);
     panel.add(filler1);
     panel.add(spinner);
     panel.add(buttonConnect1);
-    
-    ipFace = textField.getText();
     port_face = spinner.getValue().toString();
-    subscriber[0] = new Subscriber(ipFace, Integer.parseInt(port_face));
+
+    //subscriber[0] = new Subscriber(ipFace, Integer.parseInt(port_face));
     Client.ClientDemo.port_panel_mapping.put(Integer.parseInt(port_face), "textPanel1");
     
     spinner.addChangeListener(new ChangeListener() {
@@ -146,27 +148,26 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
   }
 
   protected JComponent makeTextPanel2(String text) {
-	  buttonConnect2.setName("2");
+    buttonConnect2.setName("2");
     JPanel panel = new JPanel(false);
     JLabel filler = new JLabel("Enter IP address of Server ");
     filler.setHorizontalAlignment(JLabel.LEFT);
     JLabel filler1 = new JLabel("Select Port Number ");
     filler1.setHorizontalAlignment(JLabel.LEFT);
-    JTextField textField = new JTextField();
-    textField.setColumns(8);
+    textField1 = new JTextField();
+    textField1.setColumns(8);
     String[] portNumber = {"1594","1595","1596","1597","1598"};
     SpinnerListModel portModel = new SpinnerListModel(portNumber);
     JSpinner spinner = new JSpinner(portModel);
     // panel.setLayout(new GridLayout(4, 4));
     panel.add(filler);
-    panel.add(textField);
+    panel.add(textField1);
     panel.add(filler1);
     panel.add(spinner);
     panel.add(buttonConnect2);
     
     port_eyes = spinner.getValue().toString();
-    ipEyes = textField.getText();
-    subscriber[1] = new Subscriber(ipEyes, Integer.parseInt(port_eyes));
+//    subscriber[1] = new Subscriber(ipEyes, Integer.parseInt(port_eyes));
     Client.ClientDemo.port_panel_mapping.put(Integer.parseInt(port_eyes), "textPanel2");
     
     
@@ -175,7 +176,7 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
         public void stateChanged(ChangeEvent e) {
             JSpinner spinner = (JSpinner) e.getSource();
             port_eyes = spinner.getValue().toString();
-            ipEyes = textField.getText();
+            ipEyes = textField1.getText();
             subscriber[1] = new Subscriber(ipEyes, Integer.parseInt(port_eyes));
             Client.ClientDemo.port_panel_mapping.put(Integer.parseInt(port_eyes), "textPanel2");
             System.out.println("New port is " + port_eyes);
@@ -211,20 +212,19 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     filler.setHorizontalAlignment(JLabel.LEFT);
     JLabel filler1 = new JLabel("Select Port Number ");
     filler1.setHorizontalAlignment(JLabel.LEFT);
-    JTextField textField = new JTextField();
-    textField.setColumns(8);
+    textField2 = new JTextField();
+    textField2.setColumns(8);
     String[] portNumber = {"1594","1595","1596","1597","1598"};
     SpinnerListModel portModel = new SpinnerListModel(portNumber);
     JSpinner spinner = new JSpinner(portModel);
 
     // panel.setLayout(new GridLayout(4, 4));
     panel.add(filler);
-    panel.add(textField);
+    panel.add(textField2);
     panel.add(filler1);
     panel.add(spinner);
     panel.add(buttonConnect3);
-    
-    ipSkin = textField.getText();
+
     port_skin = spinner.getValue().toString();
     subscriber[2] = new Subscriber(ipSkin, Integer.parseInt(port_skin));
     Client.ClientDemo.port_panel_mapping.put(Integer.parseInt(port_skin), "textPanel3");
@@ -233,7 +233,7 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
         @Override
         public void stateChanged(ChangeEvent e) {
             JSpinner spinner = (JSpinner) e.getSource();
-            ipSkin = textField.getText();
+            ipSkin = textField2.getText();
             port_skin = spinner.getValue().toString();
             subscriber[2] = new Subscriber(ipSkin, Integer.parseInt(port_skin));
             Client.ClientDemo.port_panel_mapping.put(Integer.parseInt(port_skin), "textPanel3");
@@ -272,29 +272,29 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     filler.setHorizontalAlignment(JLabel.LEFT);
     JLabel filler1 = new JLabel("Select Port Number ");
     filler1.setHorizontalAlignment(JLabel.LEFT);
-    JTextField textField = new JTextField();
-    textField.setColumns(8);
+    textField3 = new JTextField();
+    textField3.setColumns(8);
     String[] portNumber = {"1594","1595","1596","1597","1598"};
     SpinnerListModel portModel = new SpinnerListModel(portNumber);
     JSpinner spinner = new JSpinner(portModel);
 
     // panel.setLayout(new GridLayout(4, 4));
     panel.add(filler);
-    panel.add(textField);
+    panel.add(textField3);
     panel.add(filler1);
     panel.add(spinner);
     panel.add(buttonConnect4);
     
-    ipHeart = textField.getText();
+    ipHeart = textField3.getText();
     port_heart =spinner.getValue().toString();
-    subscriber[3] = new Subscriber(ipHeart, Integer.parseInt(port_heart));
+//    subscriber[3] = new Subscriber(ipHeart, Integer.parseInt(port_heart));
     Client.ClientDemo.port_panel_mapping.put(Integer.parseInt(port_heart), "textPanel4");
     
     spinner.addChangeListener(new ChangeListener() {
         @Override
         public void stateChanged(ChangeEvent e) {
             JSpinner spinner = (JSpinner) e.getSource();
-            ipHeart = textField.getText();
+            ipHeart = textField3.getText();
             port_heart =spinner.getValue().toString();
             subscriber[3] = new Subscriber(ipHeart, Integer.parseInt(port_heart));
             Client.ClientDemo.port_panel_mapping.put(Integer.parseInt(port_heart), "textPanel4");
@@ -324,14 +324,14 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     return panel;
   }
   protected JComponent makeTextPanel5(String text) {
-	  buttonConnect5.setName("5");
+    buttonConnect5.setName("5");
     JPanel panel = new JPanel(false);
     JLabel filler = new JLabel("Enter IP address of Server ");
     filler.setHorizontalAlignment(JLabel.LEFT);
     JLabel filler1 = new JLabel("Select Port Number ");
     filler1.setHorizontalAlignment(JLabel.LEFT);
-    JTextField textField = new JTextField();
-    textField.setColumns(8);
+    textField4 = new JTextField();
+    textField4.setColumns(8);
     String[] portNumber = {"1594","1595","1596","1597","1598"};
     SpinnerListModel portModel = new SpinnerListModel(portNumber);
     JSpinner spinner = new JSpinner(portModel);
@@ -341,21 +341,21 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
 
     // panel.setLayout(new GridLayout(4, 4));
     panel.add(filler);
-    panel.add(textField);
+    panel.add(textField4);
     panel.add(filler1);
     panel.add(spinner);
     panel.add(buttonConnect5);
     
-    ipBCI = textField.getText();
+
     port_bci = spinner.getValue().toString();
-    subscriber[4] = new Subscriber(ipBCI, Integer.parseInt(port_bci));
+//    subscriber[4] = new Subscriber(ipBCI, Integer.parseInt(port_bci));
     Client.ClientDemo.port_panel_mapping.put(Integer.parseInt(port_bci), "textPanel5");
     
     spinner.addChangeListener(new ChangeListener() {
         @Override
         public void stateChanged(ChangeEvent e) {
             JSpinner spinner = (JSpinner) e.getSource();
-            ipBCI = textField.getText();
+            ipBCI = textField4.getText();
             port_bci = spinner.getValue().toString();
             subscriber[4] = new Subscriber(ipBCI, Integer.parseInt(port_bci));
             Client.ClientDemo.port_panel_mapping.put(Integer.parseInt(port_bci), "textPanel5");
@@ -475,38 +475,50 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
 
   @Override
   public void actionPerformed(ActionEvent e) {
+    String portNumber;
     if (e.getSource() == buttonConnect1) {
-    	
+      ipFace = textField.getText();
+      System.out.println(ipFace);
+      System.out.println(port_face);
+      if(ipFace.compareTo("")==0){
+        JOptionPane.showMessageDialog(null,"Please enter a valid IP address");
+        return;
+      }
     	connect_status1 = !connect_status1;
-    	
       if(connect_status1)
       {
-    	  
-    	  buttonConnect1.setText("DisConnect");
+
+          subscriber[0] = new Subscriber(ipFace, Integer.parseInt(port_face));
     	  service.submit(subscriber[0]);
           subscriber[0].addObserver(this);
+          buttonConnect1.setText("DisConnect");
     	  
       }
-      else
-      {
+      else if(buttonConnect1.getText().compareTo("DisConnect") == 0){
     	  
     	  buttonConnect1.setText("Connect");
       }
       
       
     }else if (e.getSource() == buttonConnect2) {
-    	
+        ipEyes = textField1.getText();
+        System.out.println(ipEyes);
+        System.out.println(port_eyes);
+      if(ipEyes.compareTo("")==0){
+        JOptionPane.showMessageDialog(null,"Please enter a valid IP address");
+        return;
+      }
     	connect_status2 = !connect_status2;
       
       if(connect_status2)
       {
-    	  
-    	  buttonConnect2.setText("DisConnect");
-    	  service.submit(subscriber[1]);
+          subscriber[1] = new Subscriber(ipEyes, Integer.parseInt(port_eyes));
+          service.submit(subscriber[1]);
           subscriber[1].addObserver(this);
+          buttonConnect2.setText("DisConnect");
     	  
       }
-      else
+      else if(buttonConnect2.getText().compareTo("DisConnect") == 0)
       {
     	  
     	  buttonConnect2.setText("Connect");
@@ -514,51 +526,53 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
       
       
     }else if (e.getSource() == buttonConnect3) {
-    	
+        ipSkin = textField2.getText();
     	connect_status3 = !connect_status3;
     	
     	if(connect_status3)
     	{
-    		  buttonConnect3.setText("DisConnect");
-    	      service.submit(subscriber[2]);
-    	      subscriber[2].addObserver(this);
+          subscriber[2] = new Subscriber(ipSkin, Integer.parseInt(port_skin));
+          service.submit(subscriber[2]);
+          subscriber[2].addObserver(this);
+          buttonConnect3.setText("DisConnect");
     		
     	}
-    	   else
+    	   else if(buttonConnect3.getText().compareTo("DisConnect") == 0)
     	      {
     	    	  
     	    	  buttonConnect3.setText("Connect");
     	      }
 
     }else if (e.getSource() == buttonConnect4) {
-    	
+        ipHeart = textField3.getText();
     	connect_status4 = !connect_status4;
     	
     	if(connect_status4) {
-    		
-    		  buttonConnect4.setText("DisConnect");
+              subscriber[3] = new Subscriber(ipHeart, Integer.parseInt(port_heart));
     	      service.submit(subscriber[3]);
     	      subscriber[3].addObserver(this);
+              buttonConnect4.setText("DisConnect");
     		
     		
     	}
-    	 else
+    	 else if(buttonConnect4.getText().compareTo("DisConnect") == 0)
 	      {
 	    	  
 	    	  buttonConnect4.setText("Connect");
 	      }
     
     }else if (e.getSource() == buttonConnect5) {
-    	
+        ipBCI = textField4.getText();
     	connect_status5 = !connect_status5;
     	
     	if(connect_status5)
-    	{	
-    		  buttonConnect5.setText("DisConnect");
+    	{
+              subscriber[4] = new Subscriber(ipBCI, Integer.parseInt(port_bci));
     	      service.submit(subscriber[4]);
     	      subscriber[4].addObserver(this);
+    	      buttonConnect5.setText("DisConnect");
     	}
-   	 else
+   	 else if(buttonConnect5.getText().compareTo("DisConnect") == 0)
      {
    	  
    	  buttonConnect5.setText("Connect");
