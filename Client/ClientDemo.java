@@ -419,8 +419,10 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     int portNo = ((Subscriber) o).getPort();
     String data = ((Subscriber) o).getObject().toString();
     if (data.compareTo("FIN") != 0) {
+    	
+    	checkPaneltoAppend(portNo, data);
 
-      if(portNo == 1594 && connect_status1){
+      /*if(portNo == 1594 && connect_status1){
         checkPaneltoAppend(portNo, data);
       }
       else if(portNo == 1595 && connect_status2){
@@ -434,7 +436,7 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
       }
       else if(portNo == 1598 && connect_status5){
         checkPaneltoAppend(portNo, data);
-      }
+      }*/
 
     }
     else {
