@@ -100,14 +100,17 @@ public class Gui extends JPanel implements ActionListener {
 	private Component createPanelSouth() {
 		JPanel labels = new JPanel();
 		labels.setBackground(Color.white);
-		labels.add(new JLabel("  Publishing at port: "));
-		labelPublishPort = new JLabel("" + PORT);
-		labels.add(labelPublishPort);
-		JPanel panel = new JPanel(new BorderLayout());
+	 	labels.add(new JLabel(" Publishing at port: ")); 
+	 	labelPublishPort = new JLabel("" + PORT); 
+	 	labels.add(labelPublishPort);
+		JPanel panel = new JPanel(new GridLayout(1,1));
 		panel.setBackground(Color.white);
-		panel.add(labels, BorderLayout.WEST);
-		panel.add(buttonConnect, BorderLayout.EAST);
+		//panel.add(labels, BorderLayout.WEST); 
+//		panel.add(new JLabel());
+		panel.add(buttonConnect);
+//		panel.add(new JLabel());
 		buttonConnect.addActionListener(this);
+		//buttonConnect.setPreferredSize(new Dimension(25, 30));
 		buttonConnect.setEnabled(true);
 		return panel;
 	}
@@ -305,38 +308,30 @@ public class Gui extends JPanel implements ActionListener {
    Color eyeIrisColor = new Color(237,237,237);
     expressive_bin = new JPanel()
     		 {
-    		    	/**
-				 * 
-				 */
 				private static final long serialVersionUID = 1L;
 
 					@Override
     		        public void paintComponent(Graphics g) {
     		            super.paintComponent(g);
     		            if (mode == 1) {
-    		            	leftOfEye.draw(g, position, mode, false, Color.YELLOW);
-    		                rightOfEye.draw(g, position, mode, false, Color.YELLOW);
-    		            }
-    		            else if (mode == 2) {
-    		            	leftOfEye.draw(g, position, mode, false, Color.YELLOW);
-    		                rightOfEye.draw(g, new VectorForEye(357, 100), mode, true, Color.WHITE);
-    		            }
-    		            else if (mode == 3) {
-    		            	leftOfEye.draw(g, new VectorForEye(249, 100), mode, true, Color.WHITE);
-    		                rightOfEye.draw(g, position, mode, false, Color.YELLOW);
-    		            }
-    		            else if(mode == 4){
-    		            	leftOfEye.draw(g, new VectorForEye(0, 0), mode, true, Color.WHITE);
-    		                rightOfEye.draw(g, new VectorForEye(0, 0), mode, true, Color.WHITE);
-    		            }
-    		            else if(mode == 5){
-    		            	leftOfEye.draw(g, new VectorForEye(700, 0), mode, true, Color.WHITE);
-    		                rightOfEye.draw(g, new VectorForEye(700, 0), mode, true, Color.WHITE);
-    		            }
-    		            else {
-    		            	leftOfEye.draw(g, new VectorForEye(249.5, 99), mode, true, Color.WHITE);
-    		                rightOfEye.draw(g, new VectorForEye(358, 99), mode, true, Color.WHITE);
-    		            }
+    						leftOfEye.draw(g, position, mode, false, eyeLidColor);
+    						rightOfEye.draw(g, position, mode, false, eyeLidColor);
+    					} else if (mode == 2) {
+    						leftOfEye.draw(g, position, mode, false, eyeLidColor);
+    						rightOfEye.draw(g, new VectorForEye(357, 100), mode, true, eyeIrisColor);
+    					} else if (mode == 3) {
+    						leftOfEye.draw(g, new VectorForEye(249, 100), mode, true, eyeIrisColor);
+    						rightOfEye.draw(g, position, mode, false, eyeLidColor);
+    					} else if (mode == 4) {
+    						leftOfEye.draw(g, new VectorForEye(0, 0), mode, true, eyeIrisColor);
+    						rightOfEye.draw(g, new VectorForEye(0, 0), mode, true,eyeIrisColor);
+    					} else if (mode == 5) {
+    						leftOfEye.draw(g, new VectorForEye(700, 0), mode, true, eyeIrisColor);
+    						rightOfEye.draw(g, new VectorForEye(700, 0), mode, true,eyeIrisColor);
+    					} else {
+    						leftOfEye.draw(g, new VectorForEye(249.5, 99), mode, true, eyeIrisColor);
+    						rightOfEye.draw(g, new VectorForEye(358, 99), mode, true, eyeIrisColor);
+    					}
     		        }
     		    };
     expressive_bin.setBounds(0, 28, 331, 497);
@@ -388,9 +383,6 @@ public class Gui extends JPanel implements ActionListener {
     radioButtonLRight.addActionListener(this);
     
     expressive_cont = new JPanel() {
-    	/**
-		 * 
-		 */
 		private static final long serialVersionUID = 1L;
 
 		@Override
@@ -430,7 +422,7 @@ public class Gui extends JPanel implements ActionListener {
     	    }
     	 }
 		};
-    expressive_cont.setBounds(334, 28, 339, 497);
+    expressive_cont.setBounds(334, 28, 339, 507);
     expressive_cont.setLayout(null);
     expressive_cont.setBackground(Color.white);
     
@@ -545,15 +537,24 @@ public class Gui extends JPanel implements ActionListener {
     expressive_cont.add(slider_5);
     expressive_cont.add(slider_6);
 
-	gifIcon = new JLabel(createImageIcon("" + ".gif"));
-	gifIcon.setBounds(197, 30, 280, 200);
-	affective.add(gifIcon, BorderLayout.CENTER);
+//	gifIcon = new JLabel(createImageIcon("" + ".gif"));
+//	gifIcon.setBounds(197, 30, 280, 200);
+//	affective.add(gifIcon, BorderLayout.CENTER);
    
-    JTabbedPane tp=new JTabbedPane();  
+    JTabbedPane tp= new JTabbedPane();  
     tp.setBounds(50,50,200,200);  
-    tp.add("Expressive_binary",expressive_bin);  
-    tp.add("Expressive_continuous",expressive_cont);  
+    tp.add("Expressive I",expressive_bin);  
+    tp.add("Expressive II",expressive_cont);  
     tp.add("Affective",affective);  
+    JPanel lablePanel = new JPanel(new GridLayout(1,3));
+    lablePanel.setBackground(Color.white);
+	//panel.add(labels, BorderLayout.WEST); 
+    lablePanel.add(new JLabel());
+    
+//	lablePanel.add(buttonConnect);
+	lablePanel.add(new JLabel("Publishing at Port: " + PORT));
+	lablePanel.add(new JLabel());
+	add(lablePanel, BorderLayout.NORTH);
     add(tp);
     System.out.println("gui done");
   }
@@ -747,7 +748,7 @@ public class Gui extends JPanel implements ActionListener {
 			}
 		});
 		frame.pack();
-		frame.setSize(500, 400);
+		frame.setSize(500, 450);
 		frame.setVisible(true);
 	}
 }
