@@ -53,6 +53,7 @@ public class Expressions extends JPanel {
 		add(rdbtnWinkRight);
 		
 		JRadioButton rdbtnNone = new JRadioButton("None");
+		rdbtnNone.setSelected(true);
 		rdbtnNone.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		blinkButtonGroup.add(rdbtnNone);
 		rdbtnNone.setBounds(122, 89, 109, 23);
@@ -82,6 +83,7 @@ public class Expressions extends JPanel {
 		add(rdbtnLookRight);
 		
 		JRadioButton rdbtnNone_1 = new JRadioButton("None");
+		rdbtnNone_1.setSelected(true);
 		rdbtnNone_1.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		visionButtonGroup.add(rdbtnNone_1);
 		rdbtnNone_1.setBounds(0, 198, 109, 23);
@@ -111,6 +113,7 @@ public class Expressions extends JPanel {
 		add(rdbtnFurrow);
 		
 		JRadioButton rdbtnNone_2 = new JRadioButton("None");
+		rdbtnNone_2.setSelected(true);
 		rdbtnNone_2.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		eyeBrowButtonGroup.add(rdbtnNone_2);
 		rdbtnNone_2.setBounds(-4, 295, 109, 23);

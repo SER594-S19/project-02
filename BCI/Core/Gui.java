@@ -40,7 +40,7 @@ public class Gui extends JFrame implements ActionListener{
 	public static List<JLabel> channelLabels=new ArrayList<>(); 
 	public static List<JButton> channelButtons = new ArrayList<>();
 	
-	JButton btnNewButton = new JButton("");
+	JButton btnNewButton = new JButton("Start");
 	JLabel brainLabel = new JLabel("");
 	JLabel portLabel = new JLabel("Publishing at port: 1594");
 	BCI.View.Expressions expressivePanel=new BCI.View.Expressions(dataGenerator);
@@ -72,7 +72,8 @@ public class Gui extends JFrame implements ActionListener{
 	 * Create the frame.
 	 * @throws IOException 
 	 */
-	public Gui() throws IOException { 
+	public Gui() throws IOException {
+		setTitle("BCI Simulator"); 
 		setResizable(false);
 		JPanel brainImagePanel = new JPanel(); 
 		model = new Model(dataGenerator, new Publisher(PORT)); 
@@ -84,23 +85,26 @@ public class Gui extends JFrame implements ActionListener{
 		contentPane.setLayout(null);
 
 		JPanel topPanel = new JPanel();
-		topPanel.setBackground(Color.BLACK);
+		topPanel.setBackground(Color.decode("#4267b2"));
 		topPanel.setBounds(0, 0, 1389, 75); 
 		contentPane.add(topPanel);
 		topPanel.setLayout(null);
 
 		
 		portLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		portLabel.setForeground(Color.GREEN);
-		portLabel.setBounds(1082, 16, 225, 32);
+		portLabel.setForeground(Color.WHITE);
+		portLabel.setBounds(1011, 16, 225, 32);
 		portLabel.setVisible(false);
 		topPanel.add(portLabel);
+		btnNewButton.setForeground(Color.WHITE);
+		btnNewButton.setBackground(Color.decode("#79bc64"));
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
 
-		btnNewButton.setToolTipText("Start");
+		btnNewButton.setToolTipText("");
 		btnNewButton.addActionListener(this);
 
-		btnNewButton.setIcon(new ImageIcon(Gui.class.getResource("/BCI/Core/play.jpg")));
-		btnNewButton.setBounds(1313, 0, 76, 75);
+		btnNewButton.setIcon(null);
+		btnNewButton.setBounds(1251, 0, 138, 75);
 		topPanel.add(btnNewButton);
 		
 
@@ -301,18 +305,18 @@ public class Gui extends JFrame implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		System.out.println("listener trigger");
 		if (e.getSource() == btnNewButton) {
-			if (btnNewButton.getToolTipText().compareTo("Start") == 0) {
+			if (btnNewButton.getText().compareTo("Start") == 0) {
 				portLabel.setVisible(true);
-				btnNewButton.setToolTipText("Stop");
-				btnNewButton.setIcon(new ImageIcon(Gui.class.getResource("/BCI/Core/stop2.jpeg")));
+				btnNewButton.setText("Stop");
+//				btnNewButton.setIcon(new ImageIcon(Gui.class.getResource("/BCI/Core/stop2.jpeg")));
 
 				model.start();
 			} else{
 				System.out.println("stop");
 				model.stop();
-				btnNewButton.setToolTipText("Start");
+				btnNewButton.setText("Start");
 				portLabel.setVisible(false);
-				btnNewButton.setIcon(new ImageIcon(Gui.class.getResource("/BCI/Core/play.jpg")));
+				//btnNewButton.setIcon(new ImageIcon(Gui.class.getResource("/BCI/Core/play.jpg")));
 			}
 		}
 	}
