@@ -288,7 +288,7 @@ public class Gui extends JFrame implements ActionListener{
 
 
 		
-		expressivePanel.setBounds(730, 78, 614, 321);
+		expressivePanel.setBounds(730, 78, 647, 321);
 		getContentPane().add(expressivePanel);
 		expressivePanel.setLayout(null);
 

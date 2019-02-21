@@ -24,62 +24,62 @@ public class Affective extends JPanel{
 		JLabel lblAffective = new JLabel("Affective: ");
 		lblAffective.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 18));
 		lblAffective.setEnabled(false);
-		lblAffective.setBounds(6, 59, 81, 16);
+		lblAffective.setBounds(6, 16, 81, 16);
 		add(lblAffective);
 		
 		JLabel lblFrustration = new JLabel("Frustration:");
-		lblFrustration.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		lblFrustration.setBounds(6, 95, 171, 16);
+		lblFrustration.setFont(new Font("Dialog", Font.PLAIN, 20));
+		lblFrustration.setBounds(160, 62, 110, 16);
 		add(lblFrustration);
 		
 		JLabel lblEngagement = new JLabel("Engagement:");
-		lblEngagement.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		lblEngagement.setBounds(6, 118, 171, 29);
+		lblEngagement.setFont(new Font("Dialog", Font.PLAIN, 20));
+		lblEngagement.setBounds(151, 108, 171, 29);
 		add(lblEngagement);
 		
 		JLabel lblMeditation = new JLabel("Meditation:");
-		lblMeditation.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		lblMeditation.setBounds(6, 151, 171, 16);
+		lblMeditation.setFont(new Font("Dialog", Font.PLAIN, 20));
+		lblMeditation.setBounds(168, 160, 171, 16);
 		add(lblMeditation);
 		
 		JLabel lblSTExcitement = new JLabel("Short Term Excitement: ");
-		lblSTExcitement.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		lblSTExcitement.setBounds(6, 182, 200, 16);
+		lblSTExcitement.setFont(new Font("Dialog", Font.PLAIN, 20));
+		lblSTExcitement.setBounds(60, 205, 221, 16);
 		add(lblSTExcitement);
 		
 		JLabel lblLTExcitement = new JLabel("Long Term Excitement:");
-		lblLTExcitement.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
-		lblLTExcitement.setBounds(6, 211, 200, 16);
+		lblLTExcitement.setFont(new Font("Dialog", Font.PLAIN, 20));
+		lblLTExcitement.setBounds(60, 245, 221, 34);
 		add(lblLTExcitement);
 		
 		JSlider sliderFrustration = new JSlider();
 		sliderFrustration.setPaintLabels(true);
 		sliderFrustration.setMinorTickSpacing(1);
-		sliderFrustration.setBounds(201, 90, 288, 29);
+		sliderFrustration.setBounds(270, 60, 350, 29);
 		add(sliderFrustration);
 		
 		JSlider sliderEngagement = new JSlider();
 		sliderEngagement.setPaintLabels(true);
 		sliderEngagement.setMinorTickSpacing(1);
-		sliderEngagement.setBounds(201, 118, 288, 29);
+		sliderEngagement.setBounds(270, 110, 350, 29);
 		add(sliderEngagement);
 		
 		JSlider sliderMeditation = new JSlider();
 		sliderMeditation.setPaintLabels(true);
 		sliderMeditation.setMinorTickSpacing(1);
-		sliderMeditation.setBounds(201, 146, 288, 29);
+		sliderMeditation.setBounds(270, 160, 350, 29);
 		add(sliderMeditation);
 		
 		JSlider sliderSTEngagement = new JSlider();
 		sliderSTEngagement.setPaintLabels(true);
 		sliderSTEngagement.setMinorTickSpacing(1);
-		sliderSTEngagement.setBounds(201, 177, 286, 29);
+		sliderSTEngagement.setBounds(270, 205, 350, 29);
 		add(sliderSTEngagement);
 		
 		JSlider sliderLTEngagement = new JSlider();
 		sliderLTEngagement.setPaintLabels(true);
 		sliderLTEngagement.setMinorTickSpacing(1);
-		sliderLTEngagement.setBounds(201, 206, 288, 29);
+		sliderLTEngagement.setBounds(270, 250, 350, 29);
 		add(sliderLTEngagement);
 	
 		
