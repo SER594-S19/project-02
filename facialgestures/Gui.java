@@ -105,12 +105,8 @@ public class Gui extends JPanel implements ActionListener {
 	 	labels.add(labelPublishPort);
 		JPanel panel = new JPanel(new GridLayout(1,1));
 		panel.setBackground(Color.white);
-		//panel.add(labels, BorderLayout.WEST); 
-//		panel.add(new JLabel());
 		panel.add(buttonConnect);
-//		panel.add(new JLabel());
 		buttonConnect.addActionListener(this);
-		//buttonConnect.setPreferredSize(new Dimension(25, 30));
 		buttonConnect.setEnabled(true);
 		return panel;
 	}
@@ -158,8 +154,6 @@ public class Gui extends JPanel implements ActionListener {
 						Gui.this.clearLines();
 						Gui.this.addLine(x_axis + 186, y_axis + 25, x_axis + 215, y_axis + 20, Color.BLACK);
 					}
-					//labelNum.setText(String.valueOf(value));
-					//labelNum.setVisible(true);
 			}
 			if (labelNum.getText()== "Right Smirk") {
 				Gui.this.flag = 2;
@@ -286,8 +280,7 @@ public class Gui extends JPanel implements ActionListener {
 		slider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				double value = ((JSlider) e.getSource()).getValue() * 0.1;
-				labelNum.setText(String.valueOf(one.format(value)));
-				
+				labelNum.setText(String.valueOf(one.format(value)));	
 			}
 		});
 		return slider;
@@ -536,10 +529,6 @@ public class Gui extends JPanel implements ActionListener {
     expressive_cont.add(slider_4);
     expressive_cont.add(slider_5);
     expressive_cont.add(slider_6);
-
-//	gifIcon = new JLabel(createImageIcon("" + ".gif"));
-//	gifIcon.setBounds(197, 30, 280, 200);
-//	affective.add(gifIcon, BorderLayout.CENTER);
    
     JTabbedPane tp= new JTabbedPane();  
     tp.setBounds(50,50,200,200);  
@@ -548,10 +537,7 @@ public class Gui extends JPanel implements ActionListener {
     tp.add("Affective",affective);  
     JPanel lablePanel = new JPanel(new GridLayout(1,3));
     lablePanel.setBackground(Color.white);
-	//panel.add(labels, BorderLayout.WEST); 
     lablePanel.add(new JLabel());
-    
-//	lablePanel.add(buttonConnect);
 	lablePanel.add(new JLabel("Publishing at Port: " + PORT));
 	lablePanel.add(new JLabel());
 	add(lablePanel, BorderLayout.NORTH);
@@ -581,7 +567,6 @@ public class Gui extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		gifIcon.setIcon(createImageIcon(e.getActionCommand() + ".gif"));
 
 		System.out.println(e.getActionCommand());
 		System.out.println("listener trigger");
