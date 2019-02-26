@@ -1,5 +1,5 @@
 
-package Client;
+package BCI.Client;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -46,34 +46,19 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
       public void actionPerformed(ActionEvent e) {
         connect[type].setEnabled(false);
         if(ipInput[0].getText().equals("")){
-          JOptionPane.showMessageDialog(null, "BCI IP is null", "alert", JOptionPane.ERROR_MESSAGE);
-        }
-        if(!isNumeric(portInput[0].getText())){
-          JOptionPane.showMessageDialog(null, "BCI port should be number", "alert", JOptionPane.ERROR_MESSAGE);
+          JOptionPane.showMessageDialog(null, "BCI IP or Input is null. Please enter and try again", "alert", JOptionPane.ERROR_MESSAGE);
         }
         if(ipInput[1].getText().equals("")){
-          JOptionPane.showMessageDialog(null, "Face IP is null", "alert", JOptionPane.ERROR_MESSAGE);
-        }
-        if(!isNumeric(portInput[1].getText())){
-          JOptionPane.showMessageDialog(null, "Face port should be number", "alert", JOptionPane.ERROR_MESSAGE);
+         // JOptionPane.showMessageDialog(null, "Face IP or Input is null", "alert", JOptionPane.ERROR_MESSAGE);
         }
         if(ipInput[2].getText().equals("")){
-          JOptionPane.showMessageDialog(null, "Heart IP is null", "alert", JOptionPane.ERROR_MESSAGE);
-        }
-        if(!isNumeric(portInput[2].getText())){
-          JOptionPane.showMessageDialog(null, "Heart port should be number", "alert", JOptionPane.ERROR_MESSAGE);
+         // JOptionPane.showMessageDialog(null, "Heart IP or Input is null", "alert", JOptionPane.ERROR_MESSAGE);
         }
         if(ipInput[3].getText().equals("")){
-          JOptionPane.showMessageDialog(null, "Skin IP is null", "alert", JOptionPane.ERROR_MESSAGE);
-        }
-        if(!isNumeric(portInput[3].getText())){
-          JOptionPane.showMessageDialog(null, "Skin port should be number", "alert", JOptionPane.ERROR_MESSAGE);
+        //  JOptionPane.showMessageDialog(null, "Skin IP or Input is null", "alert", JOptionPane.ERROR_MESSAGE);
         }
         if(ipInput[4].getText().equals("")){
-          JOptionPane.showMessageDialog(null, "Eye IP is null", "alert", JOptionPane.ERROR_MESSAGE);
-        }
-        if(!isNumeric(portInput[4].getText())){
-          JOptionPane.showMessageDialog(null, "Eye port should be number", "alert", JOptionPane.ERROR_MESSAGE);
+        //  JOptionPane.showMessageDialog(null, "Eye IP or Input is null", "alert", JOptionPane.ERROR_MESSAGE);
         }
         System.out.println(ipInput[type].getText());
         subscriber[type] = new Subscriber(ipInput[type].getText(), ((portInput[type].getText().equals("")) ? 1594 : Integer.parseInt(portInput[type].getText())));
@@ -112,15 +97,6 @@ public class ClientDemo extends JFrame implements Observer, ActionListener {
     connectCondition.add(disConnect[type]);
     return connectCondition;
 
-  }
-
-  public static boolean isNumeric(String str) {
-    for (int i = str.length(); --i >= 0;) {
-      if (!Character.isDigit(str.charAt(i))) {
-        return false;
-      }
-    }
-    return true;
   }
 
   private JPanel processPanel(String lableName) {
