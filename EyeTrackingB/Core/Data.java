@@ -1,6 +1,12 @@
 package Core;
 
 
+import com.opencsv.CSVWriter;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 /**
  * This class encapsulates a timestamp for a row of data (one entry per channel)
  *
@@ -31,7 +37,44 @@ public class Data {
 
   @Override
   public String toString() {
-    return "Data{" + "time=" + time + ", gx=" + gx + ", gy="+gy +", pupilx="+pupilx +", pupily="+pupily +", fixation="+fixation +", validation="+validation +", aoi="+aoi +"}";
+
+    String filePath = "data.csv";
+    String[] lines = {time + "", gx + "", gx + "", pupilx + "", pupily + "", fixation + "", validation + "", aoi + ""};
+    writeDataLineByLine(filePath,lines);
+    return time + " " + gx + " " + gy + " " + pupilx + " " + pupily + " " + fixation + " " + validation + " " + aoi;
+
   }
+
+    public static void writeDataLineByLine(String filePath, String[] lines)
+    {
+        // first create file object for file placed at location
+        // specified by filepath
+        File file = new File(filePath);
+        boolean insertHeader = false;
+        try {
+            if(!file.exists()){
+                insertHeader = true;
+            }
+            // create FileWriter object with file as parameter
+            FileWriter outputfile = new FileWriter(file,true);
+
+            // create CSVWriter object filewriter object as parameter
+            CSVWriter writer = new CSVWriter(outputfile);
+
+            if(insertHeader) {
+                // adding header to csv
+                String[] header = {"Time", "gx", "gy", "pupilx", "pupily", "fixation", "validation", "aoi"};
+                writer.writeNext(header);
+            }
+            writer.writeNext(lines);
+
+            // closing writer connection
+            writer.close();
+        }
+        catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
      
 }
